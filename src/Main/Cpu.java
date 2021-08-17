@@ -12,6 +12,7 @@ import java.util.Arrays;
  *
  * @author famil
  */
+//AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 public class Cpu {
     
     static int size = 16;
