@@ -3,14 +3,20 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package IstructionSet;
+package InstructionSet;
 
 /**
  *
  * @author famil
  */
 public class Instruction {
-    int opCode;
-    String description;
+    //int opCode;
+    public int[] args;
+    public String mnemonic;
+    public String description;
+    
+    public void exec(){
+        System.out.println("exec: Null");
+    }
     
 }

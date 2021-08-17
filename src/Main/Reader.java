@@ -32,18 +32,18 @@ public class Reader {
         }            
     }
     
-    public static Object[][] readFile(String file_path){  
+    public static String[][] readFile(String file_path){  
         try{  
             File file = new File(file_path);   //creating a new file instance  
             FileInputStream fis = new FileInputStream(file);   //obtaining bytes from the file   
             XSSFWorkbook wb = new XSSFWorkbook(fis);   
             XSSFSheet sheet = wb.getSheetAt(0);     //creating a Sheet object to retrieve object  
             Iterator<Row> itr = sheet.iterator();    //iterating over excel file  
-            ArrayList<ArrayList<Object>> table = new ArrayList<>();
+            ArrayList<ArrayList<String>> table = new ArrayList<>();
             while (itr.hasNext()){  
                 Row row = itr.next();  
                 Iterator<Cell> cellIterator = row.cellIterator();   //iterating over each column
-                ArrayList<Object> row_arr = new ArrayList<>();
+                ArrayList<String> row_arr = new ArrayList<>();
                 while (cellIterator.hasNext()){  
                     Cell cell = cellIterator.next();  
                     switch (cell.getCellType()){  
@@ -51,15 +51,15 @@ public class Reader {
                             row_arr.add(cell.getStringCellValue());  
                             break;  
                         case Cell.CELL_TYPE_NUMERIC:    //field that represents number cell type  
-                            row_arr.add((int) cell.getNumericCellValue());  
+                            row_arr.add(Integer.toString((int) cell.getNumericCellValue()));  
                             break;  
                     }  
                 }
                 table.add(row_arr);
             }
-            Object[][] table_arr = new Object[table.size()][];
+            String[][] table_arr = new String[table.size()][];
             for (int i = 0; i < table.size(); i++) {
-                Object[] row = table.get(i).toArray();
+                String[] row = table.get(i).toArray(new String[0]);
                 table_arr[i] = row;
             }
             return table_arr;
