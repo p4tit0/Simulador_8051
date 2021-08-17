@@ -131,11 +131,12 @@ public class Charge extends javax.swing.JFrame {
                 String line = bf.readLine();
                 Object[] divLine = new Object[2];
                 
+                int itSize = Integer.parseInt(line.substring(1, 3), 16);
                 //divLine[0] = Integer.parseInt(line.substring(1, 3), 16);
                 //divLine[1] = Integer.parseInt(line.substring(3, 7), 16);
                 divLine[0] = Integer.parseInt(line.substring(7, 9), 16);
-                int[] instruct = new int[(int) divLine[0]];
-                for (int i = 0; i < (int) divLine[0]; i++){
+                int[] instruct = new int[itSize];
+                for (int i = 0; i < itSize; i++){
                     instruct[i] = Integer.parseInt(line.substring(9 + 2 * i, 11 + 2 * i), 16);
                 }
                 divLine[1] = instruct;
@@ -153,9 +154,9 @@ public class Charge extends javax.swing.JFrame {
             Object[] row = inst.get(i);
             inst_array[i] = row;
         }
-        System.out.println("-=-=-=-= <INST> =-=-=-=-");
-        print2D(inst_array);
-        System.out.println("-=-=-=-= </INST> =-=-=-=-");
+        //System.out.println("-=-=-=-= <INST> =-=-=-=-");
+        //print2D(inst_array);
+        //System.out.println("-=-=-=-= </INST> =-=-=-=-");
     }
     
     /**

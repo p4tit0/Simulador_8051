@@ -43,5 +43,12 @@ public class Cpu {
         System.out.println("-=-=-=-= <MEM> =-=-=-=-");
         print2D(this.memory);
         System.out.println("-=-=-=-= </MEM> =-=-=-=-");
+        
+        for(Object[] i : inst){
+            if((int) i[0] == 0){
+                //System.out.println((int[]) i[1]);
+                System.out.println(Arrays.toString((int[]) i[1]));
+            }
+        }
     }
 }
