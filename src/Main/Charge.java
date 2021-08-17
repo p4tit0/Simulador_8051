@@ -24,8 +24,8 @@ public class Charge extends javax.swing.JFrame {
     /**
      * Creates new form Charge
      */
-    Object[][] inst_array;
-    static Cpu memory = new Cpu();
+    Object[][] inst_array = null;
+    
     
     public Charge() {
         initComponents();
@@ -45,7 +45,7 @@ public class Charge extends javax.swing.JFrame {
         btOpen = new javax.swing.JButton();
         btCharge = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         hexArea.setEditable(false);
         hexArea.setColumns(20);
@@ -110,7 +110,12 @@ public class Charge extends javax.swing.JFrame {
     }//GEN-LAST:event_btOpenActionPerformed
 
     private void btChargeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btChargeActionPerformed
-        memory.load(inst_array);
+        //memory.load(inst_array);
+        if (inst_array != null){
+            CodeMemory.memory.load(inst_array);
+            CodeMemory.loadedHex();
+            this.dispose();
+        }
     }//GEN-LAST:event_btChargeActionPerformed
     
     //-=-=-=-=-=-=-=-=-=- <APAGA> -=-=-=-=-=-=-=-=-=-=-=-
