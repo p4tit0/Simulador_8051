@@ -59,7 +59,7 @@ public class Cpu {
         }
     }
     
-    public void load(Object[][] inst){
+    public Object[] load(Object[][] inst){
         ArrayList<Integer> data = new ArrayList<Integer>();
         for (Object[] line : inst){
             switch((int)line[0]){
@@ -110,5 +110,7 @@ public class Cpu {
 //                System.out.println(Arrays.toString((int[]) i[1]));
 //            }
         }
+        Object[] mem = {data, memory};
+        return mem;
     }
 }

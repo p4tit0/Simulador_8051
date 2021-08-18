@@ -5,6 +5,7 @@
  */
 package Main;
 
+import InstructionSet.Instruction;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -112,8 +113,8 @@ public class Charge extends javax.swing.JFrame {
     private void btChargeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btChargeActionPerformed
         //memory.load(inst_array);
         if (inst_array != null){
-            CodeMemory.memory.load(inst_array);
-            CodeMemory.loadedHex();
+            Object[] mem = CodeMemory.cpu.load(inst_array);
+            CodeMemory.loadHexTable((ArrayList<Integer>)mem[0]);
             this.dispose();
         }
     }//GEN-LAST:event_btChargeActionPerformed

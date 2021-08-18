@@ -5,6 +5,9 @@
  */
 package Main;
 
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author famil
@@ -15,7 +18,7 @@ public class CodeMemory extends javax.swing.JFrame {
      * Creates new form CodeMemory
      */
     
-    public static Cpu memory = new Cpu();
+    public static Cpu cpu = new Cpu();
     
     public CodeMemory() {
         initComponents();
@@ -31,18 +34,18 @@ public class CodeMemory extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        hexTable = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        mneTable = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
         execBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jTable1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        hexTable.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        hexTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
@@ -164,33 +167,33 @@ public class CodeMemory extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jTable1.setRowHeight(26);
-        jTable1.getTableHeader().setReorderingAllowed(false);
-        jScrollPane1.setViewportView(jTable1);
-        if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(0).setResizable(false);
-            jTable1.getColumnModel().getColumn(1).setResizable(false);
-            jTable1.getColumnModel().getColumn(2).setResizable(false);
-            jTable1.getColumnModel().getColumn(3).setResizable(false);
-            jTable1.getColumnModel().getColumn(4).setResizable(false);
-            jTable1.getColumnModel().getColumn(5).setResizable(false);
-            jTable1.getColumnModel().getColumn(6).setResizable(false);
-            jTable1.getColumnModel().getColumn(7).setResizable(false);
-            jTable1.getColumnModel().getColumn(8).setResizable(false);
-            jTable1.getColumnModel().getColumn(9).setResizable(false);
-            jTable1.getColumnModel().getColumn(10).setResizable(false);
-            jTable1.getColumnModel().getColumn(11).setResizable(false);
-            jTable1.getColumnModel().getColumn(12).setResizable(false);
-            jTable1.getColumnModel().getColumn(13).setResizable(false);
-            jTable1.getColumnModel().getColumn(14).setResizable(false);
-            jTable1.getColumnModel().getColumn(15).setResizable(false);
+        hexTable.setRowHeight(26);
+        hexTable.getTableHeader().setReorderingAllowed(false);
+        jScrollPane1.setViewportView(hexTable);
+        if (hexTable.getColumnModel().getColumnCount() > 0) {
+            hexTable.getColumnModel().getColumn(0).setResizable(false);
+            hexTable.getColumnModel().getColumn(1).setResizable(false);
+            hexTable.getColumnModel().getColumn(2).setResizable(false);
+            hexTable.getColumnModel().getColumn(3).setResizable(false);
+            hexTable.getColumnModel().getColumn(4).setResizable(false);
+            hexTable.getColumnModel().getColumn(5).setResizable(false);
+            hexTable.getColumnModel().getColumn(6).setResizable(false);
+            hexTable.getColumnModel().getColumn(7).setResizable(false);
+            hexTable.getColumnModel().getColumn(8).setResizable(false);
+            hexTable.getColumnModel().getColumn(9).setResizable(false);
+            hexTable.getColumnModel().getColumn(10).setResizable(false);
+            hexTable.getColumnModel().getColumn(11).setResizable(false);
+            hexTable.getColumnModel().getColumn(12).setResizable(false);
+            hexTable.getColumnModel().getColumn(13).setResizable(false);
+            hexTable.getColumnModel().getColumn(14).setResizable(false);
+            hexTable.getColumnModel().getColumn(15).setResizable(false);
         }
 
         jLabel1.setText("Instructions");
 
         jLabel2.setText("HEX");
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        mneTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
                 {null, null, null},
@@ -312,15 +315,15 @@ public class CodeMemory extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jTable2.setRowHeight(26);
-        jTable2.getTableHeader().setReorderingAllowed(false);
-        jScrollPane2.setViewportView(jTable2);
-        if (jTable2.getColumnModel().getColumnCount() > 0) {
-            jTable2.getColumnModel().getColumn(0).setResizable(false);
-            jTable2.getColumnModel().getColumn(0).setPreferredWidth(60);
-            jTable2.getColumnModel().getColumn(1).setResizable(false);
-            jTable2.getColumnModel().getColumn(2).setResizable(false);
-            jTable2.getColumnModel().getColumn(2).setPreferredWidth(40);
+        mneTable.setRowHeight(26);
+        mneTable.getTableHeader().setReorderingAllowed(false);
+        jScrollPane2.setViewportView(mneTable);
+        if (mneTable.getColumnModel().getColumnCount() > 0) {
+            mneTable.getColumnModel().getColumn(0).setResizable(false);
+            mneTable.getColumnModel().getColumn(0).setPreferredWidth(60);
+            mneTable.getColumnModel().getColumn(1).setResizable(false);
+            mneTable.getColumnModel().getColumn(2).setResizable(false);
+            mneTable.getColumnModel().getColumn(2).setPreferredWidth(40);
         }
 
         jButton1.setText("Load HEX code");
@@ -386,13 +389,16 @@ public class CodeMemory extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void execBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_execBtnActionPerformed
-        if (memory.memory != null){
-            memory.exec();
+        if (cpu.memory != null){
+            cpu.exec();
         }
     }//GEN-LAST:event_execBtnActionPerformed
 
-    static void loadedHex(){
-        System.out.println("AEEE POOO");
+    static void loadHexTable(ArrayList<Integer> data){
+        DefaultTableModel model = (DefaultTableModel) hexTable.getModel();
+        for(Integer i : data){
+            
+        }
         
     }
     /**
@@ -432,12 +438,12 @@ public class CodeMemory extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton execBtn;
+    private static javax.swing.JTable hexTable;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
+    private javax.swing.JTable mneTable;
     // End of variables declaration//GEN-END:variables
 }
