@@ -424,7 +424,14 @@ public class CodeMemory extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel) mneTable.getModel();
         for(int i = 0; i < inst.length; i++){
             // falta setar o endereço, corno
-            model.setValueAt(inst[i].mnemonic, i, 1);
+            String operands = " ";
+            if(inst[i].args != null){
+                for(int j: inst[i].args){
+                    operands += Integer.toHexString(j).toUpperCase() + ", ";
+                }
+                operands = operands.substring(0, operands.length() - 2);
+            }
+            model.setValueAt(inst[i].mnemonic + operands, i, 1);
             model.setValueAt(Integer.toHexString(inst[i].opCode).toUpperCase(), i, 2);
         }
     }

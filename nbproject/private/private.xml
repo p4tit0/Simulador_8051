@@ -5,11 +5,14 @@
         <group>
             <file>file:/D:/GitHub/Simulador_8051/src/Main/Cpu.java</file>
             <file>file:/D:/GitHub/Simulador_8051/src/Main/CodeMemory.java</file>
+            <file>file:/D:/GitHub/Simulador_8051/src/InstructionSet/SJMP.java</file>
             <file>file:/D:/GitHub/Simulador_8051/src/InstructionSet/JNB.java</file>
             <file>file:/D:/GitHub/Simulador_8051/src/Main/Charge.java</file>
             <file>file:/D:/GitHub/Simulador_8051/src/Main/Reader.java</file>
             <file>file:/D:/GitHub/Simulador_8051/src/InstructionSet/CLR.java</file>
+            <file>file:/D:/GitHub/Simulador_8051/src/res/Aula01PAND.hex</file>
             <file>file:/D:/GitHub/Simulador_8051/src/InstructionSet/SETB.java</file>
+            <file>file:/D:/GitHub/Simulador_8051/src/InstructionSet/Instruction.java</file>
         </group>
     </open-files>
 </project-private>
