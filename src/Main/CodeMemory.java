@@ -30,6 +30,8 @@ public class CodeMemory extends javax.swing.JFrame {
         
         for(int i = 0; i < hexTable.getColumnCount(); i++)
             hexTable.getColumnModel().getColumn(i).setCellRenderer(rightRender);
+        
+        //hexTable.changeSelection(1, 1, false, false);
     }
 
     /**
@@ -157,7 +159,7 @@ public class CodeMemory extends javax.swing.JFrame {
                 {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15"
+                "00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "0A", "0B", "0C", "0D", "0E", "0F"
             }
         ) {
             Class[] types = new Class [] {
@@ -175,9 +177,11 @@ public class CodeMemory extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        hexTable.setColumnSelectionAllowed(true);
         hexTable.setRowHeight(26);
         hexTable.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(hexTable);
+        hexTable.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         if (hexTable.getColumnModel().getColumnCount() > 0) {
             hexTable.getColumnModel().getColumn(0).setResizable(false);
             hexTable.getColumnModel().getColumn(1).setResizable(false);
@@ -325,6 +329,11 @@ public class CodeMemory extends javax.swing.JFrame {
         });
         mneTable.setRowHeight(26);
         mneTable.getTableHeader().setReorderingAllowed(false);
+        mneTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                mneTableMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(mneTable);
         if (mneTable.getColumnModel().getColumnCount() > 0) {
             mneTable.getColumnModel().getColumn(0).setResizable(false);
@@ -402,6 +411,18 @@ public class CodeMemory extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_execBtnActionPerformed
 
+    private void mneTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mneTableMouseClicked
+        int line = mneTable.rowAtPoint(evt.getPoint());
+        //System.out.println(line);
+        DefaultTableModel model = (DefaultTableModel) mneTable.getModel();
+        String stAdress = (String) model.getValueAt(line, 0);
+        System.out.println(stAdress);
+        if(stAdress != null){
+            int adress = Integer.parseInt(stAdress, 16);
+            hexTable.changeSelection(adress/16, adress%16, false, false);
+        }
+    }//GEN-LAST:event_mneTableMouseClicked
+
     static void loadHexTable(ArrayList<Integer> data){
         DefaultTableModel model = (DefaultTableModel) hexTable.getModel();
         //model.setValueAt(data, ERROR, NORMAL);
@@ -420,7 +441,7 @@ public class CodeMemory extends javax.swing.JFrame {
         }
     }
     
-    static void loadMnemonicTable(Instruction[] inst){
+    static void loadMnemonicTable(Instruction[] inst, Integer[] adresses){
         DefaultTableModel model = (DefaultTableModel) mneTable.getModel();
         for(int i = 0; i < inst.length; i++){
             // falta setar o endereço, corno
@@ -431,6 +452,7 @@ public class CodeMemory extends javax.swing.JFrame {
                 }
                 operands = operands.substring(0, operands.length() - 2);
             }
+            model.setValueAt(Integer.toHexString(adresses[i]).toUpperCase(), i, 0);
             model.setValueAt(inst[i].mnemonic + operands, i, 1);
             model.setValueAt(Integer.toHexString(inst[i].opCode).toUpperCase(), i, 2);
         }

@@ -115,7 +115,7 @@ public class Charge extends javax.swing.JFrame {
         if (inst_array != null){
             Object[] mem = CodeMemory.cpu.load(inst_array);
             CodeMemory.loadHexTable((ArrayList<Integer>)mem[0]);
-            CodeMemory.loadMnemonicTable((Instruction[])mem[1]);
+            CodeMemory.loadMnemonicTable((Instruction[])mem[1], ((ArrayList<Integer>)mem[2]).toArray(new Integer[0]));
             this.dispose();
         }
     }//GEN-LAST:event_btChargeActionPerformed

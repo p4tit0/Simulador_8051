@@ -97,16 +97,16 @@
                 <Column editable="false" title="07" type="java.lang.String"/>
                 <Column editable="false" title="08" type="java.lang.String"/>
                 <Column editable="false" title="09" type="java.lang.String"/>
-                <Column editable="false" title="10" type="java.lang.String"/>
-                <Column editable="false" title="11" type="java.lang.String"/>
-                <Column editable="false" title="12" type="java.lang.String"/>
-                <Column editable="false" title="13" type="java.lang.String"/>
-                <Column editable="false" title="14" type="java.lang.String"/>
-                <Column editable="false" title="15" type="java.lang.String"/>
+                <Column editable="false" title="0A" type="java.lang.String"/>
+                <Column editable="false" title="0B" type="java.lang.String"/>
+                <Column editable="false" title="0C" type="java.lang.String"/>
+                <Column editable="false" title="0D" type="java.lang.String"/>
+                <Column editable="false" title="0E" type="java.lang.String"/>
+                <Column editable="false" title="0F" type="java.lang.String"/>
               </Table>
             </Property>
             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
-              <TableColumnModel selectionModel="0">
+              <TableColumnModel selectionModel="1">
                 <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="false">
                   <Title/>
                   <Editor/>
@@ -189,6 +189,7 @@
                 </Column>
               </TableColumnModel>
             </Property>
+            <Property name="columnSelectionAllowed" type="boolean" value="true"/>
             <Property name="rowHeight" type="int" value="26"/>
             <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
               <TableHeader reorderingAllowed="false" resizingAllowed="true"/>
@@ -250,6 +251,9 @@
               <TableHeader reorderingAllowed="false" resizingAllowed="true"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="mneTableMouseClicked"/>
+          </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="10"/>
           </AuxValues>

@@ -61,6 +61,7 @@ public class Cpu {
     
     public Object[] load(Object[][] inst){
         ArrayList<Integer> data = new ArrayList<Integer>();
+        ArrayList<Integer> adresses = new ArrayList<Integer>();
         for (Object[] line : inst){
             switch((int)line[0]){
                 case 0:
@@ -82,6 +83,7 @@ public class Cpu {
                 Constructor c = Class.forName("InstructionSet." + opcode_info[2]).getConstructor(new Class[]{int.class, int[].class});
                 c.setAccessible(true);                
                 opcodes.add(c.newInstance(data.get(i), args));
+                adresses.add(i);
                 i += args.length;
                 
             } catch (ClassNotFoundException e) {
@@ -110,7 +112,7 @@ public class Cpu {
 //                System.out.println(Arrays.toString((int[]) i[1]));
 //            }
         }
-        Object[] mem = {data, memory};
+        Object[] mem = {data, memory, adresses};
         return mem;
     }
 }
