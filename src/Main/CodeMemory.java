@@ -30,8 +30,6 @@ public class CodeMemory extends javax.swing.JFrame {
         
         for(int i = 0; i < hexTable.getColumnCount(); i++)
             hexTable.getColumnModel().getColumn(i).setCellRenderer(rightRender);
-        
-        //hexTable.changeSelection(1, 1, false, false);
     }
 
     /**
@@ -413,7 +411,6 @@ public class CodeMemory extends javax.swing.JFrame {
 
     private void mneTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mneTableMouseClicked
         int line = mneTable.rowAtPoint(evt.getPoint());
-        //System.out.println(line);
         DefaultTableModel model = (DefaultTableModel) mneTable.getModel();
         String stAdress = (String) model.getValueAt(line, 0);
         System.out.println(stAdress);
@@ -425,7 +422,6 @@ public class CodeMemory extends javax.swing.JFrame {
 
     static void loadHexTable(ArrayList<Integer> data){
         DefaultTableModel model = (DefaultTableModel) hexTable.getModel();
-        //model.setValueAt(data, ERROR, NORMAL);
         int row = 0;
         int column = 0;
         for(Integer i : data){
