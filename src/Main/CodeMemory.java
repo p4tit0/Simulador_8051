@@ -446,7 +446,7 @@ public class CodeMemory extends javax.swing.JFrame {
         for(int i = 0; i < inst.length; i++){
             // falta setar o endereço, corno
             String operands = " ";
-            if(inst[i].args != null){
+            if(inst[i].args.length > 0){
                 for(int j: inst[i].args){
                     operands += Integer.toHexString(j).toUpperCase() + ", ";
                 }
