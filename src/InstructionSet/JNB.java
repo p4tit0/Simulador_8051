@@ -12,8 +12,7 @@ package InstructionSet;
 public class JNB extends Instruction{
     
     public JNB(int _byte, int[] args){
-        this.mnemonic = "JNB";
-        this.description = "JNB";
+        super(_byte, args, "JNB", "JNB");
     }
     
     @Override

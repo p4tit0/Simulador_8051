@@ -12,8 +12,7 @@ package InstructionSet;
 public class SJMP extends Instruction{
     
     public SJMP(int _byte, int[] args){
-        this.mnemonic = "SJMP";
-        this.description = "SJMP";
+        super(_byte, args, "SJMP", "SJMP");
     }
     
     @Override

@@ -10,13 +10,21 @@ package InstructionSet;
  * @author famil
  */
 public class Instruction {
-    //int opCode;
+    
+    public int opCode;
     public int[] args;
     public String mnemonic;
     public String description;
     
     public void exec(){
         System.out.println("exec: Null");
+    }
+    
+    public Instruction(int _byte, int[] args, String mnemonic, String description){
+        this.opCode = _byte;
+        this.args = args;
+        this.mnemonic = mnemonic;
+        this.description = description;
     }
     
 }

@@ -12,8 +12,7 @@ package InstructionSet;
 public class SETB extends Instruction{
     
     public SETB(int _byte, int[] args){
-        this.mnemonic = "SETB";
-        this.description = "SETB";
+        super(_byte, args, "SETB", "SETB");
     }
     
     @Override

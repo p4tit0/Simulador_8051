@@ -60,7 +60,7 @@ public class Charge extends javax.swing.JFrame {
             }
         });
 
-        btCharge.setText("Charge");
+        btCharge.setText("Load");
         btCharge.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btChargeActionPerformed(evt);
@@ -73,10 +73,10 @@ public class Charge extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 376, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 435, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btOpen)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btCharge)
                 .addContainerGap())
         );
@@ -115,6 +115,7 @@ public class Charge extends javax.swing.JFrame {
         if (inst_array != null){
             Object[] mem = CodeMemory.cpu.load(inst_array);
             CodeMemory.loadHexTable((ArrayList<Integer>)mem[0]);
+            CodeMemory.loadMnemonicTable((Instruction[])mem[1]);
             this.dispose();
         }
     }//GEN-LAST:event_btChargeActionPerformed

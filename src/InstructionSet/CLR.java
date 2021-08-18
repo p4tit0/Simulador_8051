@@ -12,8 +12,7 @@ package InstructionSet;
 public class CLR extends Instruction{
     
     public CLR(int _byte, int[] args){
-        this.mnemonic = "CLR";
-        this.description = "CLR";
+        super(_byte, args, "CLR", "CLR");
     }
     
     @Override

@@ -5,7 +5,10 @@
  */
 package Main;
 
+import InstructionSet.Instruction;
 import java.util.ArrayList;
+import javax.swing.JLabel;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -22,6 +25,11 @@ public class CodeMemory extends javax.swing.JFrame {
     
     public CodeMemory() {
         initComponents();
+        DefaultTableCellRenderer rightRender = new DefaultTableCellRenderer();
+        rightRender.setHorizontalAlignment(JLabel.CENTER);
+        
+        for(int i = 0; i < hexTable.getColumnCount(); i++)
+            hexTable.getColumnModel().getColumn(i).setCellRenderer(rightRender);
     }
 
     /**
@@ -371,12 +379,12 @@ public class CodeMemory extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 353, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jButton1)
                             .addComponent(execBtn)))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 413, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -396,10 +404,29 @@ public class CodeMemory extends javax.swing.JFrame {
 
     static void loadHexTable(ArrayList<Integer> data){
         DefaultTableModel model = (DefaultTableModel) hexTable.getModel();
+        //model.setValueAt(data, ERROR, NORMAL);
+        int row = 0;
+        int column = 0;
         for(Integer i : data){
-            
+            String dado = Integer.toHexString(i).toUpperCase();
+            if(dado.length() == 1)
+                dado = "0" + dado;
+            model.setValueAt(dado, row, column);
+            column++;
+            if (column > model.getColumnCount() - 1){
+                column = 0;
+                row++;
+            }
         }
-        
+    }
+    
+    static void loadMnemonicTable(Instruction[] inst){
+        DefaultTableModel model = (DefaultTableModel) mneTable.getModel();
+        for(int i = 0; i < inst.length; i++){
+            // falta setar o endereço, corno
+            model.setValueAt(inst[i].mnemonic, i, 1);
+            model.setValueAt(Integer.toHexString(inst[i].opCode).toUpperCase(), i, 2);
+        }
     }
     /**
      * @param args the command line arguments
@@ -444,6 +471,6 @@ public class CodeMemory extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable mneTable;
+    private static javax.swing.JTable mneTable;
     // End of variables declaration//GEN-END:variables
 }
