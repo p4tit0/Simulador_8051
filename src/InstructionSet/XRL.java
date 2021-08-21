@@ -10,11 +10,11 @@ package InstructionSet;
  * @author space
  */
 public class XRL extends Instruction{
-    
+
     public XRL(int _byte, int[] args){
         super(_byte, args, "XRL", "XRL");
     }
-    
+
     @Override
     public void exec(){
         System.out.println("exec: XRL");

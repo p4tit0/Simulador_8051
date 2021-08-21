@@ -10,11 +10,11 @@ package InstructionSet;
  * @author space
  */
 public class MOV extends Instruction{
-    
+
     public MOV(int _byte, int[] args){
         super(_byte, args, "MOV", "MOV");
     }
-    
+
     @Override
     public void exec(){
         System.out.println("exec: MOV");

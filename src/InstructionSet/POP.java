@@ -10,11 +10,11 @@ package InstructionSet;
  * @author space
  */
 public class POP extends Instruction{
-    
+
     public POP(int _byte, int[] args){
         super(_byte, args, "POP", "POP");
     }
-    
+
     @Override
     public void exec(){
         System.out.println("exec: POP");

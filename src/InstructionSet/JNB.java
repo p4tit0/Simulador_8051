@@ -10,11 +10,11 @@ package InstructionSet;
  * @author space
  */
 public class JNB extends Instruction{
-    
+
     public JNB(int _byte, int[] args){
         super(_byte, args, "JNB", "JNB");
     }
-    
+
     @Override
     public void exec(){
         System.out.println("exec: JNB");
