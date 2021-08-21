@@ -9,14 +9,14 @@ package InstructionSet;
  *
  * @author space
  */
-public class RLC extends Instruction{
+public class XCH extends Instruction{
 
-    public RLC(int _byte, int[] args){
-        super(_byte, args, "RLC", "RLC");
+    public XCH(int _byte, int[] args){
+        super(_byte, args, "XCH", "XCH");
     }
 
     @Override
     public void exec(){
-        System.out.println("exec: RLC");
+        System.out.println("exec: XCH");
     }
 }

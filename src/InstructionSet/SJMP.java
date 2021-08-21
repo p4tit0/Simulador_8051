@@ -10,11 +10,11 @@ package InstructionSet;
  * @author space
  */
 public class SJMP extends Instruction{
-    
+
     public SJMP(int _byte, int[] args){
         super(_byte, args, "SJMP", "SJMP");
     }
-    
+
     @Override
     public void exec(){
         System.out.println("exec: SJMP");

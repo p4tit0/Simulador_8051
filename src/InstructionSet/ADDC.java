@@ -9,14 +9,14 @@ package InstructionSet;
  *
  * @author space
  */
-public class RLC extends Instruction{
+public class ADDC extends Instruction{
 
-    public RLC(int _byte, int[] args){
-        super(_byte, args, "RLC", "RLC");
+    public ADDC(int _byte, int[] args){
+        super(_byte, args, "ADDC", "ADDC");
     }
 
     @Override
     public void exec(){
-        System.out.println("exec: RLC");
+        System.out.println("exec: ADDC");
     }
 }

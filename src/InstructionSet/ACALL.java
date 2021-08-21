@@ -10,11 +10,11 @@ package InstructionSet;
  * @author space
  */
 public class ACALL extends Instruction{
-    
+
     public ACALL(int _byte, int[] args){
         super(_byte, args, "ACALL", "ACALL");
     }
-    
+
     @Override
     public void exec(){
         System.out.println("exec: ACALL");

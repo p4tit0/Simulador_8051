@@ -10,11 +10,11 @@ package InstructionSet;
  * @author space
  */
 public class NOP extends Instruction{
-    
+
     public NOP(int _byte, int[] args){
         super(_byte, args, "NOP", "NOP");
     }
-    
+
     @Override
     public void exec(){
         System.out.println("exec: NOP");

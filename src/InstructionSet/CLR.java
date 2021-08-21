@@ -10,11 +10,11 @@ package InstructionSet;
  * @author space
  */
 public class CLR extends Instruction{
-    
+
     public CLR(int _byte, int[] args){
         super(_byte, args, "CLR", "CLR");
     }
-    
+
     @Override
     public void exec(){
         System.out.println("exec: CLR");

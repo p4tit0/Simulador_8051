@@ -10,11 +10,11 @@ package InstructionSet;
  * @author space
  */
 public class SETB extends Instruction{
-    
+
     public SETB(int _byte, int[] args){
         super(_byte, args, "SETB", "SETB");
     }
-    
+
     @Override
     public void exec(){
         System.out.println("exec: SETB");

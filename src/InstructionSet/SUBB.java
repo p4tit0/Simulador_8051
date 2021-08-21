@@ -10,11 +10,11 @@ package InstructionSet;
  * @author space
  */
 public class SUBB extends Instruction{
-    
+
     public SUBB(int _byte, int[] args){
         super(_byte, args, "SUBB", "SUBB");
     }
-    
+
     @Override
     public void exec(){
         System.out.println("exec: SUBB");
