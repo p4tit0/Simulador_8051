@@ -428,6 +428,9 @@ public class CodeMemory extends javax.swing.JFrame {
         int row = 0;
         int column = 0;
         for(Integer i : data){
+            
+            if(i==null) break;
+            
             String dado = String.format("%02x", i).toUpperCase();
             model.setValueAt(dado, row, column);
             column++;
