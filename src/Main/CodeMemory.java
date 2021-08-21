@@ -428,9 +428,7 @@ public class CodeMemory extends javax.swing.JFrame {
         int row = 0;
         int column = 0;
         for(Integer i : data){
-            String dado = Integer.toHexString(i).toUpperCase();
-            if(dado.length() == 1)
-                dado = "0" + dado;
+            String dado = String.format("%02x", i).toUpperCase();
             model.setValueAt(dado, row, column);
             column++;
             if (column > model.getColumnCount() - 1){
@@ -440,10 +438,15 @@ public class CodeMemory extends javax.swing.JFrame {
         }
     }
     
-    static void loadMnemonicTable(Instruction[] inst, Integer[] adresses){
+    static void loadMnemonicTable(Instruction[] inst){
         DefaultTableModel model = (DefaultTableModel) mneTable.getModel();
         for(int i = 0; i < inst.length; i++){
             // falta setar o endereço, corno
+            if(inst[i] == null) {
+                model.setValueAt(String.format("%04x" ,i).toUpperCase(), i, 0);
+                continue;
+            }
+            
             String operands = " ";
             if(inst[i].args.length > 0){
                 for(int j: inst[i].args){
@@ -451,7 +454,8 @@ public class CodeMemory extends javax.swing.JFrame {
                 }
                 operands = operands.substring(0, operands.length() - 2);
             }
-            model.setValueAt(Integer.toHexString(adresses[i]).toUpperCase(), i, 0);
+            model.setValueAt(String.format("%04x" ,i).toUpperCase(), i, 0);
+            //Integer.toHexString(i).toUpperCase()
             model.setValueAt(inst[i].mnemonic + operands, i, 1);
             model.setValueAt(Integer.toHexString(inst[i].opCode).toUpperCase(), i, 2);
         }

@@ -22,7 +22,7 @@ import javax.management.ConstructorParameters;
 public class Cpu {
     
     static int size = 16;
-    public static Instruction[] memory;//= new ArrayList<Object[]>(size);
+    public static Instruction[] memory = new Instruction[100];//= new ArrayList<Object[]>(size);
 
     
     //-=-=-=-=-=-=-=-=-=- <APAGA> -=-=-=-=-=-=-=-=-=-=-=-
@@ -34,15 +34,6 @@ public class Cpu {
     }
     //-=-=-=-=-=-=-=-=-=- </APAGA> -=-=-=-=-=-=-=-=-=-=-=-
     
-    public Cpu(){
-//        for(int i = 0; i < size; i++){
-//            Instructions.MOV a = inst.new MOV(1,"4");
-//            Object[] data = {"batata", a};
-//            memory.add(data);
-//            System.out.println(i);
-//        }
-        //System.out.println(memory.toString());
-    }
     public String[] getOpcodeInfo(int _byte){
         String[][] table = Reader.readFile("src\\res\\instruction_set_8051.xlsx");
         for (String[] row : table){
@@ -61,7 +52,6 @@ public class Cpu {
     
     public Object[] load(Object[][] inst){
         ArrayList<Integer> data = new ArrayList<Integer>();
-        ArrayList<Integer> adresses = new ArrayList<Integer>();
         for (Object[] line : inst){
             switch((int)line[0]){
                 case 0:
@@ -72,7 +62,6 @@ public class Cpu {
             }
         }
         
-        ArrayList<Object> opcodes = new ArrayList<>();
         for (int i = 0; i<data.size(); i++){
             String[] opcode_info = getOpcodeInfo(data.get(i));
             try {
@@ -82,8 +71,7 @@ public class Cpu {
                 }
                 Constructor c = Class.forName("InstructionSet." + opcode_info[2]).getConstructor(new Class[]{int.class, int[].class});
                 c.setAccessible(true);                
-                opcodes.add(c.newInstance(data.get(i), args));
-                adresses.add(i);
+                memory[i] = (Instruction) c.newInstance(data.get(i), args);
                 i += args.length;
                 
             } catch (ClassNotFoundException e) {
@@ -103,16 +91,15 @@ public class Cpu {
             }
         }
         
-        this.memory = opcodes.toArray(new Instruction[0]);
-        
         for(Instruction i : this.memory){
+            if(i == null) continue;
             System.out.println(i.mnemonic);
 //            if((int) i[0] == 0){
 //                //System.out.println((int[]) i[1]);
 //                System.out.println(Arrays.toString((int[]) i[1]));
 //            }
         }
-        Object[] mem = {data, memory, adresses};
+        Object[] mem = {data, memory};
         return mem;
     }
 }
