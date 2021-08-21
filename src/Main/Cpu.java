@@ -46,7 +46,9 @@ public class Cpu {
     
     public void exec(){
         for(Instruction inst : memory){
-            inst.exec();
+            if (inst != null){
+                inst.exec();
+            }
         }
     }
     
@@ -91,14 +93,14 @@ public class Cpu {
             }
         }
         
-        for(Instruction i : this.memory){
-            if(i == null) continue;
-            System.out.println(i.mnemonic);
-//            if((int) i[0] == 0){
-//                //System.out.println((int[]) i[1]);
-//                System.out.println(Arrays.toString((int[]) i[1]));
-//            }
-        }
+//        for(Instruction i : this.memory){
+//            if(i == null) continue;
+//            System.out.println(i.mnemonic);
+////            if((int) i[0] == 0){
+////                //System.out.println((int[]) i[1]);
+////                System.out.println(Arrays.toString((int[]) i[1]));
+////            }
+//        }
         Object[] mem = {data, memory};
         return mem;
     }
