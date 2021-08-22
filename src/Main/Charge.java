@@ -7,15 +7,20 @@ package Main;
 
 import InstructionSet.Instruction;
 import com.formdev.flatlaf.FlatDarkLaf;
+import java.awt.Color;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.DefaultHighlighter;
+import javax.swing.text.Highlighter.HighlightPainter;
 
 /**
  *
@@ -46,11 +51,13 @@ public class Charge extends javax.swing.JFrame {
         hexArea = new javax.swing.JTextArea();
         btOpen = new javax.swing.JButton();
         btCharge = new javax.swing.JButton();
+        errorLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         hexArea.setEditable(false);
         hexArea.setColumns(20);
+        hexArea.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         hexArea.setRows(5);
         jScrollPane1.setViewportView(hexArea);
 
@@ -68,6 +75,10 @@ public class Charge extends javax.swing.JFrame {
             }
         });
 
+        errorLabel.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        errorLabel.setForeground(new java.awt.Color(255, 102, 102));
+        errorLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -76,9 +87,12 @@ public class Charge extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 435, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btOpen)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btCharge)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btOpen)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btCharge))
+                    .addComponent(errorLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -87,7 +101,8 @@ public class Charge extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(errorLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btOpen)
                             .addComponent(btCharge)))
@@ -108,6 +123,7 @@ public class Charge extends javax.swing.JFrame {
             //inst.clear();
             btCharge.setEnabled(true);
             hexArea.setText("");
+            errorLabel.setText("");
             read(jf.getSelectedFile());
         }
     }//GEN-LAST:event_btOpenActionPerformed
@@ -127,6 +143,8 @@ public class Charge extends javax.swing.JFrame {
         try {
             FileReader fr = new FileReader(file);
             BufferedReader bf = new BufferedReader(fr);
+            int lineIdx = 0;
+            ArrayList<Integer> linesToPaint = new ArrayList();
             while(bf.ready()){
                 String line = bf.readLine();
                 Object[] divLine = new Object[2];
@@ -138,10 +156,7 @@ public class Charge extends javax.swing.JFrame {
                 String str_check_sum = String.format("%x", ~byte_sum + 1);
                 str_check_sum = str_check_sum.substring(str_check_sum.length()-2, str_check_sum.length());
                 System.out.println(str_check_sum);
-                if (!str_check_sum.toUpperCase().equals(line.substring(line.length()-2))){
-                    btCharge.setEnabled(false);
-                    System.out.println("Deu Merda");
-                }
+                
                 
                 int itSize = Integer.parseInt(line.substring(1, 3), 16);
                 //divLine[0] = Integer.parseInt(line.substring(1, 3), 16);
@@ -156,7 +171,26 @@ public class Charge extends javax.swing.JFrame {
                 //divLine[4] = Integer.parseInt(line.substring(line.length()-2), 16);
                 
                 hexArea.setText(hexArea.getText() + line + "\n");
+                
+                if (!str_check_sum.toUpperCase().equals(line.substring(line.length()-2))){
+                    btCharge.setEnabled(false);
+                    linesToPaint.add(lineIdx);
+                    errorLabel.setText("CheckSum error");
+                    System.out.println("Deu Merda");
+                }
+                lineIdx++;
                 inst.add(divLine);
+            }
+            
+            Color color = new Color(209, 38, 38);
+            for(int i : linesToPaint){
+                try {
+                    int startIndex = hexArea.getLineStartOffset(i);
+                    int endIndex = hexArea.getLineEndOffset(i);
+                    hexArea.getHighlighter().addHighlight(startIndex, endIndex, new DefaultHighlighter.DefaultHighlightPainter(color));
+                } catch (BadLocationException ex) {
+                    Logger.getLogger(Charge.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         } catch(IOException e){
             JOptionPane.showMessageDialog(null, "Erro ao ler arquivo");
@@ -200,6 +234,7 @@ public class Charge extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btCharge;
     private javax.swing.JButton btOpen;
+    private javax.swing.JLabel errorLabel;
     private javax.swing.JTextArea hexArea;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
