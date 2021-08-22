@@ -8,7 +8,6 @@ package Main;
 import InstructionSet.Instruction;
 import com.formdev.flatlaf.FlatDarkLaf;
 import java.util.ArrayList;
-import java.util.Arrays;
 import javax.swing.JLabel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -24,6 +23,7 @@ public class CodeMemory extends javax.swing.JFrame {
      */
     
     public static Cpu cpu = new Cpu();
+    public static Memory memory = cpu.memory;
     
     public CodeMemory() {
         initComponents();
@@ -285,6 +285,7 @@ public class CodeMemory extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
+        
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new CodeMemory().setVisible(true);

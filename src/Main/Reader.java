@@ -7,6 +7,7 @@ package Main;
 
 import java.io.File;  
 import java.io.FileInputStream;  
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;  
 import org.apache.poi.ss.usermodel.Cell;  
@@ -19,18 +20,6 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
  * @author space
  */
 public class Reader {
-    public static void main(String[] args) {
-        print2D(readFile("src\\res\\instruction_set_8051.xlsx"));
-    }
-    
-    public static void print2D(Object mat[][])
-    {
-        for (Object[] row : mat){
-            for (Object x : row)
-                System.out.print(x + " ");
-            System.out.println("");
-        }            
-    }
     
     public static String[][] readFile(String file_path){  
         try{  
@@ -64,8 +53,7 @@ public class Reader {
             }
             return table_arr;
         }  
-        catch(Exception e){  
-        e.printStackTrace();  
+        catch(IOException e){  
         }
         return null;
     }  

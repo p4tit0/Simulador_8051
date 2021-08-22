@@ -5,24 +5,73 @@
  */
 package Main;
 
+import InstructionSet.Instruction;
+import static Main.Cpu.memory;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+
 /**
  *
  * @author space
  */
 public class Memory {
     
-    Object[] rom = new Object[4095];
-    RAM ram = new RAM(128);
+    static Instruction[] rom = new Instruction[4095];
+    static byte[] ram = new byte[256];
     
-    public class RAM{
-        int size = 0;
-        
-        public RAM(int size){
-            this.size = size;
+    public String[] getOpcodeInfo(int _byte){
+        String[][] table = Reader.readFile("src\\res\\instruction_set_8051.xlsx");
+        for (String[] row : table){
+            if (Integer.parseInt(row[0], 16) == _byte){
+                return row;
+            }
         }
-        
-        Object[] upper = new Object[size];
-        Object[] lower = new Object[size];
+        return null;        
     }
     
+    public Object[] load(Object[][] inst){
+        ArrayList<Integer> data = new ArrayList<>();
+        for (Object[] line : inst){
+            switch((int)line[0]){
+                case 0 -> {
+                    for (int _byte : (int[]) line[1]){
+                        data.add(_byte);
+                    }
+                }
+            }
+        }
+        
+        for (int i = 0; i<data.size(); i++){
+            String[] opcode_info = getOpcodeInfo(data.get(i));
+            try {
+                int[] args = new int[Integer.valueOf(opcode_info[1]) - 1];
+                for (int k = 1; k<=args.length; k++){
+                    args[k-1] = data.get(i+k);
+                }
+                Constructor c = Class.forName("InstructionSet." + opcode_info[2]).getConstructor(new Class[]{int.class, int[].class});
+                c.setAccessible(true);                
+                rom[i] = (Instruction) c.newInstance(data.get(i), args);
+                i += args.length;
+                
+            } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | NoSuchMethodException | SecurityException | IllegalArgumentException | InvocationTargetException e) {
+            }
+        }
+        
+        Object[] mem = {data, rom};
+        return mem;
+    }
+    
+//    static RAM ram = new RAM(256);
+//    
+//    public static class RAM{
+//        int size = 0;
+//        byte[] upper = new byte[size];
+//        byte[] lower = new byte[size];
+//        
+//        public RAM(int size){
+//            this.size = size/2;
+//        }
+//       
+//    } 
 }
