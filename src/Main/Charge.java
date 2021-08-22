@@ -106,6 +106,7 @@ public class Charge extends javax.swing.JFrame {
         int r = jf.showOpenDialog(null);
         if(r == JFileChooser.APPROVE_OPTION){
             //inst.clear();
+            btCharge.setEnabled(true);
             hexArea.setText("");
             read(jf.getSelectedFile());
         }
@@ -130,6 +131,18 @@ public class Charge extends javax.swing.JFrame {
                 String line = bf.readLine();
                 Object[] divLine = new Object[2];
                 
+                int byte_sum = 0;
+                for (int i = 0; i < line.substring(1, line.length()-2).length()/2; i++){
+                    byte_sum += Integer.parseInt(line.substring(1+2 * i, 3 + 2 * i), 16);
+                }
+                String str_check_sum = String.format("%x", ~byte_sum + 1);
+                str_check_sum = str_check_sum.substring(str_check_sum.length()-2, str_check_sum.length());
+                System.out.println(str_check_sum);
+                if (!str_check_sum.toUpperCase().equals(line.substring(line.length()-2))){
+                    btCharge.setEnabled(false);
+                    System.out.println("Deu Merda");
+                }
+                
                 int itSize = Integer.parseInt(line.substring(1, 3), 16);
                 //divLine[0] = Integer.parseInt(line.substring(1, 3), 16);
                 //divLine[1] = Integer.parseInt(line.substring(3, 7), 16);
@@ -138,10 +151,10 @@ public class Charge extends javax.swing.JFrame {
                 for (int i = 0; i < itSize; i++){
                     instruct[i] = Integer.parseInt(line.substring(9 + 2 * i, 11 + 2 * i), 16);
                 }
+                
                 divLine[1] = instruct;
                 //divLine[4] = Integer.parseInt(line.substring(line.length()-2), 16);
                 
-                //System.out.println(String.format("[%s, %s, %s, %s, %s]", divLine[0], divLine[1], divLine[2], Arrays.toString((int[]) divLine[3]), divLine[4]));
                 hexArea.setText(hexArea.getText() + line + "\n");
                 inst.add(divLine);
             }
@@ -153,9 +166,7 @@ public class Charge extends javax.swing.JFrame {
             Object[] row = inst.get(i);
             inst_array[i] = row;
         }
-        //System.out.println("-=-=-=-= <INST> =-=-=-=-");
-        //print2D(inst_array);
-        //System.out.println("-=-=-=-= </INST> =-=-=-=-");
+
     }
     
     /**
