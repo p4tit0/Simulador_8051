@@ -121,15 +121,6 @@ public class Charge extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btChargeActionPerformed
     
-    //-=-=-=-=-=-=-=-=-=- <APAGA> -=-=-=-=-=-=-=-=-=-=-=-
-    public static void print2D(Object[][] mat)
-    {
-        for (Object[] row : mat) {
-            System.out.println(String.format("[%s, %s]", row[0], Arrays.toString((int[]) row[1])));
-        }
-    }
-    //-=-=-=-=-=-=-=-=-=- </APAGA> -=-=-=-=-=-=-=-=-=-=-=-
-    
     void read(File file){
         ArrayList<Object[]> inst = new ArrayList<Object[]>();
         try {

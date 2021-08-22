@@ -10,29 +10,15 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.management.ConstructorParameters;
 
 /**
  *
  * @author famil
  */
-//AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 public class Cpu {
     
     static int size = 16;
     public static Instruction[] memory = new Instruction[100];//= new ArrayList<Object[]>(size);
-
-    
-    //-=-=-=-=-=-=-=-=-=- <APAGA> -=-=-=-=-=-=-=-=-=-=-=-
-    public static void print2D(Object[][] mat)
-    {
-        for (Object[] row : mat) {
-            System.out.println(String.format("[%s, %s]", row[0], Arrays.toString((int[]) row[1])));
-        }
-    }
-    //-=-=-=-=-=-=-=-=-=- </APAGA> -=-=-=-=-=-=-=-=-=-=-=-
     
     public String[] getOpcodeInfo(int _byte){
         String[][] table = Reader.readFile("src\\res\\instruction_set_8051.xlsx");
@@ -53,14 +39,14 @@ public class Cpu {
     }
     
     public Object[] load(Object[][] inst){
-        ArrayList<Integer> data = new ArrayList<Integer>();
+        ArrayList<Integer> data = new ArrayList<>();
         for (Object[] line : inst){
             switch((int)line[0]){
-                case 0:
+                case 0 -> {
                     for (int _byte : (int[]) line[1]){
                         data.add(_byte);
-                    }                   
-                    break;
+                    }
+                }
             }
         }
         
@@ -76,31 +62,10 @@ public class Cpu {
                 memory[i] = (Instruction) c.newInstance(data.get(i), args);
                 i += args.length;
                 
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            } catch (InstantiationException e){
-                e.printStackTrace();
-            } catch (IllegalAccessException e){
-                e.printStackTrace();
-            } catch (NoSuchMethodException e) {
-                e.printStackTrace();
-            } catch (SecurityException e) {
-                e.printStackTrace();
-            } catch (IllegalArgumentException e) {
-                e.printStackTrace();
-            } catch (InvocationTargetException e) {
-                e.printStackTrace();
+            } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | NoSuchMethodException | SecurityException | IllegalArgumentException | InvocationTargetException e) {
             }
         }
         
-//        for(Instruction i : this.memory){
-//            if(i == null) continue;
-//            System.out.println(i.mnemonic);
-////            if((int) i[0] == 0){
-////                //System.out.println((int[]) i[1]);
-////                System.out.println(Arrays.toString((int[]) i[1]));
-////            }
-//        }
         Object[] mem = {data, memory};
         return mem;
     }
