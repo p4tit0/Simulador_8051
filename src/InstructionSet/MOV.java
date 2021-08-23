@@ -17,6 +17,6 @@ public class MOV extends Instruction{
 
     @Override
     public void exec(){
-        System.out.println("MOV: " + operands[0] + " <-- " + operands[1]);
+        System.out.println("exec: MOV");
     }
 }
