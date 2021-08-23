@@ -11,7 +11,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 
 /**
- *
+ *a
  * @author famil
  */
 public class Cpu {

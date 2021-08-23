@@ -23,7 +23,7 @@ import javax.swing.text.DefaultHighlighter;
 import javax.swing.text.Highlighter.HighlightPainter;
 
 /**
- *
+ *a
  * @author famil
  */
 public class Charge extends javax.swing.JFrame {
