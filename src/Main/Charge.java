@@ -185,6 +185,7 @@ public class Charge extends javax.swing.JFrame {
             Color color = new Color(209, 38, 38);
             for(int i : linesToPaint){
                 try {
+                    //aa
                     int startIndex = hexArea.getLineStartOffset(i);
                     int endIndex = hexArea.getLineEndOffset(i);
                     hexArea.getHighlighter().addHighlight(startIndex, endIndex, new DefaultHighlighter.DefaultHighlightPainter(color));
