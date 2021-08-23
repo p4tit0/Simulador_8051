@@ -11,8 +11,8 @@ package InstructionSet;
  */
 public class ACALL extends Instruction{
 
-    public ACALL(int _byte, int[] args){
-        super(_byte, args, "ACALL", "ACALL");
+    public ACALL(int _byte, int[] args, String[] operands){
+        super(_byte, args, "ACALL", "ACALL", operands);
     }
 
     @Override

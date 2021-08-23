@@ -11,8 +11,8 @@ package InstructionSet;
  */
 public class ORL extends Instruction{
 
-    public ORL(int _byte, int[] args){
-        super(_byte, args, "ORL", "ORL");
+    public ORL(int _byte, int[] args, String[] operands){
+        super(_byte, args, "ORL", "ORL", operands);
     }
 
     @Override

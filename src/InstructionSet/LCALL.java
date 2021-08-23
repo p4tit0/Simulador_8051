@@ -11,8 +11,8 @@ package InstructionSet;
  */
 public class LCALL extends Instruction{
 
-    public LCALL(int _byte, int[] args){
-        super(_byte, args, "LCALL", "LCALL");
+    public LCALL(int _byte, int[] args, String[] operands){
+        super(_byte, args, "LCALL", "LCALL", operands);
     }
 
     @Override

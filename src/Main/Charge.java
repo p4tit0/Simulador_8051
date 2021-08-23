@@ -137,7 +137,6 @@ public class Charge extends javax.swing.JFrame {
                 }
                 String str_check_sum = String.format("%x", ~byte_sum + 1);
                 str_check_sum = str_check_sum.substring(str_check_sum.length()-2, str_check_sum.length());
-                System.out.println(str_check_sum);
                 if (!str_check_sum.toUpperCase().equals(line.substring(line.length()-2))){
                     btCharge.setEnabled(false);
                     System.out.println("Deu Merda");

@@ -11,8 +11,8 @@ package InstructionSet;
  */
 public class MOVC extends Instruction{
 
-    public MOVC(int _byte, int[] args){
-        super(_byte, args, "MOVC", "MOVC");
+    public MOVC(int _byte, int[] args, String[] operands){
+        super(_byte, args, "MOVC", "MOVC", operands);
     }
 
     @Override

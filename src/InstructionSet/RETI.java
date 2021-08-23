@@ -11,8 +11,8 @@ package InstructionSet;
  */
 public class RETI extends Instruction{
 
-    public RETI(int _byte, int[] args){
-        super(_byte, args, "RETI", "RETI");
+    public RETI(int _byte, int[] args, String[] operands){
+        super(_byte, args, "RETI", "RETI", operands);
     }
 
     @Override

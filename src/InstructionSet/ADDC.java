@@ -11,8 +11,8 @@ package InstructionSet;
  */
 public class ADDC extends Instruction{
 
-    public ADDC(int _byte, int[] args){
-        super(_byte, args, "ADDC", "ADDC");
+    public ADDC(int _byte, int[] args, String[] operands){
+        super(_byte, args, "ADDC", "ADDC", operands);
     }
 
     @Override

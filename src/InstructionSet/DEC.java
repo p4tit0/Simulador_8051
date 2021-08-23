@@ -11,8 +11,8 @@ package InstructionSet;
  */
 public class DEC extends Instruction{
 
-    public DEC(int _byte, int[] args){
-        super(_byte, args, "DEC", "DEC");
+    public DEC(int _byte, int[] args, String[] operands){
+        super(_byte, args, "DEC", "DEC", operands);
     }
 
     @Override

@@ -11,8 +11,8 @@ package InstructionSet;
  */
 public class CPL extends Instruction{
 
-    public CPL(int _byte, int[] args){
-        super(_byte, args, "CPL", "CPL");
+    public CPL(int _byte, int[] args, String[] operands){
+        super(_byte, args, "CPL", "CPL", operands);
     }
 
     @Override

@@ -11,8 +11,8 @@ package InstructionSet;
  */
 public class JZ extends Instruction{
 
-    public JZ(int _byte, int[] args){
-        super(_byte, args, "JZ", "JZ");
+    public JZ(int _byte, int[] args, String[] operands){
+        super(_byte, args, "JZ", "JZ", operands);
     }
 
     @Override

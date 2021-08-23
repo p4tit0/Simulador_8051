@@ -11,8 +11,8 @@ package InstructionSet;
  */
 public class DA extends Instruction{
 
-    public DA(int _byte, int[] args){
-        super(_byte, args, "DA", "DA");
+    public DA(int _byte, int[] args, String[] operands){
+        super(_byte, args, "DA", "DA", operands);
     }
 
     @Override

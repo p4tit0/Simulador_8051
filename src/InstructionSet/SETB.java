@@ -11,8 +11,8 @@ package InstructionSet;
  */
 public class SETB extends Instruction{
 
-    public SETB(int _byte, int[] args){
-        super(_byte, args, "SETB", "SETB");
+    public SETB(int _byte, int[] args, String[] operands){
+        super(_byte, args, "SETB", "SETB", operands);
     }
 
     @Override

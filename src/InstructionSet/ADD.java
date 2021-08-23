@@ -11,8 +11,8 @@ package InstructionSet;
  */
 public class ADD extends Instruction{
 
-    public ADD(int _byte, int[] args){
-        super(_byte, args, "ADD", "ADD");
+    public ADD(int _byte, int[] args, String[] operands){
+        super(_byte, args, "ADD", "ADD", operands);
     }
 
     @Override

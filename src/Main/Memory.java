@@ -10,6 +10,7 @@ import static Main.Cpu.memory;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  *
@@ -17,7 +18,7 @@ import java.util.ArrayList;
  */
 public class Memory {
     
-    static Instruction[] rom = new Instruction[4095];
+    static Instruction[] rom = new Instruction[100];
     static byte[] ram = new byte[256];
     
     public String[] getOpcodeInfo(int _byte){
@@ -49,12 +50,13 @@ public class Memory {
                 for (int k = 1; k<=args.length; k++){
                     args[k-1] = data.get(i+k);
                 }
-                Constructor c = Class.forName("InstructionSet." + opcode_info[2]).getConstructor(new Class[]{int.class, int[].class});
-                c.setAccessible(true);                
-                rom[i] = (Instruction) c.newInstance(data.get(i), args);
+                Constructor c = Class.forName("InstructionSet." + opcode_info[2]).getConstructor(new Class[]{int.class, int[].class, String[].class});
+                c.setAccessible(true);
+                rom[i] = (Instruction) c.newInstance(data.get(i), args, opcode_info[3].split(", "));
                 i += args.length;
                 
             } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | NoSuchMethodException | SecurityException | IllegalArgumentException | InvocationTargetException e) {
+                e.printStackTrace();
             }
         }
         

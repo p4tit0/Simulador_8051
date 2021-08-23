@@ -11,8 +11,8 @@ package InstructionSet;
  */
 public class CLR extends Instruction{
 
-    public CLR(int _byte, int[] args){
-        super(_byte, args, "CLR", "CLR");
+    public CLR(int _byte, int[] args, String[] operands){
+        super(_byte, args, "CLR", "CLR", operands);
     }
 
     @Override

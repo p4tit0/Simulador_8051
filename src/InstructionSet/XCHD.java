@@ -11,8 +11,8 @@ package InstructionSet;
  */
 public class XCHD extends Instruction{
 
-    public XCHD(int _byte, int[] args){
-        super(_byte, args, "XCHD", "XCHD");
+    public XCHD(int _byte, int[] args, String[] operands){
+        super(_byte, args, "XCHD", "XCHD", operands);
     }
 
     @Override

@@ -3,12 +3,15 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/Users/space/Documents/NetBeansProjects/Simulador_8051/src/InstructionSet/CLR.java</file>
             <file>file:/C:/Users/space/Documents/NetBeansProjects/Simulador_8051/src/Main/CodeMemory.java</file>
             <file>file:/C:/Users/space/Documents/NetBeansProjects/Simulador_8051/src/Main/Memory.java</file>
-            <file>file:/C:/Users/space/Documents/NetBeansProjects/Simulador_8051/src/InstructionSet/RETI.java</file>
             <file>file:/C:/Users/space/Documents/NetBeansProjects/Simulador_8051/src/Main/Cpu.java</file>
+            <file>file:/C:/Users/space/Documents/NetBeansProjects/Simulador_8051/src/InstructionSet/MOV.java</file>
+            <file>file:/C:/Users/space/Documents/NetBeansProjects/Simulador_8051/src/res/Aula01PAND.hex</file>
             <file>file:/C:/Users/space/Documents/NetBeansProjects/Simulador_8051/src/Main/Reader.java</file>
             <file>file:/C:/Users/space/Documents/NetBeansProjects/Simulador_8051/src/Main/Charge.java</file>
+            <file>file:/C:/Users/space/Documents/NetBeansProjects/Simulador_8051/src/InstructionSet/Instruction.java</file>
         </group>
     </open-files>
 </project-private>

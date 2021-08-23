@@ -11,8 +11,8 @@ package InstructionSet;
  */
 public class INC extends Instruction{
 
-    public INC(int _byte, int[] args){
-        super(_byte, args, "INC", "INC");
+    public INC(int _byte, int[] args, String[] operands){
+        super(_byte, args, "INC", "INC", operands);
     }
 
     @Override

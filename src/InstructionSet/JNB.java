@@ -11,8 +11,8 @@ package InstructionSet;
  */
 public class JNB extends Instruction{
 
-    public JNB(int _byte, int[] args){
-        super(_byte, args, "JNB", "JNB");
+    public JNB(int _byte, int[] args, String[] operands){
+        super(_byte, args, "JNB", "JNB", operands);
     }
 
     @Override

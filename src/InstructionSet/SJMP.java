@@ -11,8 +11,8 @@ package InstructionSet;
  */
 public class SJMP extends Instruction{
 
-    public SJMP(int _byte, int[] args){
-        super(_byte, args, "SJMP", "SJMP");
+    public SJMP(int _byte, int[] args, String[] operands){
+        super(_byte, args, "SJMP", "SJMP", operands);
     }
 
     @Override

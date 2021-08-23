@@ -11,8 +11,8 @@ package InstructionSet;
  */
 public class NOP extends Instruction{
 
-    public NOP(int _byte, int[] args){
-        super(_byte, args, "NOP", "NOP");
+    public NOP(int _byte, int[] args, String[] operands){
+        super(_byte, args, "NOP", "NOP", operands);
     }
 
     @Override

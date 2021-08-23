@@ -11,12 +11,12 @@ package InstructionSet;
  */
 public class MOV extends Instruction{
 
-    public MOV(int _byte, int[] args){
-        super(_byte, args, "MOV", "MOV");
+    public MOV(int _byte, int[] args, String[] operands){
+        super(_byte, args, "MOV", "MOV", operands);
     }
 
     @Override
     public void exec(){
-        System.out.println("exec: MOV");
+        System.out.println("MOV: " + operands[0] + " <-- " + operands[1]);
     }
 }

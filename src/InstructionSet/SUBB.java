@@ -11,8 +11,8 @@ package InstructionSet;
  */
 public class SUBB extends Instruction{
 
-    public SUBB(int _byte, int[] args){
-        super(_byte, args, "SUBB", "SUBB");
+    public SUBB(int _byte, int[] args, String[] operands){
+        super(_byte, args, "SUBB", "SUBB", operands);
     }
 
     @Override

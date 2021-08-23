@@ -11,8 +11,8 @@ package InstructionSet;
  */
 public class POP extends Instruction{
 
-    public POP(int _byte, int[] args){
-        super(_byte, args, "POP", "POP");
+    public POP(int _byte, int[] args, String[] operands){
+        super(_byte, args, "POP", "POP", operands);
     }
 
     @Override
