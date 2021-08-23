@@ -11,8 +11,8 @@ package InstructionSet;
  */
 public class DIV extends Instruction{
 
-    public DIV(int _byte, int[] args){
-        super(_byte, args, "DIV", "DIV");
+    public DIV(int _byte, int[] args, String[] operands){
+        super(_byte, args, "DIV", "DIV", operands);
     }
 
     @Override

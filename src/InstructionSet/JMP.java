@@ -11,8 +11,8 @@ package InstructionSet;
  */
 public class JMP extends Instruction{
 
-    public JMP(int _byte, int[] args){
-        super(_byte, args, "JMP", "JMP");
+    public JMP(int _byte, int[] args, String[] operands){
+        super(_byte, args, "JMP", "JMP", operands);
     }
 
     @Override

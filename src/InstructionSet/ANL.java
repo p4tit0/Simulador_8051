@@ -11,8 +11,8 @@ package InstructionSet;
  */
 public class ANL extends Instruction{
 
-    public ANL(int _byte, int[] args){
-        super(_byte, args, "ANL", "ANL");
+    public ANL(int _byte, int[] args, String[] operands){
+        super(_byte, args, "ANL", "ANL", operands);
     }
 
     @Override

@@ -11,8 +11,8 @@ package InstructionSet;
  */
 public class CJNE extends Instruction{
 
-    public CJNE(int _byte, int[] args){
-        super(_byte, args, "CJNE", "CJNE");
+    public CJNE(int _byte, int[] args, String[] operands){
+        super(_byte, args, "CJNE", "CJNE", operands);
     }
 
     @Override

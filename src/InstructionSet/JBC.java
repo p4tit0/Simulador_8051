@@ -11,8 +11,8 @@ package InstructionSet;
  */
 public class JBC extends Instruction{
 
-    public JBC(int _byte, int[] args){
-        super(_byte, args, "JBC", "JBC");
+    public JBC(int _byte, int[] args, String[] operands){
+        super(_byte, args, "JBC", "JBC", operands);
     }
 
     @Override

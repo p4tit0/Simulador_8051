@@ -11,8 +11,8 @@ package InstructionSet;
  */
 public class PUSH extends Instruction{
 
-    public PUSH(int _byte, int[] args){
-        super(_byte, args, "PUSH", "PUSH");
+    public PUSH(int _byte, int[] args, String[] operands){
+        super(_byte, args, "PUSH", "PUSH", operands);
     }
 
     @Override

@@ -15,16 +15,18 @@ public class Instruction {
     public int[] args;
     public String mnemonic;
     public String description;
+    public String[] operands;
     
     public void exec(){
         System.out.println("exec: Null");
     }
     
-    public Instruction(int _byte, int[] args, String mnemonic, String description){
+    public Instruction(int _byte, int[] args, String mnemonic, String description, String[] operands){
         this.opCode = _byte;
         this.args = args;
         this.mnemonic = mnemonic;
         this.description = description;
+        this.operands = operands;
     }
     
 }

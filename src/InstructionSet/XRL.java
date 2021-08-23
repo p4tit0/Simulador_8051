@@ -11,8 +11,8 @@ package InstructionSet;
  */
 public class XRL extends Instruction{
 
-    public XRL(int _byte, int[] args){
-        super(_byte, args, "XRL", "XRL");
+    public XRL(int _byte, int[] args, String[] operands){
+        super(_byte, args, "XRL", "XRL", operands);
     }
 
     @Override

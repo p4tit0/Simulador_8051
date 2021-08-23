@@ -11,8 +11,8 @@ package InstructionSet;
  */
 public class AJMP extends Instruction{
 
-    public AJMP(int _byte, int[] args){
-        super(_byte, args, "AJMP", "AJMP");
+    public AJMP(int _byte, int[] args, String[] operands){
+        super(_byte, args, "AJMP", "AJMP", operands);
     }
 
     @Override

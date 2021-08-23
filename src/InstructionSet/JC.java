@@ -11,8 +11,8 @@ package InstructionSet;
  */
 public class JC extends Instruction{
 
-    public JC(int _byte, int[] args){
-        super(_byte, args, "JC", "JC");
+    public JC(int _byte, int[] args, String[] operands){
+        super(_byte, args, "JC", "JC", operands);
     }
 
     @Override

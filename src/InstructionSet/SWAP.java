@@ -11,8 +11,8 @@ package InstructionSet;
  */
 public class SWAP extends Instruction{
 
-    public SWAP(int _byte, int[] args){
-        super(_byte, args, "SWAP", "SWAP");
+    public SWAP(int _byte, int[] args, String[] operands){
+        super(_byte, args, "SWAP", "SWAP", operands);
     }
 
     @Override

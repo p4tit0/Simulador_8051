@@ -11,8 +11,8 @@ package InstructionSet;
  */
 public class RR extends Instruction{
 
-    public RR(int _byte, int[] args){
-        super(_byte, args, "RR", "RR");
+    public RR(int _byte, int[] args, String[] operands){
+        super(_byte, args, "RR", "RR", operands);
     }
 
     @Override

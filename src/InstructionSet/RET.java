@@ -11,8 +11,8 @@ package InstructionSet;
  */
 public class RET extends Instruction{
 
-    public RET(int _byte, int[] args){
-        super(_byte, args, "RET", "RET");
+    public RET(int _byte, int[] args, String[] operands){
+        super(_byte, args, "RET", "RET", operands);
     }
 
     @Override

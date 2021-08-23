@@ -11,8 +11,8 @@ package InstructionSet;
  */
 public class XCH extends Instruction{
 
-    public XCH(int _byte, int[] args){
-        super(_byte, args, "XCH", "XCH");
+    public XCH(int _byte, int[] args, String[] operands){
+        super(_byte, args, "XCH", "XCH", operands);
     }
 
     @Override

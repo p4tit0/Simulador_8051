@@ -11,8 +11,8 @@ package InstructionSet;
  */
 public class LJMP extends Instruction{
 
-    public LJMP(int _byte, int[] args){
-        super(_byte, args, "LJMP", "LJMP");
+    public LJMP(int _byte, int[] args, String[] operands){
+        super(_byte, args, "LJMP", "LJMP", operands);
     }
 
     @Override
