@@ -50,6 +50,7 @@ public class Memory {
                 for (int k = 1; k<=args.length; k++){
                     args[k-1] = data.get(i+k);
                 }
+                System.out.println(data.get(i) +" "+ opcode_info[2]);
                 Constructor c = Class.forName("InstructionSet." + opcode_info[2]).getConstructor(new Class[]{int.class, int[].class, String[].class});
                 c.setAccessible(true);
                 rom[i] = (Instruction) c.newInstance(data.get(i), args, opcode_info[3].split(", "));
@@ -79,6 +80,7 @@ public class Memory {
             throw new Exception("Value out of range");
         }
         ram[address] = value;
+        Ram.setByte(address, value);
     }
     
     public static void setBit(int address, int bit, int value) throws Exception{

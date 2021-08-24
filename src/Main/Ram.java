@@ -178,13 +178,15 @@ public class Ram extends javax.swing.JFrame {
     public static void setByte(int address, int value){
         
         if(address > 0x7f){
+            System.out.println("Memória alta");
                 //memória alta
         }
         else{
+            System.out.println("Memória baixa");
             //memória baixa
             if(address < 0x20){
                 //banco de registradores
-                bankDM.setValueAt(value, address/8, address%8);
+                bankDM.setValueAt(Integer.toHexString(value).toUpperCase(), address/8, address%8);
             }
             else if(address < 0x30){
                 //registadores de bit endereçável
@@ -197,7 +199,7 @@ public class Ram extends javax.swing.JFrame {
             else{
                 //registradores de uso geral
                 int localAddr = address - 0x30;
-                hexDM.setValueAt(value, localAddr/hexDM.getColumnCount() , localAddr%hexDM.getColumnCount());
+                hexDM.setValueAt(Integer.toHexString(value).toUpperCase(), localAddr/hexDM.getColumnCount() , localAddr%hexDM.getColumnCount());
             }
         }
     }
@@ -220,7 +222,7 @@ public class Ram extends javax.swing.JFrame {
         addrScrollPane = new javax.swing.JScrollPane();
         addrTable = new javax.swing.JTable();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
 
         hexTable.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -413,7 +415,7 @@ public class Ram extends javax.swing.JFrame {
     private javax.swing.JScrollPane addrScrollPane;
     private javax.swing.JTable addrTable;
     private javax.swing.JScrollPane bankScrollPane;
-    private javax.swing.JTable bankTable;
+    private static javax.swing.JTable bankTable;
     private javax.swing.JScrollPane hexScrollPane;
     private static javax.swing.JTable hexTable;
     private javax.swing.JLabel jLabel1;
