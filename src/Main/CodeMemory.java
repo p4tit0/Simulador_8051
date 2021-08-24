@@ -326,14 +326,14 @@ public class CodeMemory extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton execBtn;
-    private static javax.swing.JTable hexTable;
+    public static javax.swing.JTable hexTable;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private static javax.swing.JTable mneTable;
+    public static javax.swing.JTable mneTable;
     private javax.swing.JButton openRam;
     // End of variables declaration//GEN-END:variables
 }
