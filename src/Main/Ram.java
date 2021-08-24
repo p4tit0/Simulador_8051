@@ -236,7 +236,7 @@ public class Ram extends javax.swing.JFrame {
 
             },
             new String [] {
-                "00", "01", "02", "03", "04", "05", "06", "07"
+                "R0", "R1", "R2", "R3", "R4", "R5", "R6", "R7"
             }
         ) {
             Class[] types = new Class [] {
