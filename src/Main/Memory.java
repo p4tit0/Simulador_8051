@@ -100,6 +100,7 @@ public class Memory {
             } else {
                 throw new Exception("Invalid value");
             }
+            Ram.setBit(address, bit, value);
         } else {
             throw new Exception(String.format("%02x", address).toUpperCase() + " isn't bit addressable");
         }
