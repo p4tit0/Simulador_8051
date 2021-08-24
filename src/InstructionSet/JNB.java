@@ -15,9 +15,27 @@ public class JNB extends Instruction{
     public JNB(int _byte, int[] args, String[] operands){
         super(_byte, args, "JNB", "JNB", operands);
     }
+    
+    public int toSignedNumber(int unsignedData) {
+        if (unsignedData >= 0 && unsignedData <= 127)
+            return unsignedData; 
+        return unsignedData - 256;
+    }
 
     @Override
-    public void exec(){
-        System.out.println("exec: JNB");
+    public void exec() throws Exception{
+        int address = 0;
+        if (args[0] <= 127){
+            address = args[0] / 8 + 32; 
+        } else {
+            address = args[0] - args[0] % 8;
+        }
+        
+        if (Memory.getBit(address, args[0] % 8) == 0){
+            System.out.println("JNB: " + String.format("%02x", Cpu.inst_idx) + " --> " + String.format("%02x", Cpu.inst_idx + toSignedNumber(args[1])));
+            Cpu.inst_idx += toSignedNumber(args[1] - 1);
+        } else {
+            System.out.println("JNB: " + String.format("%02x", Cpu.inst_idx) + " --> " + String.format("%02x", args[1]));
+        }
     }
 }
