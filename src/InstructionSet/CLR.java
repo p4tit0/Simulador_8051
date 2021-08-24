@@ -17,7 +17,22 @@ public class CLR extends Instruction{
     }
 
     @Override
-    public void exec(){
-        System.out.println("exec: CLR");
+    public void exec() throws Exception{
+        if (operands[0].equals("C")){
+            Memory.setBit(208, 0, 0);
+            System.out.println("CLR: C");
+        } else if (operands[0].equals("A")) {
+            Memory.setByte(224, 0);
+            System.out.println("CLR: A");
+        } else if (operands[0].equals("bit")) {
+           int address;
+           if (args[0] <= 127){
+                address = args[0] / 8 + 32; 
+            } else {
+                address = args[0] - args[0] % 8;
+            }
+            Memory.setBit(address, args[0] % 8, 0);
+            System.out.println("CLR: " + String.format("%02x", args[0]).toUpperCase());
+        }
     }
 }

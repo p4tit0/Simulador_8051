@@ -63,13 +63,12 @@ public class MOV extends Instruction{
                 address = args[0] - args[0] % 8;
             }
             Memory.setBit(address, args[0] % 8, Memory.getBit(208, 0));
-            System.out.println("MOV: C <-- " + String.format("%02x", args[0]).toUpperCase());
+            System.out.println("MOV: " + String.format("%02x", args[0]).toUpperCase() + " <-- C" );
             return;
         }
         
         
         System.out.println("MOV: " + String.format("%02x", address).toUpperCase() + " <-- " + String.format("%02x", val).toUpperCase());
         Memory.setByte(address, val);
-        System.out.println(address + ": " + val);
     }
 }

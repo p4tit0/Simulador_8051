@@ -15,9 +15,16 @@ public class SJMP extends Instruction{
     public SJMP(int _byte, int[] args, String[] operands){
         super(_byte, args, "SJMP", "SJMP", operands);
     }
+    
+    public int toSignedNumber(int unsignedData) {
+        if (unsignedData >= 0 && unsignedData <= 127)
+            return unsignedData; 
+        return unsignedData - 256;
+    }
 
     @Override
     public void exec(){
-        System.out.println("exec: SJMP");
+        System.out.println("JZ: " + String.format("%02x", Cpu.inst_idx) + " --> " + String.format("%02x", Cpu.inst_idx + toSignedNumber(args[0])));
+        Cpu.inst_idx += toSignedNumber(args[0] - 1);        
     }
 }
