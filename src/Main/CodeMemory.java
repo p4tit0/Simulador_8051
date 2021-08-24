@@ -24,6 +24,7 @@ public class CodeMemory extends javax.swing.JFrame {
     
     public static Cpu cpu = new Cpu();
     public static Memory memory = cpu.memory;
+    Ram ram = new Ram();
     
     public CodeMemory() {
         initComponents();
@@ -251,7 +252,6 @@ public class CodeMemory extends javax.swing.JFrame {
     }//GEN-LAST:event_mneTableMouseClicked
 
     private void openRamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openRamActionPerformed
-        Ram ram = new Ram();
         ram.setVisible(true);
     }//GEN-LAST:event_openRamActionPerformed
 

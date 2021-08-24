@@ -9,6 +9,7 @@ import com.formdev.flatlaf.FlatDarkLaf;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.util.ArrayList;
+import java.util.HashSet;
 import javax.swing.AbstractListModel;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -203,6 +204,31 @@ public class Ram extends javax.swing.JFrame {
             }
         }
     }
+    
+    public static void setBit(int address, int bit, int value){
+        addrDM.setValueAt(value, address, bit);
+    }
+    
+    public static void reset(){
+        //hexTable
+        for(int row = 0; row < hexDM.getRowCount(); row++){
+            for(int collumn = 0; collumn < hexDM.getColumnCount(); collumn++){
+                hexDM.setValueAt("0", row, collumn); 
+            }
+        }
+        //bankTable
+        for(int row = 0; row < bankDM.getRowCount(); row++){
+            for(int collumn = 0; collumn < bankDM.getColumnCount(); collumn++){
+                bankDM.setValueAt("0", row, collumn); 
+            }
+        }
+        //addrTable
+        for(int row = 0; row < addrDM.getRowCount(); row++){
+            for(int collumn = 0; collumn < addrDM.getColumnCount(); collumn++){
+                addrDM.setValueAt("0", row, collumn); 
+            }
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -222,7 +248,6 @@ public class Ram extends javax.swing.JFrame {
         addrScrollPane = new javax.swing.JScrollPane();
         addrTable = new javax.swing.JTable();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
 
         hexTable.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N

@@ -131,6 +131,7 @@ public class Charge extends javax.swing.JFrame {
     private void btChargeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btChargeActionPerformed
         //memory.load(inst_array);
         if (inst_array != null){
+            
             Object[] mem = CodeMemory.memory.load(inst_array);
             CodeMemory.loadHexTable((ArrayList<Integer>)mem[0]);
             CodeMemory.loadMnemonicTable((Instruction[])mem[1]);
