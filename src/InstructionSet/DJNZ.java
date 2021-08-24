@@ -5,6 +5,7 @@
  */
 package InstructionSet;
 
+import Main.*;
 /**
  *
  * @author space

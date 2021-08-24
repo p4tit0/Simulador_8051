@@ -17,7 +17,7 @@ public class Instruction {
     public String description;
     public String[] operands;
     
-    public void exec(){
+    public void exec()throws Exception{
         System.out.println("exec: Null");
     }
     
