@@ -32,10 +32,17 @@ public class Ram extends javax.swing.JFrame {
     //
     //20h - 2Fh
     //30h - 7Fh
+    
+    static DefaultTableModel hexDM;
+    static DefaultTableModel bankDM;
+    static DefaultTableModel addrDM;
+    
     public Ram() {
         initComponents();
+        hexDM = (DefaultTableModel) hexTable.getModel(); 
+        bankDM = (DefaultTableModel) bankTable.getModel(); 
+        addrDM = (DefaultTableModel) addrTable.getModel(); 
         
-        DefaultTableModel dm = (DefaultTableModel) hexTable.getModel();      
         ListModel lm = new AbstractListModel(){
                 
             public String[] headers = fillHeaders();
@@ -45,7 +52,6 @@ public class Ram extends javax.swing.JFrame {
                 for(int i = 3; i < 8; i++){
                     a.add(Integer.toHexString(i*16));
                 }
-                System.out.println(a.toString());
                 return a.toArray(new String[0]);
             }
             
@@ -78,14 +84,13 @@ public class Ram extends javax.swing.JFrame {
         getContentPane().add(hexScrollPane, BorderLayout.CENTER);
         
         for(int i = 3; i < 8; i++){
-            dm.addRow(new Object[]{"00","00","00","00","00","00","00","00", "00","00","00","00","00","00","00","00"});
+            hexDM.addRow(new Object[]{"00","00","00","00","00","00","00","00", "00","00","00","00","00","00","00","00"});
         }
         
 
         //hexTable.setMaximumSize(new Dimension(hexTable.getPreferredSize().width,
         //                            dm.getRowCount() * hexTable.getRowHeight()));
         
-        dm = (DefaultTableModel) bankTable.getModel();
         lm = new AbstractListModel(){
                 
             public String[] headers = {"00", "01", "02", "03"};
@@ -108,10 +113,9 @@ public class Ram extends javax.swing.JFrame {
         bankScrollPane.setRowHeaderView(rowHeader);
         getContentPane().add(bankScrollPane, BorderLayout.CENTER);
         for(int i = 0; i < 4; i++){
-            dm.addRow(new Object[]{"00","00","00","00","00","00","00","00"});
+            bankDM.addRow(new Object[]{"00","00","00","00","00","00","00","00"});
         }
         
-        dm = (DefaultTableModel) addrTable.getModel();
         lm = new AbstractListModel(){
                 
             public String[] headers = {"20", "21", "22", "23", "24", "25", "26",
@@ -135,12 +139,16 @@ public class Ram extends javax.swing.JFrame {
         addrScrollPane.setRowHeaderView(rowHeader);
         getContentPane().add(addrScrollPane, BorderLayout.CENTER);        
         for(int i = 0; i < 16; i++){
-            dm.addRow(new Object[]{"0","0","0","0","0","0","0","0"});
+            addrDM.addRow(new Object[]{"0","0","0","0","0","0","0","0"});
         }
         DefaultTableCellRenderer rightRender = new DefaultTableCellRenderer();
         rightRender.setHorizontalAlignment(JLabel.CENTER);
         for(int i = 0; i < addrTable.getColumnCount(); i++)
             addrTable.getColumnModel().getColumn(i).setCellRenderer(rightRender);
+        
+        for(int i = 0; i < Memory.ram.length; i++){
+            setByte(i, Memory.ram[i]);
+        }
         
     }
     
@@ -167,6 +175,34 @@ public class Ram extends javax.swing.JFrame {
         
     }
     
+    public static void setByte(int address, int value){
+        
+        if(address > 0x7f){
+            System.out.println("Memória alta");
+                //memória alta
+        }
+        else{
+            System.out.println("Memória baixa");
+            //memória baixa
+            if(address < 0x20){
+                //banco de registradores
+                bankDM.setValueAt(Integer.toHexString(value).toUpperCase(), address/8, address%8);
+            }
+            else if(address < 0x30){
+                //registadores de bit endereçável
+                int localAddr = address - 0x20;
+                String num = String.format("%8s", Integer.toBinaryString(value)).replace(" ", "0");
+                for(int i = 0; i < addrDM.getColumnCount(); i++){
+                    addrDM.setValueAt(num.charAt(i), localAddr, i);
+                }
+            }
+            else{
+                //registradores de uso geral
+                int localAddr = address - 0x30;
+                hexDM.setValueAt(Integer.toHexString(value).toUpperCase(), localAddr/hexDM.getColumnCount() , localAddr%hexDM.getColumnCount());
+            }
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -186,7 +222,7 @@ public class Ram extends javax.swing.JFrame {
         addrScrollPane = new javax.swing.JScrollPane();
         addrTable = new javax.swing.JTable();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
 
         hexTable.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -379,7 +415,7 @@ public class Ram extends javax.swing.JFrame {
     private javax.swing.JScrollPane addrScrollPane;
     private javax.swing.JTable addrTable;
     private javax.swing.JScrollPane bankScrollPane;
-    private javax.swing.JTable bankTable;
+    private static javax.swing.JTable bankTable;
     private javax.swing.JScrollPane hexScrollPane;
     private static javax.swing.JTable hexTable;
     private javax.swing.JLabel jLabel1;

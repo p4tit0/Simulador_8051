@@ -20,7 +20,7 @@ public class Cpu {
     
     static int size = 16;
     public static Memory memory = new Memory();//= new ArrayList<Object[]>(size);
-    public static int inst_idx;
+    public static int inst_idx = 0;
     
     public static void exec(){
         inst_idx = 0;
@@ -34,6 +34,17 @@ public class Cpu {
             }
             inst_idx++;
         }
+    }
+    
+    public static void step(){
+        if (memory.rom[inst_idx] != null){
+            try {
+                memory.rom[inst_idx].exec();
+            } catch (Exception ex) {
+                Logger.getLogger(Cpu.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        inst_idx++;
     }
     
 
