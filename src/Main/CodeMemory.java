@@ -299,11 +299,11 @@ public class CodeMemory extends javax.swing.JFrame {
             row[2] = Integer.toHexString(inst[i].opCode).toUpperCase();
             model.addRow(row);
         }
-        
+        color(0);
     }
     
     public static void color(int address){
-
+        System.out.println("COlorir");
         mneTable.setDefaultRenderer(Object.class, new DefaultTableCellRenderer(){
 
             @Override
@@ -323,7 +323,13 @@ public class CodeMemory extends javax.swing.JFrame {
                 return label;
             }
         });
+        mneTable.repaint();
     }
+    
+//    public static void colorir(int address){
+//        System.out.println("Colorindo");
+//        color(address);
+//    }
     
     /**
      * @param args the command line arguments
