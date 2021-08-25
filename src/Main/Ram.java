@@ -206,7 +206,7 @@ public class Ram extends javax.swing.JFrame {
     }
     
     public static void setBit(int address, int bit, int value){
-        addrDM.setValueAt(value, address, bit);
+        addrDM.setValueAt(value, address, 7-bit);
     }
     
     public static void reset(){
@@ -342,7 +342,7 @@ public class Ram extends javax.swing.JFrame {
 
             },
             new String [] {
-                "0", "1", "2", "3", "4", "5", "6", "7"
+                "7", "6", "5", "4", "3", "2", "1", "0"
             }
         ) {
             Class[] types = new Class [] {
