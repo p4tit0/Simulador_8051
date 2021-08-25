@@ -303,7 +303,6 @@ public class CodeMemory extends javax.swing.JFrame {
     }
     
     public static void color(int address){
-        System.out.println("OPAAAAAA");
 
         mneTable.setDefaultRenderer(Object.class, new DefaultTableCellRenderer(){
 
