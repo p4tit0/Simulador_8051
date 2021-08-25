@@ -179,11 +179,10 @@ public class Ram extends javax.swing.JFrame {
     public static void setByte(int address, int value){
         
         if(address > 0x7f){
-            System.out.println("Memória alta");
-                //memória alta
+            //memória alta
+            
         }
         else{
-            System.out.println("Memória baixa");
             //memória baixa
             if(address < 0x20){
                 //banco de registradores
