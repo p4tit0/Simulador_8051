@@ -56,6 +56,7 @@ public class Cpu {
             }
         }
         
+        CodeMemory.color(inst_idx);
         //System.out.println("COLORE" + inst_idx);
         //CodeMemory.color(inst_idx);
              
