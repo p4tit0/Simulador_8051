@@ -148,7 +148,7 @@ public class Charge extends javax.swing.JFrame {
             CodeMemory.loadHexTable((ArrayList<Integer>)mem[0]);
             CodeMemory.loadMnemonicTable((Instruction[])mem[1]);
             this.dispose();
-            CodeMemory.color(0);
+            //CodeMemory.color(0);
         }
     }//GEN-LAST:event_btChargeActionPerformed
     
@@ -194,7 +194,6 @@ public class Charge extends javax.swing.JFrame {
                     btCharge.setEnabled(false);
                     linesToPaint.add(lineIdx);
                     errorLabel.setText("CheckSum error");
-                    System.out.println("Deu Merda");
                 }
                 lineIdx++;
                 inst.add(divLine);

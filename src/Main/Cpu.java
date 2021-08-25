@@ -36,15 +36,16 @@ public class Cpu {
         }
     }
     
-    public static void step(){
+    public static void step(){        
         if (inst_idx >= memory.rom.length){
             inst_idx = 0;
         }
-        
-        try {
-            memory.rom[inst_idx].exec();
-        } catch (Exception ex) {
-            Logger.getLogger(Cpu.class.getName()).log(Level.SEVERE, null, ex);
+        if (memory.rom[inst_idx] != null){
+            try {
+                memory.rom[inst_idx].exec();
+            } catch (Exception ex) {
+                Logger.getLogger(Cpu.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         inst_idx++; 
         while(memory.rom[inst_idx] == null){
@@ -55,8 +56,8 @@ public class Cpu {
             }
         }
         
-        System.out.println("COLORE" + inst_idx);
-        CodeMemory.color(inst_idx);
+        //System.out.println("COLORE" + inst_idx);
+        //CodeMemory.color(inst_idx);
              
     }
 }
