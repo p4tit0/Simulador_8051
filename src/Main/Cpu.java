@@ -41,20 +41,22 @@ public class Cpu {
             inst_idx = 0;
         }
         
-        while(memory.rom[inst_idx] == null){
-            inst_idx++;
-            if (inst_idx >= memory.rom.length){
-                inst_idx = 0;
-            }
-        }
-        
         try {
             memory.rom[inst_idx].exec();
         } catch (Exception ex) {
             Logger.getLogger(Cpu.class.getName()).log(Level.SEVERE, null, ex);
         }
-        inst_idx++;
+        inst_idx++; 
+        while(memory.rom[inst_idx] == null){
+            inst_idx++;
+            if (inst_idx >= memory.rom.length){
+                inst_idx = 0;
+                break;
+            }
+        }
+        
+        System.out.println("COLORE" + inst_idx);
+        CodeMemory.color(inst_idx);
+             
     }
-    
-
 }

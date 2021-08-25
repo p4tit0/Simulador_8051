@@ -7,8 +7,11 @@ package Main;
 
 import InstructionSet.Instruction;
 import com.formdev.flatlaf.FlatDarkLaf;
+import java.awt.Color;
+import java.awt.Component;
 import java.util.ArrayList;
 import javax.swing.JLabel;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
@@ -296,7 +299,33 @@ public class CodeMemory extends javax.swing.JFrame {
             row[2] = Integer.toHexString(inst[i].opCode).toUpperCase();
             model.addRow(row);
         }
+        
     }
+    
+    public static void color(int address){
+        System.out.println("OPAAAAAA");
+
+        mneTable.setDefaultRenderer(Object.class, new DefaultTableCellRenderer(){
+
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object Value,
+                    boolean isSelected, boolean hasFocus, int row, int column){
+                
+                JLabel label = (JLabel) super.getTableCellRendererComponent(table, Value,
+                        isSelected, hasFocus, row, column);
+                //*************************************************************
+                Color c = new Color(0,0,0,0);
+                System.out.println(String.format("%04x", address)+"-------------------------------");
+                if (table.getValueAt(row, 0).equals(String.format("%04x", address).toUpperCase())){
+                    c = Color.RED;
+                }
+                label.setBackground(c);
+                //*************************************************************
+                return label;
+            }
+        });
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -306,6 +335,7 @@ public class CodeMemory extends javax.swing.JFrame {
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
+        
         try {
             javax.swing.UIManager.setLookAndFeel( new FlatDarkLaf() );
         } catch( Exception ex ) {
