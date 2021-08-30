@@ -303,7 +303,6 @@ public class CodeMemory extends javax.swing.JFrame {
     }
     
     public static void color(int address){
-        System.out.println("COlorir");
         mneTable.setDefaultRenderer(Object.class, new DefaultTableCellRenderer(){
 
             @Override
@@ -314,9 +313,8 @@ public class CodeMemory extends javax.swing.JFrame {
                         isSelected, hasFocus, row, column);
                 //*************************************************************
                 Color c = new Color(0,0,0,0);
-                System.out.println(String.format("%04x", address)+"-------------------------------");
                 if (table.getValueAt(row, 0).equals(String.format("%04x", address).toUpperCase())){
-                    c = Color.RED;
+                    c = new Color(180,0,0);
                 }
                 label.setBackground(c);
                 //*************************************************************

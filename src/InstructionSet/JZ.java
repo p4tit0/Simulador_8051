@@ -25,10 +25,10 @@ public class JZ extends Instruction{
     @Override
     public void exec(){
         if (Memory.ram[224] == 0){
-            System.out.println("JZ: " + String.format("%02x", Cpu.inst_idx) + " --> " + String.format("%02x", Cpu.inst_idx + toSignedNumber(args[0])));
-            Cpu.inst_idx += toSignedNumber(args[0] - 1);
+            System.out.println("JZ: " + String.format("%02x", Cpu.getPC()) + " --> " + String.format("%02x", Cpu.getPC() + toSignedNumber(args[0])));
+            Cpu.addPC(toSignedNumber(args[0] - 1));
         } else {
-            System.out.println("JZ: " + String.format("%02x", Cpu.inst_idx) + " --> " + String.format("%02x", args[0]));
+            System.out.println("JZ: " + String.format("%02x", Cpu.getPC()) + " --> " + String.format("%02x", args[0]));
         }
     }
 }

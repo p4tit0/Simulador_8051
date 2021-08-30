@@ -205,7 +205,12 @@ public class Ram extends javax.swing.JFrame {
     }
     
     public static void setBit(int address, int bit, int value){
-        addrDM.setValueAt(value, address-0x20, 7-bit);
+        
+        if(address < 0x7F)
+            addrDM.setValueAt(value, address-0x20, 7-bit);
+        
+        System.out.println("Adress: "+address + " bit: " + bit);
+        
     }
     
     public static void reset(){

@@ -32,7 +32,7 @@ public class MOV extends Instruction{
             address =  224;
         } else if (operands[0].equals("C")) {
             if (args[0] <= 127){
-                address = args[0] / 8 + 32; 
+                address = args[0] / 8 + 0x20; 
             } else {
                 address = args[0] - args[0] % 8;
             }
@@ -57,7 +57,7 @@ public class MOV extends Instruction{
             val = Memory.ram[224];
         } else if (operands[1].equals("C")) {
             if (args[0] <= 127){
-                address = args[0] / 8 + 32; 
+                address = args[0] / 8 + 0x20; 
             } else {
                 address = args[0] - args[0] % 8;
             }

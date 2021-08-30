@@ -32,10 +32,10 @@ public class JNB extends Instruction{
         }
         
         if (Memory.getBit(address, args[0] % 8) == 0){
-            System.out.println("JNB: " + String.format("%02x", Cpu.inst_idx) + " --> " + String.format("%02x", Cpu.inst_idx + toSignedNumber(args[1])));
-            Cpu.inst_idx += toSignedNumber(args[1] - 1);
+            System.out.println("JNB: " + String.format("%02x", Cpu.getPC()) + " --> " + String.format("%02x", Cpu.getPC() + toSignedNumber(args[1])));
+            Cpu.addPC(toSignedNumber(args[1] - 1));
         } else {
-            System.out.println("JNB: " + String.format("%02x", Cpu.inst_idx) + " --> " + String.format("%02x", args[1]));
+            System.out.println("JNB: " + String.format("%02x", Cpu.getPC()) + " --> " + String.format("%02x", args[1]));
         }
     }
 }
