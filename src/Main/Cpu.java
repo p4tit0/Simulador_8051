@@ -20,45 +20,62 @@ public class Cpu {
     
     static int size = 16;
     public static Memory memory = new Memory();//= new ArrayList<Object[]>(size);
-    public static int inst_idx = 0;
+    public static int PC = 0;
     
     public static void exec(){
-        inst_idx = 0;
-        while(inst_idx < memory.rom.length){
-            if (memory.rom[inst_idx] != null){
+        PC = 0;
+        while(PC < memory.rom.length){
+            if (memory.rom[PC] != null){
                 try {
-                    memory.rom[inst_idx].exec();
+                    memory.rom[PC].exec();
                 } catch (Exception ex) {
                     Logger.getLogger(Cpu.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-            inst_idx++;
+            PC++;
         }
     }
     
     public static void step(){        
-        if (inst_idx >= memory.rom.length){
-            inst_idx = 0;
+        if (PC >= memory.rom.length){
+            PC = 0;
         }
-        if (memory.rom[inst_idx] != null){
+        if (memory.rom[PC] != null){
             try {
-                memory.rom[inst_idx].exec();
+                memory.rom[PC].exec();
             } catch (Exception ex) {
                 Logger.getLogger(Cpu.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        inst_idx++; 
-        while(memory.rom[inst_idx] == null){
-            inst_idx++;
-            if (inst_idx >= memory.rom.length){
-                inst_idx = 0;
+        PC++; 
+        while(memory.rom[PC] == null){
+            PC++;
+            if (PC >= memory.rom.length){
+                PC = 0;
                 break;
             }
         }
         
-        CodeMemory.color(inst_idx);
-        //System.out.println("COLORE" + inst_idx);
-        //CodeMemory.color(inst_idx);
+        CodeMemory.color(PC);
+        //System.out.println("COLORE" + PC);
+        //CodeMemory.color(PC);
              
     }
+    
+    public static void reset(){
+        PC = 0;
+    }
+    
+    public static int getPC(){
+        return PC;
+    }
+    
+    public static void setPC(int value){
+        PC = value;
+    }
+    
+    public static void addPC(int value){
+        PC += value;
+    }
+    
 }

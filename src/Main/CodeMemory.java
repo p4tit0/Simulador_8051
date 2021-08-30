@@ -324,6 +324,18 @@ public class CodeMemory extends javax.swing.JFrame {
         mneTable.repaint();
     }
     
+    public static void reset(){
+        DefaultTableModel model_mneTable = (DefaultTableModel) mneTable.getModel();
+        for (int row = mneTable.getRowCount()-1; row >= 0; row--){
+            model_mneTable.removeRow(row);
+        }
+
+        DefaultTableModel model_hexTable = (DefaultTableModel) hexTable.getModel();
+        for (int row = hexTable.getRowCount()-1; row >= 0; row--){
+            model_hexTable.removeRow(row);
+        }
+    }
+    
 //    public static void colorir(int address){
 //        System.out.println("Colorindo");
 //        color(address);

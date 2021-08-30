@@ -119,4 +119,9 @@ public class Memory {
         }
         throw new Exception(String.format("%02x", address).toUpperCase() + " isn't bit addressable");
     }
+    
+    public static void reset(){
+        rom = new Instruction[rom.length];
+        ram = new int[ram.length];
+    }
 }
