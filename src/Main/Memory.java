@@ -18,7 +18,7 @@ import java.util.Arrays;
  */
 public class Memory {
     
-    public static Instruction[] rom = new Instruction[100];
+    public static Instruction[] rom = new Instruction[4095];
     public static int[] ram = new int[256];
     
     public String[] getOpcodeInfo(int _byte){
@@ -53,7 +53,11 @@ public class Memory {
                 System.out.println(data.get(i) +" "+ opcode_info[2]);
                 Constructor c = Class.forName("InstructionSet." + opcode_info[2]).getConstructor(new Class[]{int.class, int[].class, String[].class});
                 c.setAccessible(true);
-                rom[i] = (Instruction) c.newInstance(data.get(i), args, opcode_info[3].split(", "));
+                String[] operands = new String[0];
+                if (opcode_info.length == 4){
+                    operands = opcode_info[3].split(", ");
+                }
+                rom[i] = (Instruction) c.newInstance(data.get(i), args, operands);
                 i += args.length;
                 
             } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | NoSuchMethodException | SecurityException | IllegalArgumentException | InvocationTargetException e) {
