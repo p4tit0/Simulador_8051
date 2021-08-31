@@ -145,7 +145,7 @@ public class Charge extends javax.swing.JFrame {
             }
         }
         
-        System.out.println(Arrays.toString(data));
+        //System.out.println(Arrays.toString(data));
         
         Memory.reset();
         CodeMemory.reset();
