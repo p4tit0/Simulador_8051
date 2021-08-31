@@ -13,6 +13,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
@@ -31,7 +32,7 @@ public class Charge extends javax.swing.JFrame {
     /**
      * Creates new form Charge
      */
-    Object[][] inst_array = null;
+    Object[][] inst_array = new Object[Memory.rom.length][3];
     
     
     public Charge() {
@@ -69,6 +70,7 @@ public class Charge extends javax.swing.JFrame {
         });
 
         btCharge.setText("Load");
+        btCharge.setEnabled(false);
         btCharge.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btChargeActionPerformed(evt);
@@ -129,23 +131,37 @@ public class Charge extends javax.swing.JFrame {
     }//GEN-LAST:event_btOpenActionPerformed
 
     private void btChargeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btChargeActionPerformed
-        //memory.load(inst_array);
-        if (inst_array != null){
-            Memory.reset();
-            CodeMemory.reset();
-            Ram.reset();
-            Cpu.reset();
-            
-            Object[] mem = Cpu.memory.load(inst_array);
-            CodeMemory.loadHexTable((ArrayList<Integer>)mem[0]);
-            CodeMemory.loadMnemonicTable((Instruction[])mem[1]);
-            this.dispose();
-            //CodeMemory.color(0);
+        int[] data = new int[Memory.rom.length];
+        rogerio: for (int i = 0; i < inst_array.length; i++){
+            switch((int) inst_array[i][0]){
+                case 0 -> {
+                    for (int _byte : (int[]) inst_array[i][1]){
+                        data[i + (int)inst_array[i][2]] = _byte;
+                    }
+                } 
+                case 1 -> {
+                    break rogerio;
+                }
+            }
         }
+        
+        System.out.println(Arrays.toString(data));
+        
+        Memory.reset();
+        CodeMemory.reset();
+        Ram.reset();
+        Cpu.reset();
+
+        Object[] mem = Cpu.memory.load(data);
+        CodeMemory.loadHexTable((int[]) mem[0]);
+        CodeMemory.loadMnemonicTable((Instruction[])mem[1]);
+        this.dispose();
+        //CodeMemory.color(0);
     }//GEN-LAST:event_btChargeActionPerformed
     
     void read(File file){
-        ArrayList<Object[]> inst = new ArrayList<Object[]>();
+        //ArrayList<Object[]> inst = new ArrayList<Object[]>();
+        inst_array = new Object[Memory.rom.length][3];
         try {
             FileReader fr = new FileReader(file);
             BufferedReader bf = new BufferedReader(fr);
@@ -161,7 +177,7 @@ public class Charge extends javax.swing.JFrame {
                 }
                 String str_check_sum = String.format("%x", ~byte_sum + 1);
                 str_check_sum = str_check_sum.substring(str_check_sum.length()-2, str_check_sum.length());
-                System.out.println(str_check_sum);
+                //System.out.println(str_check_sum);
                 
                 if (!str_check_sum.toUpperCase().equals(line.substring(line.length()-2))){
                     btCharge.setEnabled(false);
@@ -187,14 +203,13 @@ public class Charge extends javax.swing.JFrame {
                     linesToPaint.add(lineIdx);
                     errorLabel.setText("CheckSum error");
                 }
+                inst_array[lineIdx] = divLine;
                 lineIdx++;
-                inst.add(divLine);
             }
             
             Color color = new Color(209, 38, 38);
             for(int i : linesToPaint){
                 try {
-                    //aa
                     int startIndex = hexArea.getLineStartOffset(i);
                     int endIndex = hexArea.getLineEndOffset(i);
                     hexArea.getHighlighter().addHighlight(startIndex, endIndex, new DefaultHighlighter.DefaultHighlightPainter(color));
@@ -205,11 +220,10 @@ public class Charge extends javax.swing.JFrame {
         } catch(IOException e){
             JOptionPane.showMessageDialog(null, "Erro ao ler arquivo");
         }
-        inst_array = new Object[Memory.rom.length][];
-        for (int i = 0; i < inst.size(); i++) {
-            Object[] row = inst.get(i);
-            inst_array[i + (int)row[2]] = new Object[]{row[0], row[1]};
-        }
+//        for (int i = 0; i < inst.size(); i++) {
+//            Object[] row = inst.get(i);
+//            inst_array[i] = row;
+//        }
 
     }
     
