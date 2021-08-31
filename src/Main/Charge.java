@@ -136,7 +136,7 @@ public class Charge extends javax.swing.JFrame {
             Ram.reset();
             Cpu.reset();
             
-            Object[] mem = CodeMemory.memory.load(inst_array);
+            Object[] mem = Cpu.memory.load(inst_array);
             CodeMemory.loadHexTable((ArrayList<Integer>)mem[0]);
             CodeMemory.loadMnemonicTable((Instruction[])mem[1]);
             this.dispose();
@@ -153,7 +153,7 @@ public class Charge extends javax.swing.JFrame {
             ArrayList<Integer> linesToPaint = new ArrayList();
             while(bf.ready()){
                 String line = bf.readLine();
-                Object[] divLine = new Object[2];
+                Object[] divLine = new Object[3];
                 
                 int byte_sum = 0;
                 for (int i = 0; i < line.substring(1, line.length()-2).length()/2; i++){
@@ -170,7 +170,7 @@ public class Charge extends javax.swing.JFrame {
                 
                 int itSize = Integer.parseInt(line.substring(1, 3), 16);
                 //divLine[0] = Integer.parseInt(line.substring(1, 3), 16);
-                //divLine[1] = Integer.parseInt(line.substring(3, 7), 16);
+                divLine[2] = Integer.parseInt(line.substring(3, 7), 16);
                 divLine[0] = Integer.parseInt(line.substring(7, 9), 16);
                 int[] instruct = new int[itSize];
                 for (int i = 0; i < itSize; i++){
@@ -205,10 +205,10 @@ public class Charge extends javax.swing.JFrame {
         } catch(IOException e){
             JOptionPane.showMessageDialog(null, "Erro ao ler arquivo");
         }
-        inst_array = new Object[inst.size()][];
+        inst_array = new Object[Memory.rom.length][];
         for (int i = 0; i < inst.size(); i++) {
             Object[] row = inst.get(i);
-            inst_array[i] = row;
+            inst_array[i + (int)row[2]] = new Object[]{row[0], row[1]};
         }
 
     }

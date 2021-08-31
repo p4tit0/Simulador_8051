@@ -284,7 +284,7 @@ public class CodeMemory extends javax.swing.JFrame {
             Object[] row = new Object[model.getColumnCount()];
             row[0] = String.format("%04x", i).toUpperCase();
             if(inst[i] == null) {
-                //model.addRow(row);
+                model.addRow(row);
                 continue;
             }
             

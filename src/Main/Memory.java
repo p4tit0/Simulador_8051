@@ -34,10 +34,12 @@ public class Memory {
     public Object[] load(Object[][] inst){
         ArrayList<Integer> data = new ArrayList<>();
         for (Object[] line : inst){
-            switch((int)line[0]){
-                case 0 -> {
-                    for (int _byte : (int[]) line[1]){
-                        data.add(_byte);
+            if(line != null){
+                switch((int)line[0]){
+                    case 0 -> {
+                        for (int _byte : (int[]) line[1]){
+                            data.add(_byte);
+                        }
                     }
                 }
             }
@@ -118,6 +120,17 @@ public class Memory {
             return data;
         }
         throw new Exception(String.format("%02x", address).toUpperCase() + " isn't bit addressable");
+    }
+    
+    public static int getBank(){
+        return (ram[0xD0] & 0x18) >> 3;
+    }
+    
+    public static void setBank(int value){
+        value <<= 3;
+        ram[0xD0] |= value;
+        value |= 0xE7;
+        ram[0xD0] &= value;
     }
     
     public static void reset(){
