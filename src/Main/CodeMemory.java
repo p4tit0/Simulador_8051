@@ -262,14 +262,14 @@ public class CodeMemory extends javax.swing.JFrame {
         Cpu.step();
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    static void loadHexTable(ArrayList<Integer> data){        
+    static void loadHexTable(int[] data){        
         DefaultTableModel model = (DefaultTableModel) hexTable.getModel();
         int column = 0;
         Object[] row = new Object[model.getColumnCount()];
         for(Integer i : data){
             row[column] = String.format("%02x", i).toUpperCase();
             column++;
-            if (column > model.getColumnCount() - 1 || model.getColumnCount() * model.getRowCount() + column == data.size()){
+            if (column > model.getColumnCount() - 1 || model.getColumnCount() * model.getRowCount() + column == data.length){
                 column = 0;
                 model.addRow(row);
                 row = new Object[model.getColumnCount()];
