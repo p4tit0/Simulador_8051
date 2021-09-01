@@ -21,11 +21,12 @@ public class MOV extends Instruction{
     public void exec() throws Exception{
         int address = 0;
         if (operands[0].startsWith("@R")){
-            int bank = Byte.parseByte(String.format("%8s", Integer.toBinaryString(Memory.ram[208] & 0xFF)).replace(' ', '0').substring(3,5), 2);
-            address = Memory.ram[Integer.valueOf(operands[0].substring(operands[0].length()-1)) + 8 * bank];
+            
+            //int bank = Byte.parseByte(String.format("%8s", Integer.toBinaryString( & 0xFF)).replace(' ', '0').substring(3,5), 2);
+            address = Memory.ram[Integer.valueOf(operands[0].substring(operands[0].length()-1)) + 8 * Memory.getBank()];
         } else if (operands[0].startsWith("R")) {
-            byte bank = Byte.parseByte(String.format("%8s", Integer.toBinaryString(Memory.ram[208] & 0xFF)).replace(' ', '0').substring(3,5), 2);
-            address = Integer.valueOf(operands[0].substring(operands[0].length()-1)) + 8 * bank;
+            //byte bank = Byte.parseByte(String.format("%8s", Integer.toBinaryString(Memory.ram[208] & 0xFF)).replace(' ', '0').substring(3,5), 2);
+            address = Integer.valueOf(operands[0].substring(operands[0].length()-1)) + 8 * Memory.getBank();
         } else if (operands[0].equals("direct") || operands[0].equals("DPTR")){
             address = args[0];
         } else if (operands[0].equals("A")) {
@@ -43,12 +44,12 @@ public class MOV extends Instruction{
         
         int val = 0;
         if (operands[1].startsWith("@R")){
-            int bank = Byte.parseByte(String.format("%8s", Integer.toBinaryString(Memory.ram[208] & 0xFF)).replace(' ', '0').substring(3,5), 2);
-            int rn_val = Memory.ram[Integer.valueOf(operands[1].substring(operands[1].length()-1)) + 8 * bank];
+            //int bank = Byte.parseByte(String.format("%8s", Integer.toBinaryString(Memory.ram[208] & 0xFF)).replace(' ', '0').substring(3,5), 2);
+            int rn_val = Memory.ram[Integer.valueOf(operands[1].substring(operands[1].length()-1)) + 8 * Memory.getBank()];
             val = Memory.ram[rn_val]; 
         } else if (operands[1].startsWith("R")) {
-            int bank = Byte.parseByte(String.format("%8s", Integer.toBinaryString(Memory.ram[208] & 0xFF)).replace(' ', '0').substring(3,5), 2);
-            val = Memory.ram[Integer.valueOf(operands[1].substring(operands[1].length()-1)) + 8 * bank];
+            //int bank = Byte.parseByte(String.format("%8s", Integer.toBinaryString(Memory.ram[208] & 0xFF)).replace(' ', '0').substring(3,5), 2);
+            val = Memory.ram[Integer.valueOf(operands[1].substring(operands[1].length()-1)) + 8 * Memory.getBank()];
         } else if (operands[1].startsWith("#")) {
             val = args[args.length-1];
         } else if (operands[1].equals("direct")){
