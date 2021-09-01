@@ -253,7 +253,7 @@ public class Ram extends javax.swing.JFrame {
             }
             else{
                 int row = 0;
-                System.out.println(address);
+                
                 switch(address){
                     case 0x81://SP
                         row = 0;
