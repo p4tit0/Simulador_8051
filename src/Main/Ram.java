@@ -37,12 +37,16 @@ public class Ram extends javax.swing.JFrame {
     static DefaultTableModel hexDM;
     static DefaultTableModel bankDM;
     static DefaultTableModel addrDM;
+    static DefaultTableModel speAddrDM;
+    static DefaultTableModel speDM;
     
     public Ram() {
         initComponents();
         hexDM = (DefaultTableModel) hexTable.getModel(); 
         bankDM = (DefaultTableModel) bankTable.getModel(); 
         addrDM = (DefaultTableModel) addrTable.getModel(); 
+        speAddrDM = (DefaultTableModel) speAddrTable.getModel(); 
+        speDM = (DefaultTableModel) speTable.getModel(); 
         
         ListModel lm = new AbstractListModel(){
                 
@@ -82,7 +86,7 @@ public class Ram extends javax.swing.JFrame {
 
         //ScrollPane
         hexScrollPane.setRowHeaderView(rowHeader);
-        getContentPane().add(hexScrollPane, BorderLayout.CENTER);
+        //getContentPane().add(hexScrollPane, BorderLayout.CENTER);
         
         for(int i = 3; i < 8; i++){
             hexDM.addRow(new Object[]{"00","00","00","00","00","00","00","00", "00","00","00","00","00","00","00","00"});
@@ -112,7 +116,7 @@ public class Ram extends javax.swing.JFrame {
         rowHeader.setFixedCellHeight(bankTable.getRowHeight());
         rowHeader.setCellRenderer(new RowRenderer(bankTable));
         bankScrollPane.setRowHeaderView(rowHeader);
-        getContentPane().add(bankScrollPane, BorderLayout.CENTER);
+        //getContentPane().add(bankScrollPane, BorderLayout.CENTER);
         for(int i = 0; i < 4; i++){
             bankDM.addRow(new Object[]{"00","00","00","00","00","00","00","00"});
         }
@@ -138,15 +142,75 @@ public class Ram extends javax.swing.JFrame {
         rowHeader.setFixedCellHeight(addrTable.getRowHeight());
         rowHeader.setCellRenderer(new RowRenderer(addrTable));
         addrScrollPane.setRowHeaderView(rowHeader);
-        getContentPane().add(addrScrollPane, BorderLayout.CENTER);        
+        //getContentPane().add(addrScrollPane, BorderLayout.CENTER);        
         for(int i = 0; i < 16; i++){
             addrDM.addRow(new Object[]{"0","0","0","0","0","0","0","0"});
         }
-        DefaultTableCellRenderer rightRender = new DefaultTableCellRenderer();
-        rightRender.setHorizontalAlignment(JLabel.CENTER);
-        for(int i = 0; i < addrTable.getColumnCount(); i++)
-            addrTable.getColumnModel().getColumn(i).setCellRenderer(rightRender);
         
+        DefaultTableCellRenderer centerRender = new DefaultTableCellRenderer();
+        centerRender.setHorizontalAlignment(JLabel.CENTER);
+        for(int i = 0; i < addrTable.getColumnCount(); i++)
+            addrTable.getColumnModel().getColumn(i).setCellRenderer(centerRender);
+        
+        /////////////////////////Registradores especiais de bit endereçável////////////////////////////
+        lm = new AbstractListModel(){
+                
+            public String[] headers = {"ACC", "B", "PSW", "P0", "P1", "P2", "P3",
+            "IP", "IE", "TCON", "SCON"};
+            
+            @Override
+            public int getSize() {
+                return headers.length;
+            }
+
+            @Override
+            public Object getElementAt(int index) {
+                return headers[index];
+            }
+        };
+        
+        rowHeader = new JList(lm);
+        rowHeader.setFixedCellWidth(50);
+        rowHeader.setFixedCellHeight(speAddrTable.getRowHeight());
+        rowHeader.setCellRenderer(new RowRenderer(speAddrTable));
+        speAddrScrollPane.setRowHeaderView(rowHeader);
+        //getContentPane().add(speAddrScrollPane, BorderLayout.CENTER);        
+        for(int i = 0; i < 11; i++){
+            speAddrDM.addRow(new Object[]{"0","0","0","0","0","0","0","0"});
+        }
+        //////////////////////////////////Registradores especiais//////////////////////////////////////////
+        lm = new AbstractListModel(){
+                
+            public String[] headers = {"SP", "DPL", "DPH", "TMOD", "TH0", "TL0", "TH1",
+            "TL1", "SBUF", "PCON"};
+            
+            @Override
+            public int getSize() {
+                return headers.length;
+            }
+
+            @Override
+            public Object getElementAt(int index) {
+                return headers[index];
+            }
+        };
+        
+        rowHeader = new JList(lm);
+        rowHeader.setFixedCellWidth(50);
+        rowHeader.setFixedCellHeight(speTable.getRowHeight());
+        rowHeader.setCellRenderer(new RowRenderer(speTable));
+        speScrollPane.setRowHeaderView(rowHeader);
+        //getContentPane().add(speScrollPane, BorderLayout.CENTER);        
+        for(int i = 0; i < 10; i++){
+            speDM.addRow(new Object[]{"00"});
+        }
+        
+        speTable.getTableHeader().setUI(null);
+        
+        for(int i = 0; i < speTable.getColumnCount(); i++)
+            speTable.getColumnModel().getColumn(i).setCellRenderer(centerRender);
+        
+        ////////////////////////////////////////////////////////////////////////////////////////////////
         for(int i = 0; i < Memory.ram.length; i++){
             setByte(i, Memory.ram[i]);
         }
@@ -180,7 +244,47 @@ public class Ram extends javax.swing.JFrame {
         
         if(address > 0x7f){
             //memória alta
-            
+            if (Memory.isBitAddressable(address)){
+                int row = getSpeRow(address);
+                String num = String.format("%8s", Integer.toBinaryString(value)).replace(" ", "0");
+                for(int i = 0; i < speAddrDM.getColumnCount(); i++){
+                    speAddrDM.setValueAt(num.charAt(i), row, i);
+                }
+            }
+            else{
+                switch(address){
+                    case 0x81://SP
+                        
+                        break;
+                    case 0x82://DPL
+                        
+                        break;
+                    case 0x83://DPH
+                        
+                        break;
+                    case 0x89://TMOD
+                        
+                        break;
+                    case 0x8C://TH0
+                        
+                        break;
+                    case 0x8A://TL0
+                        
+                        break;
+                    case 0x8D://TH1
+                        
+                        break;
+                    case 0x8B://TL1
+                        
+                        break;
+                    case 0x99://SBUF
+                        
+                        break;
+                    case 0x87://PCON
+                        
+                        break;
+                }
+            }
         }
         else{
             //memória baixa
@@ -206,11 +310,64 @@ public class Ram extends javax.swing.JFrame {
     
     public static void setBit(int address, int bit, int value){
         
-        if(address < 0x7F)
+        if(address > 0x7F){
+           // memória alta
+           int row = getSpeRow(address);
+           if (row != -1){
+               speAddrDM.setValueAt(value, row, 7-bit);
+           }
+           else{
+               System.out.println("row out of range");
+           }
+        }
+        else{
+            //memória baixa
             addrDM.setValueAt(value, address-0x20, 7-bit);
-        
+        }
         System.out.println("Adress: "+address + " bit: " + bit);
         
+    }
+    
+    public static int getSpeRow(int address){
+        int row = 0;
+        switch(address){
+                case 0xE0://ACC
+                   row = 0;
+                   break;
+                case 0xF0://B
+                   row = 1;
+                   break;
+                case 0xD0://PSW
+                   row = 2;
+                   break;
+                case 0x80://P0
+                   row = 3;
+                   break;
+                case 0x90://P1
+                   row = 4;
+                   break;
+                case 0xA0://P2
+                   row = 5;
+                   break;
+                case 0xB0://P3
+                   row = 6;
+                   break;
+                case 0xB8://IP
+                   row = 7;
+                   break;
+                case 0xA8://IE
+                   row = 8;
+                   break;
+                case 0x88://TCON
+                   row = 9;
+                   break;
+                case 0x98://SCON
+                   row = 10;
+                   break;
+                default:
+                   return -1;
+           }
+        return row;
     }
     
     public static void reset(){
@@ -251,6 +408,10 @@ public class Ram extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         addrScrollPane = new javax.swing.JScrollPane();
         addrTable = new javax.swing.JTable();
+        speAddrScrollPane = new javax.swing.JScrollPane();
+        speAddrTable = new javax.swing.JTable();
+        speScrollPane = new javax.swing.JScrollPane();
+        speTable = new javax.swing.JTable();
 
         setResizable(false);
 
@@ -368,12 +529,89 @@ public class Ram extends javax.swing.JFrame {
         if (addrTable.getColumnModel().getColumnCount() > 0) {
             addrTable.getColumnModel().getColumn(0).setResizable(false);
             addrTable.getColumnModel().getColumn(1).setResizable(false);
+            addrTable.getColumnModel().getColumn(1).setHeaderValue("6");
             addrTable.getColumnModel().getColumn(2).setResizable(false);
+            addrTable.getColumnModel().getColumn(2).setHeaderValue("5");
             addrTable.getColumnModel().getColumn(3).setResizable(false);
+            addrTable.getColumnModel().getColumn(3).setHeaderValue("4");
             addrTable.getColumnModel().getColumn(4).setResizable(false);
+            addrTable.getColumnModel().getColumn(4).setHeaderValue("3");
             addrTable.getColumnModel().getColumn(5).setResizable(false);
+            addrTable.getColumnModel().getColumn(5).setHeaderValue("2");
             addrTable.getColumnModel().getColumn(6).setResizable(false);
+            addrTable.getColumnModel().getColumn(6).setHeaderValue("1");
             addrTable.getColumnModel().getColumn(7).setResizable(false);
+            addrTable.getColumnModel().getColumn(7).setHeaderValue("0");
+        }
+
+        speAddrTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "7", "6", "5", "4", "3", "2", "1", "0"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        speAddrScrollPane.setViewportView(speAddrTable);
+        if (speAddrTable.getColumnModel().getColumnCount() > 0) {
+            speAddrTable.getColumnModel().getColumn(0).setResizable(false);
+            speAddrTable.getColumnModel().getColumn(1).setResizable(false);
+            speAddrTable.getColumnModel().getColumn(1).setHeaderValue("6");
+            speAddrTable.getColumnModel().getColumn(2).setResizable(false);
+            speAddrTable.getColumnModel().getColumn(2).setHeaderValue("5");
+            speAddrTable.getColumnModel().getColumn(3).setResizable(false);
+            speAddrTable.getColumnModel().getColumn(3).setHeaderValue("4");
+            speAddrTable.getColumnModel().getColumn(4).setResizable(false);
+            speAddrTable.getColumnModel().getColumn(4).setHeaderValue("3");
+            speAddrTable.getColumnModel().getColumn(5).setResizable(false);
+            speAddrTable.getColumnModel().getColumn(5).setHeaderValue("2");
+            speAddrTable.getColumnModel().getColumn(6).setResizable(false);
+            speAddrTable.getColumnModel().getColumn(6).setHeaderValue("1");
+            speAddrTable.getColumnModel().getColumn(7).setResizable(false);
+            speAddrTable.getColumnModel().getColumn(7).setHeaderValue("0");
+        }
+
+        speTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                ""
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        speScrollPane.setViewportView(speTable);
+        if (speTable.getColumnModel().getColumnCount() > 0) {
+            speTable.getColumnModel().getColumn(0).setResizable(false);
         }
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -382,16 +620,20 @@ public class Ram extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(addrScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 677, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(hexScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 424, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(bankScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 247, Short.MAX_VALUE))))
+                        .addComponent(addrScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(speAddrScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(speScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 98, Short.MAX_VALUE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(hexScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 424, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(bankScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 247, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -407,7 +649,12 @@ public class Ram extends javax.swing.JFrame {
                         .addComponent(bankScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE))
                     .addComponent(hexScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(addrScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 248, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(addrScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(speAddrScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(speScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 45, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -449,6 +696,10 @@ public class Ram extends javax.swing.JFrame {
     private static javax.swing.JTable hexTable;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JScrollPane speAddrScrollPane;
+    private javax.swing.JTable speAddrTable;
+    private javax.swing.JScrollPane speScrollPane;
+    private javax.swing.JTable speTable;
     // End of variables declaration//GEN-END:variables
 }
 
