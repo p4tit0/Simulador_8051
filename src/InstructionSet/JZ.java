@@ -16,17 +16,11 @@ public class JZ extends Instruction{
         super(_byte, args, "JZ", "JZ", operands);
     }
     
-    public int toSignedNumber(int unsignedData) {
-        if (unsignedData >= 0 && unsignedData <= 127)
-            return unsignedData; 
-        return unsignedData - 256;
-    }
-    
     @Override
     public void exec(){
         if (Memory.ram[224] == 0){
-            System.out.println("JZ: " + String.format("%02x", Cpu.getPC()) + " --> " + String.format("%02x", Cpu.getPC() + toSignedNumber(args[0])));
-            Cpu.addPC(toSignedNumber(args[0] - 1));
+            System.out.println("JZ: " + String.format("%02x", Cpu.getPC()) + " --> " + String.format("%02x", Cpu.getPC() + Memory.toSignedNumber(args[0])));
+            Cpu.addPC(Memory.toSignedNumber(args[0] - 1));
         } else {
             System.out.println("JZ: " + String.format("%02x", Cpu.getPC()) + " --> " + String.format("%02x", args[0]));
         }

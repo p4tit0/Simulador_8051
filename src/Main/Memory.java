@@ -46,7 +46,11 @@ public class Memory {
         return mem;
     }
     
-    
+    public static int toSignedNumber(int unsignedData) {
+        if (unsignedData >= 0 && unsignedData <= 127)
+            return unsignedData; 
+        return unsignedData - 256;
+    }
     
     public static boolean isBitAddressable(int address) {
         Integer[] bit_address_sfrs = new Integer[]{128, 136, 144, 152, 160, 168, 176, 184, 208, 224, 240};
