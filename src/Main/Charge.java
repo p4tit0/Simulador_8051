@@ -135,8 +135,8 @@ public class Charge extends javax.swing.JFrame {
         rogerio: for (int i = 0; i < inst_array.length; i++){
             switch((int) inst_array[i][0]){
                 case 0 -> {
-                    for (int _byte : (int[]) inst_array[i][1]){
-                        data[i + (int)inst_array[i][2]] = _byte;
+                    for (int k = 0; k < ((int[]) inst_array[i][1]).length; k++){
+                        data[(int)inst_array[i][2] + k] = ((int[]) inst_array[i][1])[k];
                     }
                 } 
                 case 1 -> {
@@ -145,7 +145,7 @@ public class Charge extends javax.swing.JFrame {
             }
         }
         
-        //System.out.println(Arrays.toString(data));
+        System.out.println(Arrays.toString(data));
         
         Memory.reset();
         CodeMemory.reset();
@@ -224,7 +224,7 @@ public class Charge extends javax.swing.JFrame {
 //            Object[] row = inst.get(i);
 //            inst_array[i] = row;
 //        }
-
+        System.out.println(Arrays.deepToString(inst_array));
     }
     
     /**

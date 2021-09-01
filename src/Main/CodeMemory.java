@@ -87,7 +87,7 @@ public class CodeMemory extends javax.swing.JFrame {
         });
         hexTable.setColumnSelectionAllowed(true);
         hexTable.setRowHeight(26);
-        hexTable.setShowGrid(false);
+        hexTable.setShowGrid(true);
         hexTable.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(hexTable);
         hexTable.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
@@ -138,7 +138,7 @@ public class CodeMemory extends javax.swing.JFrame {
             }
         });
         mneTable.setRowHeight(26);
-        mneTable.setShowGrid(false);
+        mneTable.setShowGrid(true);
         mneTable.getTableHeader().setReorderingAllowed(false);
         mneTable.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
