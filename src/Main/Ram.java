@@ -252,38 +252,44 @@ public class Ram extends javax.swing.JFrame {
                 }
             }
             else{
+                int row = 0;
+                System.out.println(address);
                 switch(address){
                     case 0x81://SP
-                        
+                        row = 0;
                         break;
                     case 0x82://DPL
-                        
+                        row = 1;
                         break;
                     case 0x83://DPH
-                        
+                        row = 2;
                         break;
                     case 0x89://TMOD
-                        
+                        row = 3;
                         break;
                     case 0x8C://TH0
-                        
+                        row = 4;
                         break;
                     case 0x8A://TL0
-                        
+                        row = 5;
                         break;
                     case 0x8D://TH1
-                        
+                        row = 6;
                         break;
                     case 0x8B://TL1
-                        
+                        row = 7;
                         break;
                     case 0x99://SBUF
-                        
+                        row = 8;
                         break;
                     case 0x87://PCON
-                        
+                        row = 9;
                         break;
+                    default:
+                        row = -1;
                 }
+                if(row != -1)
+                    speTable.setValueAt(Integer.toHexString(value).toUpperCase(), row, 0);
             }
         }
         else{
@@ -699,7 +705,7 @@ public class Ram extends javax.swing.JFrame {
     private javax.swing.JScrollPane speAddrScrollPane;
     private javax.swing.JTable speAddrTable;
     private javax.swing.JScrollPane speScrollPane;
-    private javax.swing.JTable speTable;
+    private static javax.swing.JTable speTable;
     // End of variables declaration//GEN-END:variables
 }
 
