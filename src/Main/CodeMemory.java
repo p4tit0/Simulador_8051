@@ -22,7 +22,6 @@ import javax.swing.table.DefaultTableModel;
  * @version 1.0
  */
 public class CodeMemory extends javax.swing.JFrame {
-
     
     /**
      * O objeto <b>cpu</b> é uma instância da classe <b>Cpu</b>.

@@ -13,7 +13,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * A classe <b>Cpu</b> é a responsável pela execução do código na memória.
+ * A classe <b>Cpu</b> é a responsável pela execução do código na meCmória.
  * @author Gerson Menezes e Vinícius Santos
  * @version 1.0
  */
