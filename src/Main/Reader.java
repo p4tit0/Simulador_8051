@@ -16,11 +16,17 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;  
 
 /**
- *a
- * @author space
+ * Classe contendo todos os métodos utilizados para a leitura de arquivos [DESCONTINUADA]
+ * @author  Gerson Menezes & Vinícius Santos
+ * @version 1.0
  */
 public class Reader {
     
+    /**
+     * Obtem as informações contidas em um arquivo XLSX
+     * @param file_path Caminho do arquivo a ser lido
+     * @return Tabela contendo as informações do arquivo XLSX
+     */
     public static String[][] readFile(String file_path){  
         try{  
             File file = new File(file_path);   //creating a new file instance  

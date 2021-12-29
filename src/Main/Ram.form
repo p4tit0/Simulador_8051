@@ -33,10 +33,8 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="speScrollPane" pref="98" max="32767" attributes="0"/>
                   </Group>
-                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                      <Component id="jLabel2" max="32767" attributes="0"/>
-                      <Component id="hexScrollPane" pref="424" max="32767" attributes="0"/>
-                  </Group>
+                  <Component id="jLabel2" alignment="1" max="32767" attributes="0"/>
+                  <Component id="hexScrollPane" alignment="1" pref="424" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">

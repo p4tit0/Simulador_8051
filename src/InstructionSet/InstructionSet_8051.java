@@ -6,10 +6,15 @@
 package InstructionSet;
 
 /**
- *
- * @author space
+ * Classe responsável por armazenar todo o instruction set do 8051
+ * @author  Gerson Menezes & Vinícius Santos
+ * @version 1.0
  */
 public class InstructionSet_8051 {
+
+    /**
+     * Instruction set do 8051
+     */
     public static Object[][] instruction_set = new Object[][] {
 	{1, "NOP", new String[0]}, 
 	{2, "AJMP", new String[] {"addr11"}}, 

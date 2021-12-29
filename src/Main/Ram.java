@@ -22,8 +22,9 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 
 /**
- *
- * @author famil
+ * Representação visual da memória RAM
+ * @author  Gerson Menezes & Vinícius Santos
+ * @version 1.0
  */
 public class Ram extends javax.swing.JFrame {
 
@@ -40,6 +41,9 @@ public class Ram extends javax.swing.JFrame {
     static DefaultTableModel speAddrDM;
     static DefaultTableModel speDM;
     
+    /**
+     * Método construtor da classe. Responsável por definir todas as propriedades da janela
+     */
     public Ram() {
         initComponents();
         hexDM = (DefaultTableModel) hexTable.getModel(); 
@@ -116,7 +120,7 @@ public class Ram extends javax.swing.JFrame {
         rowHeader.setFixedCellHeight(bankTable.getRowHeight());
         rowHeader.setCellRenderer(new RowRenderer(bankTable));
         bankScrollPane.setRowHeaderView(rowHeader);
-        //getContentPane().add(bankScrollPane, BorderLayout.CENTER);
+
         for(int i = 0; i < 4; i++){
             bankDM.addRow(new Object[]{"00","00","00","00","00","00","00","00"});
         }
@@ -142,7 +146,7 @@ public class Ram extends javax.swing.JFrame {
         rowHeader.setFixedCellHeight(addrTable.getRowHeight());
         rowHeader.setCellRenderer(new RowRenderer(addrTable));
         addrScrollPane.setRowHeaderView(rowHeader);
-        //getContentPane().add(addrScrollPane, BorderLayout.CENTER);        
+       
         for(int i = 0; i < 16; i++){
             addrDM.addRow(new Object[]{"0","0","0","0","0","0","0","0"});
         }
@@ -173,8 +177,7 @@ public class Ram extends javax.swing.JFrame {
         rowHeader.setFixedCellWidth(50);
         rowHeader.setFixedCellHeight(speAddrTable.getRowHeight());
         rowHeader.setCellRenderer(new RowRenderer(speAddrTable));
-        speAddrScrollPane.setRowHeaderView(rowHeader);
-        //getContentPane().add(speAddrScrollPane, BorderLayout.CENTER);        
+        speAddrScrollPane.setRowHeaderView(rowHeader);       
         for(int i = 0; i < 11; i++){
             speAddrDM.addRow(new Object[]{"0","0","0","0","0","0","0","0"});
         }
@@ -199,8 +202,7 @@ public class Ram extends javax.swing.JFrame {
         rowHeader.setFixedCellWidth(50);
         rowHeader.setFixedCellHeight(speTable.getRowHeight());
         rowHeader.setCellRenderer(new RowRenderer(speTable));
-        speScrollPane.setRowHeaderView(rowHeader);
-        //getContentPane().add(speScrollPane, BorderLayout.CENTER);        
+        speScrollPane.setRowHeaderView(rowHeader);     
         for(int i = 0; i < 10; i++){
             speDM.addRow(new Object[]{"00"});
         }
@@ -217,7 +219,9 @@ public class Ram extends javax.swing.JFrame {
         
     }
     
-    
+    /**
+     * Renderizador de linha customizado para as JTables. Responsável por remover o cabeçalho das mesmas
+     */
     class RowRenderer extends JLabel implements ListCellRenderer{
         
         public RowRenderer(JTable table){
@@ -240,6 +244,11 @@ public class Ram extends javax.swing.JFrame {
         
     }
     
+    /**
+     * Altera o valor de um byte na representação da memória
+     * @param address Endereço do da memória a ser alterado
+     * @param value Novo valor do Byte
+     */
     public static void setByte(int address, int value){
         
         if(address > 0x7f){
@@ -314,6 +323,12 @@ public class Ram extends javax.swing.JFrame {
         }
     }
     
+    /**
+     * Altera o valor de um bit específico na representação da memória
+     * @param address Endereço do da memória a ser alterado
+     * @param bit Posição do bit que será alterado
+     * @param value Novo valor do bit (1 ou 0)
+     */
     public static void setBit(int address, int bit, int value){
         
         if(address > 0x7F){
@@ -334,6 +349,11 @@ public class Ram extends javax.swing.JFrame {
         
     }
     
+    /**
+     * Obtém o índice da linha em que um registrador especial se encontra com base em seu endereço
+     * @param address Endereço na memória do registrador especial
+     * @return Índice da linha do registrador
+     */
     public static int getSpeRow(int address){
         int row = 0;
         switch(address){
@@ -376,6 +396,9 @@ public class Ram extends javax.swing.JFrame {
         return row;
     }
     
+    /**
+     * Limpa toda a representação da memória, mudando todos os valores para 0
+     */
     public static void reset(){
         //hexTable
         for(int row = 0; row < hexDM.getRowCount(); row++){
