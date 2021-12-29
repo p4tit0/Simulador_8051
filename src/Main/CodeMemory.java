@@ -16,19 +16,29 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 /**
- *
- * @author famil
+ * A classe <b>CodeMemory</b> é, atualmente, a classe principal do simulador. É nela que estão os principais objetos do programa.
+     * Ela também contém a tabela do código de máquina em hexadecimal e a tabela das intruções e seus mnemônicos na memória de código.
+ * @author Gerson Menezes e Vinícius Santos
+ * @version 1.0
  */
 public class CodeMemory extends javax.swing.JFrame {
-
-    /**a
-     * Creates new form CodeMemory
-     */
     
+    /**
+     * O objeto <b>cpu</b> é uma instância da classe <b>Cpu</b>.
+     */
     public static Cpu cpu = new Cpu();
+    /**
+     * O objeto <b>memory</b> é uma instância da classe <b>Memory</b>.
+     */
     public static Memory memory = cpu.memory;
+    /**
+     * O objeto <b>ram</b> é uma instância da classe <b>Ram</b>.
+     */
     Ram ram = new Ram();
     
+    /**
+     * O método <b>CodeMemory</b> é o construtor padrão da classe CodeMemory.
+     */
     public CodeMemory() {
         initComponents();
         DefaultTableCellRenderer rightRender = new DefaultTableCellRenderer();
@@ -232,17 +242,28 @@ public class CodeMemory extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * <b>jButton1ActionPerformed</b> é o método chamado ao clicar nao botão <b>Load HEX code<\b>.
+     *
+     */
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         Charge cg = new Charge();
         cg.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
-
+    
+    /**
+     * <b>execBtnActionPerformed</b> é o método chamado ao clicar no botão Execute, simplesmenta chama o método <b>exec<\b> do objeto <b>cpu</b> 
+     * 
+     */
     private void execBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_execBtnActionPerformed
         if (cpu.memory != null){
             cpu.exec();
         }
     }//GEN-LAST:event_execBtnActionPerformed
-
+    /**
+     * O método <b>mneTableMouseClicked</b> recebe o input de clique na tabela dos mnemônicos a fim de mostrar sua respectiva localização no código de máquina.
+     * 
+     */
     private void mneTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mneTableMouseClicked
         int line = mneTable.rowAtPoint(evt.getPoint());
         DefaultTableModel model = (DefaultTableModel) mneTable.getModel();
@@ -253,15 +274,27 @@ public class CodeMemory extends javax.swing.JFrame {
             hexTable.changeSelection(adress/16, adress%16, false, false);
         }
     }//GEN-LAST:event_mneTableMouseClicked
-
+    
+    /**
+     * <b>openRamActionPerformed</b> é executado quando o botão <b>Open RAM</b> é clicado e deixa visível a memória ram do microcontrolador
+     *
+     */
     private void openRamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openRamActionPerformed
         ram.setVisible(true);
     }//GEN-LAST:event_openRamActionPerformed
-
+    
+    /**
+     * <b>jButton2ActionPerformed</b> é executado quando o botão <b>STEP</b> é clicado e chama o método <b>step</b> do objeto <b>cpu</b>
+     * 
+     */
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         Cpu.step();
     }//GEN-LAST:event_jButton2ActionPerformed
-
+    
+    /**
+     * <b>loadHexTable</b> é o método responsável por carregar a tabela do código hexadecimal
+     * @param data é as informações que provém do código carregado na classe <b>Charge</b>
+     */
     static void loadHexTable(int[] data){        
         DefaultTableModel model = (DefaultTableModel) hexTable.getModel();
         int column = 0;
@@ -277,6 +310,10 @@ public class CodeMemory extends javax.swing.JFrame {
         }
     }
     
+    /**
+     * <b>loadMnemonicTable</b> é o método responsável por carregar a tabela de instruções e seus mnemônicos
+     * @param inst é as instruções provenientes do código carregado na classe <b>Charge</b>
+     */
     static void loadMnemonicTable(Instruction[] inst){
         DefaultTableModel model = (DefaultTableModel) mneTable.getModel();
         for(int i = 0; i < inst.length; i++){
@@ -303,6 +340,10 @@ public class CodeMemory extends javax.swing.JFrame {
         color(0);
     }
     
+    /**
+     * <b>color</b> é o método para colorir determinado endereço da tabela dos mnemônicos
+     * @param address é o endereço da instrução na memória desejado
+     */
     public static void color(int address){
         mneTable.setDefaultRenderer(Object.class, new DefaultTableCellRenderer(){
 
@@ -325,6 +366,9 @@ public class CodeMemory extends javax.swing.JFrame {
         mneTable.repaint();
     }
     
+    /**
+     * O método <b>reset</b> reseta a tabela do código de máquina e das instruções e seus mnemônicos
+     */
     public static void reset(){
         DefaultTableModel model_mneTable = (DefaultTableModel) mneTable.getModel();
         for (int row = mneTable.getRowCount()-1; row >= 0; row--){

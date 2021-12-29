@@ -24,17 +24,20 @@ import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultHighlighter;
 
 /**
- *a
- * @author famil
+ * A classe <b>Charge</b> é a responsável pela abertura e carregamento de códigos hexadecimais.
+ * @author Gerson Menezes e Vinícius Santos
+ * @version 1.0
  */
 public class Charge extends javax.swing.JFrame {
 
     /**
-     * Creates new form Charge
+     * <b>inst_array</b> é a variável que vai guardar temporariamente o código carregado
      */
     Object[][] inst_array = new Object[Memory.rom.length][3];
     
-    
+    /**
+     * O método <b>Charge</b> é o construtor padrão da classe.
+     */
     public Charge() {
         initComponents();
     }
@@ -114,7 +117,9 @@ public class Charge extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    /**
+     * O método <b>btOpenActionPerformed</b> é o método executado ao apertar o botão <b>Open<\b> responsável pela abertura do explorador de arquivos para seleção do arquivo hexadecimal.
+     */
     private void btOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btOpenActionPerformed
         JFileChooser jf = new JFileChooser();
         jf.setCurrentDirectory(new File("src\\res")); // tira DESGRAÇA
@@ -129,10 +134,13 @@ public class Charge extends javax.swing.JFrame {
             read(jf.getSelectedFile());
         }
     }//GEN-LAST:event_btOpenActionPerformed
-
+    
+    /**
+     * O método <b>btChargeActionPerformed</b> é executado quando o botão <b>load<\b> é apertado e simplesmente manda as informações dentro do <b>inst_array</b> para as classes que necessitam delas, como a classe <b>Memory</b>, <b>Cpu</b>, <b>Ram</b> e <b>CodeMemory</b>.
+     */
     private void btChargeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btChargeActionPerformed
         int[] data = new int[Memory.rom.length];
-        rogerio: for (int i = 0; i < inst_array.length; i++){
+        loop: for (int i = 0; i < inst_array.length; i++){
             switch((int) inst_array[i][0]){
                 case 0 -> {
                     for (int k = 0; k < ((int[]) inst_array[i][1]).length; k++){
@@ -140,7 +148,7 @@ public class Charge extends javax.swing.JFrame {
                     }
                 } 
                 case 1 -> {
-                    break rogerio;
+                    break loop;
                 }
             }
         }
@@ -159,6 +167,11 @@ public class Charge extends javax.swing.JFrame {
         //CodeMemory.color(0);
     }//GEN-LAST:event_btChargeActionPerformed
     
+    /**
+     * 
+     * O método <b>read</b> é o método que pré-carrega o código para o inst_array e faz a checagem de integridade do mesmo por meio do checksum.
+     * @param file um objeto do tipo file, o arquivo do código hexadecimal
+     */
     void read(File file){
         //ArrayList<Object[]> inst = new ArrayList<Object[]>();
         inst_array = new Object[Memory.rom.length][3];
