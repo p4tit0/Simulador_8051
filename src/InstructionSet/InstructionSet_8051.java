@@ -7,7 +7,7 @@ package InstructionSet;
 
 /**
  * Classe responsável por armazenar todo o instruction set do 8051
- * @author  Gerson Menezes & Vinícius Santos
+ * @author Gerson Menezes & Vinícius Santos
  * @version 1.0
  */
 public class InstructionSet_8051 {
