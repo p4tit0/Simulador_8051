@@ -17,7 +17,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 /**
  * Classe contendo todos os métodos utilizados para a leitura de arquivos [DESCONTINUADA]
- * @author  Gerson Menezes & Vinícius Santos
+ * @author Gerson Menezes & Vinícius Santos
  * @version 1.0
  */
 public class Reader {

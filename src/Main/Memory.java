@@ -11,7 +11,7 @@ import java.util.Arrays;
 
 /**
  * A classe Memory é a representação da memória do microcrontrolador no programa, contendo tanto a memória RAM quanato a ROM e os metodos necessários para a manipulação das mesmas. 
- * @author  Gerson Menezes & Vinícius Santos
+ * @author Gerson Menezes & Vinícius Santos
  * @version 1.0
  */
 public class Memory {
@@ -80,7 +80,7 @@ public class Memory {
      * Altera o valor salvo em uma posição da memória
      * @param address edereço que será alterado
      * @param value inteiro que contem o valor que será salvo na memória (0 - 1)
-     * @throws Exception
+     * @throws Exception Aponta qualquer erro nos valores informados
      */
     public static void setByte(int address, int value) throws Exception{
         if (address < 0 || address > 255) {
@@ -98,7 +98,7 @@ public class Memory {
      * @param address interio que representa o endereço da memória que será alterado
      * @param bit interio que representa o bit que será alterado
      * @param value inteiro contendo o novo valor do bit (0 - 1)
-     * @throws Exception
+     * @throws Exception Aponta qualquer erro nos valores informados
      */
     public static void setBit(int address, int bit, int value) throws Exception{
         if (isBitAddressable(address)) {
@@ -128,7 +128,7 @@ public class Memory {
      * @param address interio que representa o endereço da memória a ser verificado
      * @param bit inteiro contendo a posição do bit que será verificado 
      * @return inteiro contendo o valor do bit
-     * @throws Exception
+     * @throws Exception Aponta qualquer erro nos valores informados
      */
     public static int getBit(int address, int bit) throws Exception{
         if (isBitAddressable(address)) {

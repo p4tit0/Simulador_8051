@@ -23,7 +23,7 @@ import javax.swing.table.JTableHeader;
 
 /**
  * Representação visual da memória RAM
- * @author  Gerson Menezes & Vinícius Santos
+ * @author Gerson Menezes & Vinícius Santos
  * @version 1.0
  */
 public class Ram extends javax.swing.JFrame {
