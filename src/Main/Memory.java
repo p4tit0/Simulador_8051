@@ -165,5 +165,6 @@ public class Memory {
     public static void reset(){
         rom = new Instruction[rom.length];
         ram = new int[ram.length];
+        ram[0x81] = 0x07;
     }
 }
