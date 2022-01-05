@@ -33,6 +33,6 @@ public class POP extends Instruction{
         if (Memory.ram[0x81] < 0x00) {
             Memory.ram[0x81] = 0x7F;
         }
-        System.out.println("PUSH: " + String.format("%02X", Memory.ram[0x81]) + " <-- " + String.format("%02X", args[0]));
+        System.out.println("POP: " + String.format("%02X", Memory.ram[0x81]) + " <-- " + String.format("%02X", args[0]));
     }
 }
