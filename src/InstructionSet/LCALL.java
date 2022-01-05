@@ -18,6 +18,12 @@ public class LCALL extends Instruction{
 
     @Override
     public void exec(){
-        System.out.println("exec: LCALL");
+        System.out.println("exec: LCALL " + args[0]);
+        Cpu.PC += 3;                      // PC += 3
+        Memory.ram[0x81]++;               // SP++
+        Memory.ram[Memory.ram[0x81]] = Cpu.PC & 0xff;// (SP) = PC[7-0]
+        Memory.ram[0x81]++;               // SP++
+        Memory.ram[Memory.ram[0x81]] = (Cpu.PC>>8) & 0xff;// (SP) = PC[15-8]
+        Cpu.PC = (short)args[0]; //PC = addr16   
     }
 }
