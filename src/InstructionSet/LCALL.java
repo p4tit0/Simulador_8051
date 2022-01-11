@@ -21,9 +21,9 @@ public class LCALL extends Instruction{
         System.out.println("exec: LCALL " + args[0]);
         Cpu.PC += 3;                      // PC += 3
         Memory.ram[0x81]++;               // SP++
-        Memory.ram[Memory.ram[0x81]] = (Cpu.PC & 0xf0)>>4;// (SP) = PC[7-0]
+        Memory.ram[Memory.ram[0x81]] = (Cpu.PC & 0xff00)>>8;// (SP) = PC[7-0]
         Memory.ram[0x81]++;               // SP++
-        Memory.ram[Memory.ram[0x81]] = Cpu.PC & 0x0f;// (SP) = PC[15-8]
+        Memory.ram[Memory.ram[0x81]] = Cpu.PC & 0x00ff;// (SP) = PC[15-8]
         Cpu.PC = args[0]; //PC = addr16   
     }
 }
