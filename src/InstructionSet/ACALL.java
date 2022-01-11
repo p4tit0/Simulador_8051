@@ -22,9 +22,9 @@ public class ACALL extends Instruction{
         
         Cpu.PC += 2;                      //PC += 2
         Memory.ram[0x81]++;               // SP++
-        Memory.ram[Memory.ram[0x81]] = (Cpu.PC & 8) >> 4;// (SP) = PC[7-0]
+        Memory.ram[Memory.ram[0x81]] = (Cpu.PC & 0xff00) >> 8;// (SP) = PC[7-0]
         Memory.ram[0x81]++;               // SP++
-        Memory.ram[Memory.ram[0x81]] = Cpu.PC & 8;// (SP) = PC[15-8]
+        Memory.ram[Memory.ram[0x81]] = Cpu.PC & 0x00ff;// (SP) = PC[15-8]
                     //?? PC10-0 = A10-0
     }
 }
