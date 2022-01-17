@@ -3,15 +3,16 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/GitHub/Simulador_8051/src/Main/Memory.java</file>
-            <file>file:/D:/GitHub/Simulador_8051/src/Main/Cpu.java</file>
-            <file>file:/D:/GitHub/Simulador_8051/src/Main/Ram.java</file>
-            <file>file:/D:/GitHub/Simulador_8051/src/InstructionSet/RET.java</file>
-            <file>file:/D:/GitHub/Simulador_8051/src/InstructionSet/LCALL.java</file>
-            <file>file:/D:/GitHub/Simulador_8051/src/InstructionSet/RETI.java</file>
-            <file>file:/D:/GitHub/Simulador_8051/src/InstructionSet/PUSH.java</file>
-            <file>file:/D:/GitHub/Simulador_8051/src/InstructionSet/POP.java</file>
-            <file>file:/D:/GitHub/Simulador_8051/src/InstructionSet/ACALL.java</file>
+            <file>file:/C:/Users/space/Documents/NetBeansProjects/Simulador_8051/src/InstructionSet/InstructionSet_8051.java</file>
+            <file>file:/C:/Users/space/Documents/NetBeansProjects/Simulador_8051/src/InstructionSet/ACALL.java</file>
+            <file>file:/C:/Users/space/Documents/NetBeansProjects/Simulador_8051/src/Main/CodeMemory.java</file>
+            <file>file:/C:/Users/space/Documents/NetBeansProjects/Simulador_8051/src/Main/Memory.java</file>
+            <file>file:/C:/Users/space/Documents/NetBeansProjects/Simulador_8051/src/InstructionSet/MOV.java</file>
+            <file>file:/C:/Users/space/Documents/NetBeansProjects/Simulador_8051/src/InstructionSet/RET.java</file>
+            <file>file:/C:/Users/space/Documents/NetBeansProjects/Simulador_8051/src/InstructionSet/JMP.java</file>
+            <file>file:/C:/Users/space/Documents/NetBeansProjects/Simulador_8051/src/InstructionSet/LCALL.java</file>
+            <file>file:/C:/Users/space/Documents/NetBeansProjects/Simulador_8051/src/InstructionSet/Instruction.java</file>
+            <file>file:/C:/Users/space/Documents/NetBeansProjects/Simulador_8051/src/Main/Charge.java</file>
         </group>
     </open-files>
 </project-private>

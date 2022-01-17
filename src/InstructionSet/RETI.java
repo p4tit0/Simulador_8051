@@ -7,11 +7,18 @@ package InstructionSet;
 
 import Main.*;
 /**
- *
- * @author space
+ * Classe que descreve o funcionamento da instrução RETI;
+ * @author Gerson Menezes e Vinícius Santos
+ * @version 1.0
  */
 public class RETI extends Instruction{
-
+    
+    /**
+     * Método construtor da classe, recebe todas as informações sobre a chamada da intrução.
+     * @param _byte opCode da instrução.
+     * @param args operandos da intrução.
+     * @param operands tipos dos operandos passados.
+     */
     public RETI(int _byte, int[] args, String[] operands){
         super(_byte, args, "RETI", "RETI", operands);
     }
@@ -19,13 +26,16 @@ public class RETI extends Instruction{
     @Override
     public void exec(){
         System.out.println("exec: RETI");
-        //input = low | (high<<8)
         
-        //PC15-8 = (SP)
-        //SP = SP - 1
-        //PC7-0 = (SP)
-        //SP = SP - 1
-        Cpu.PC = (Memory.ram[Memory.ram[0x81]] - 1) | (Memory.ram[Memory.ram[0x81]] << 8);
+        //input = low | (high<<8)
+        // ---------- passo a passo ------------- 
+        Cpu.PC = Memory.ram[Memory.ram[0x81]] << 8; //PC15-8 = (SP)
+        Memory.ram[0x81]--; //SP = SP - 1
+        Cpu.PC |= Memory.ram[Memory.ram[0x81]]; //PC7-0 = (SP)
+        Memory.ram[0x81]--; //SP = SP - 1
+        
+        // ---------- direto -------------
+        Cpu.PC = (Memory.ram[Memory.ram[0x81] - 1]) | (Memory.ram[Memory.ram[0x81]] << 8);
         Memory.ram[0x81] -= 2;
     }
 }
