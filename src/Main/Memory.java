@@ -94,6 +94,36 @@ public class Memory {
     }
     
     /**
+     * Adiciona o endereço pelo valor inserido
+     * @param address edereço que será adicionado
+     * @param value inteiro que contem o valor que adicionará
+     * @throws Exception Aponta qualquer erro nos valores informados
+     */
+    public static void addByte(int address, int value) throws Exception{
+        if (address < 0 || address > 255) {
+            throw new Exception("Address out of range");
+        }
+        if (value < 0 || value > 255) {
+            throw new Exception("Value out of range");
+        }
+        ram[address] = ram[address] + value;
+        Ram.setByte(address, ram[address]);
+    }
+    
+    /**
+     * Retorna o byte no endereço inserido
+     * @param address edereço desejado
+     * @throws Exception Aponta qualquer erro no endereço inserido
+     */
+    public static int getByte(int address) throws Exception{
+        if (address < 0 || address > 255) {
+            throw new Exception("Address out of range");
+        }
+        return ram[address];
+    }
+    
+    
+    /**
      * Altera um bit específico de uma posição de memória
      * @param address interio que representa o endereço da memória que será alterado
      * @param bit interio que representa o bit que será alterado
