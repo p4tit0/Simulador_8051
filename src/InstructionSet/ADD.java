@@ -27,16 +27,17 @@ public class ADD extends Instruction{
     public void exec() throws Exception{
         int parameter = 0;
         
-        if (operands[0].startsWith("@R")){
+        if (operands[1].startsWith("@R")){
             parameter = Memory.ram[Memory.ram[(8 * Memory.getBank()) + (opCode & 1)]];
-        } else if (operands[0].startsWith("R")) {
+        } else if (operands[1].startsWith("R")) {
             parameter = Memory.ram[(8 * Memory.getBank()) + (opCode & 7)];
-        } else if (operands[0].equals("direct")){
+        } else if (operands[1].equals("direct")){
             parameter = Memory.ram[args[0]];
-        } else if (operands[0].equals("#immed")){
+        } else if (operands[1].equals("#immed")){
+            System.out.println("A");
             parameter = args[0];
         }
         Memory.addByte(0xE0, parameter);
-        System.out.println("exec: ADD A, parameter");
+        System.out.println("exec: ADD A, " + String.format("%02X", parameter));
     }
 }
