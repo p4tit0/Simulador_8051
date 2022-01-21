@@ -35,7 +35,7 @@ public class RET extends Instruction{
         Memory.ram[0x81]--; //SP = SP - 1
         
         // ---------- direto -------------
-        Cpu.PC = (Memory.ram[Memory.ram[0x81] - 1]) | (Memory.ram[Memory.ram[0x81]] << 8);
-        Memory.ram[0x81] -= 2;
+        //Cpu.PC = (Memory.ram[Memory.ram[0x81] - 1]) | (Memory.ram[Memory.ram[0x81]] << 8);
+        //Memory.ram[0x81] -= 2;
     }
 }
