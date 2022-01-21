@@ -28,11 +28,11 @@ public class POP extends Instruction{
         if (args[0] < 0 || args[0] > 0x7F){
             throw new Exception(String.format("%02X", args[0]) + ", adress out of range");
         }
-        Memory.setByte(args[0], Memory.getByte(0x81));// = Memory.ram[Memory.ram[0x81]];
-        Memory.ram[0x81]--;
-        if (Memory.ram[0x81] < 0x00) {
-            Memory.ram[0x81] = 0x7F;
+        Memory.setByte(args[0], Memory.getByte(Memory.getByte(0x81)));// = Memory.ram[Memory.ram[0x81]];
+        Memory.addByte(0x81, -1);
+        if (Memory.getByte(0x81) < 0x00) {
+            Memory.setByte(0x81, 0x7F);
         }
-        System.out.println("POP: " + String.format("%02X", Memory.ram[0x81]) + " <-- " + String.format("%02X", args[0]));
+        System.out.println("POP: " + String.format("%02X", Memory.getByte(0x81)) + " <-- " + String.format("%02X", args[0]));
     }
 }

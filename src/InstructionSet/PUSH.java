@@ -28,11 +28,11 @@ public class PUSH extends Instruction{
         if (args[0] < 0 || args[0] > 0x7F){
             throw new Exception(String.format("%02X", args[0]) + ", adress out of range");
         }
-        Memory.ram[0x81]++;
-        if (Memory.ram[0x81] > 0x7F) {
-            Memory.ram[0x81] = 0x07;
+        Memory.addByte(0x81, 1);
+        if (Memory.getByte(0x81) > 0x7F) {
+            Memory.setByte(0x81, 0x07);
         }
-        Memory.ram[Memory.ram[0x81]] = args[0];
-        System.out.println("PUSH: " + String.format("%02X", Memory.ram[0x81]) + " <-- " + String.format("%02X", args[0]));
+        Memory.setByte(Memory.getByte(0x81), args[0]);
+        System.out.println("PUSH: " + String.format("%02X", Memory.getByte(0x81)) + " <-- " + String.format("%02X", args[0]));
     }
 }

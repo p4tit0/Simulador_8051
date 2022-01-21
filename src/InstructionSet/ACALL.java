@@ -24,14 +24,18 @@ public class ACALL extends Instruction{
     }
 
     @Override
-    public void exec(){
+    public void exec() throws Exception{
         System.out.println("exec: ACALL");
         
-        Cpu.PC += 2;                      //PC += 2
-        Memory.ram[0x81]++;               // SP++
-        Memory.ram[Memory.ram[0x81]] = Cpu.PC & 0xFF;// (SP) = PC[7-0]
-        Memory.ram[0x81]++;               // SP++
-        Memory.ram[Memory.ram[0x81]] = (Cpu.PC & 0xFF00) >> 8;// (SP) = PC[15-8]
-        Cpu.PC = ((opCode & 0xE0) << 3)| args[0] - 1; //?? PC10-0 = A10-0
+        try{
+            Cpu.PC += 2;                      //PC += 2
+            Memory.addByte(0x81, 1);               // SP++
+            Memory.setByte(Memory.getByte(0x81), Cpu.PC & 0xFF);// (SP) = PC[7-0]
+            Memory.addByte(0x81, 1);              // SP++
+            Memory.setByte(Memory.getByte(0x81), (Cpu.PC & 0xFF00) >> 8);// (SP) = PC[15-8]
+            Cpu.PC = ((opCode & 0xE0) << 3)| args[0] - 1; //?? PC10-0 = A10-0
+        }catch(Exception e){
+            throw e;
+        }
     }
 }

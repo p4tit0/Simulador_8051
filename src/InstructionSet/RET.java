@@ -24,15 +24,19 @@ public class RET extends Instruction{
     }
 
     @Override
-    public void exec(){
+    public void exec() throws Exception{
         System.out.println("exec: RET");
         
         //input = low | (high<<8)
         // ---------- passo a passo -------------
-        Cpu.PC = Memory.ram[Memory.ram[0x81]] << 8; //PC15-8 = (SP)
-        Memory.ram[0x81]--; //SP = SP - 1
-        Cpu.PC |= Memory.ram[Memory.ram[0x81]]; //PC7-0 = (SP)
-        Memory.ram[0x81]--; //SP = SP - 1
+        try{
+            Cpu.PC = Memory.getByte(Memory.getByte(0x81)) << 8; //PC15-8 = (SP)
+            Memory.addByte(0x81, -1); //SP = SP - 1
+            Cpu.PC |= Memory.getByte(Memory.getByte(0x81)); //PC7-0 = (SP)
+            Memory.addByte(0x81, -1); //SP = SP - 1
+        }catch(Exception e){
+            throw e;
+        }
         
         // ---------- direto -------------
         //Cpu.PC = (Memory.ram[Memory.ram[0x81] - 1]) | (Memory.ram[Memory.ram[0x81]] << 8);
