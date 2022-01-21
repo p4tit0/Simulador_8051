@@ -103,9 +103,6 @@ public class Memory {
         if (address < 0 || address > 255) {
             throw new Exception("Address out of range");
         }
-        if (value < 0 || value > 255) {
-            throw new Exception("Value out of range");
-        }
         ram[address] += value;
         Ram.setByte(address, ram[address]);
     }

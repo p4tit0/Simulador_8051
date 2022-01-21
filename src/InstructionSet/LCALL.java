@@ -28,12 +28,12 @@ public class LCALL extends Instruction{
         System.out.println("exec: LCALL " + args[0]);
         
         try{
-            Cpu.PC += 3;                      // PC += 3
+            //Cpu.PC += 3;                      // PC += 3
             Memory.addByte(0x81, 1);             // SP++
-            Memory.setByte(Memory.getByte(0x81), Cpu.PC & 0xFF00);// (SP) = PC[7-0]
+            Memory.setByte(Memory.getByte(0x81), Cpu.PC & 0x00FF);// (SP) = PC[7-0]
             Memory.addByte(0x81, 1);              // SP++
             Memory.setByte(Memory.getByte(0x81), (Cpu.PC & 0xFF00) >> 8);// (SP) = PC[15-8]
-            Cpu.PC = args[0]; //PC = addr16   
+            Cpu.PC = (args[0] << 8) | args[1] - 1; //PC = addr16   
         }catch(Exception e){
             throw e;
         }

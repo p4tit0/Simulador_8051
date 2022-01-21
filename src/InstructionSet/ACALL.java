@@ -28,7 +28,7 @@ public class ACALL extends Instruction{
         System.out.println("exec: ACALL");
         
         try{
-            Cpu.PC += 2;                      //PC += 2
+            //Cpu.PC += 2;                      //PC += 2
             Memory.addByte(0x81, 1);               // SP++
             Memory.setByte(Memory.getByte(0x81), Cpu.PC & 0xFF);// (SP) = PC[7-0]
             Memory.addByte(0x81, 1);              // SP++

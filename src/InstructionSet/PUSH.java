@@ -31,8 +31,8 @@ public class PUSH extends Instruction{
         Memory.addByte(0x81, 1);
         if (Memory.getByte(0x81) > 0x7F) {
             Memory.setByte(0x81, 0x07);
-        }
-        Memory.setByte(Memory.getByte(0x81), args[0]);
+        } 
+        Memory.setByte(Memory.getByte(0x81), Memory.getByte(args[0]));
         System.out.println("PUSH: " + String.format("%02X", Memory.getByte(0x81)) + " <-- " + String.format("%02X", args[0]));
     }
 }
