@@ -29,9 +29,9 @@ public class LCALL extends Instruction{
         
         Cpu.PC += 3;                      // PC += 3
         Memory.ram[0x81]++;               // SP++
-        Memory.ram[Memory.ram[0x81]] = Cpu.PC & 0xFF00;// (SP) = PC[7-0]
+        Memory.ram[Memory.ram[0x81]] = Cpu.PC & 0x00FF;// (SP) = PC[7-0]
         Memory.ram[0x81]++;               // SP++
         Memory.ram[Memory.ram[0x81]] = (Cpu.PC & 0xFF00) >> 8;// (SP) = PC[15-8]
-        Cpu.PC = args[0]; //PC = addr16   
+        Cpu.PC = (args[0] >> 8) | args[1] - 1; //PC = addr16   
     }
 }

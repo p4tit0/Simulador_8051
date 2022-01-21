@@ -18,6 +18,18 @@ public class ADD extends Instruction{
 
     @Override
     public void exec(){
+        int parameter;
+        
+        if (operands[0].startsWith("@R")){
+            parameter = Memory.ram[Memory.ram[(8 * Memory.getBank()) + (opCode & 1)]];
+        } else if (operands[0].startsWith("R")) {
+            parameter = Memory.ram[(8 * Memory.getBank()) + (opCode & 7)];
+        } else if (operands[0].equals("direct")){
+            parameter = Memory.ram[args[0]];
+        } else if (operands[0].equals("#immed")){
+            parameter = args[0];
+        }
+        
         System.out.println("exec: ADD");
     }
 }
