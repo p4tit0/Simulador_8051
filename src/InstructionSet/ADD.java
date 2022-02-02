@@ -28,13 +28,12 @@ public class ADD extends Instruction{
         int parameter = 0;
         
         if (operands[1].startsWith("@R")){
-            parameter = Memory.ram[Memory.ram[(8 * Memory.getBank()) + (opCode & 1)]];
+            parameter = Memory.getByte(Memory.getByte((8 * Memory.getBank()) + (opCode & 1)));
         } else if (operands[1].startsWith("R")) {
-            parameter = Memory.ram[(8 * Memory.getBank()) + (opCode & 7)];
+            parameter = Memory.getByte((8 * Memory.getBank()) + (opCode & 7));
         } else if (operands[1].equals("direct")){
             parameter = Memory.ram[args[0]];
         } else if (operands[1].equals("#immed")){
-            System.out.println("A");
             parameter = args[0];
         }
         Memory.addByte(0xE0, parameter);
