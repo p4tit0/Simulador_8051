@@ -418,6 +418,18 @@ public class Ram extends javax.swing.JFrame {
                 addrDM.setValueAt("0", row, collumn); 
             }
         }
+        //speAddrTable
+        for(int row = 0; row < speAddrTable.getRowCount(); row++){
+            for(int collumn = 0; collumn < speAddrTable.getColumnCount(); collumn++){
+                speAddrTable.setValueAt("0", row, collumn); 
+            }
+        }
+        //speTable
+        for(int row = 0; row < speTable.getRowCount(); row++){
+            for(int collumn = 0; collumn < speTable.getColumnCount(); collumn++){
+                speTable.setValueAt("0", row, collumn); 
+            }
+        }
     }
 
     /**
@@ -600,19 +612,12 @@ public class Ram extends javax.swing.JFrame {
         if (speAddrTable.getColumnModel().getColumnCount() > 0) {
             speAddrTable.getColumnModel().getColumn(0).setResizable(false);
             speAddrTable.getColumnModel().getColumn(1).setResizable(false);
-            speAddrTable.getColumnModel().getColumn(1).setHeaderValue("6");
             speAddrTable.getColumnModel().getColumn(2).setResizable(false);
-            speAddrTable.getColumnModel().getColumn(2).setHeaderValue("5");
             speAddrTable.getColumnModel().getColumn(3).setResizable(false);
-            speAddrTable.getColumnModel().getColumn(3).setHeaderValue("4");
             speAddrTable.getColumnModel().getColumn(4).setResizable(false);
-            speAddrTable.getColumnModel().getColumn(4).setHeaderValue("3");
             speAddrTable.getColumnModel().getColumn(5).setResizable(false);
-            speAddrTable.getColumnModel().getColumn(5).setHeaderValue("2");
             speAddrTable.getColumnModel().getColumn(6).setResizable(false);
-            speAddrTable.getColumnModel().getColumn(6).setHeaderValue("1");
             speAddrTable.getColumnModel().getColumn(7).setResizable(false);
-            speAddrTable.getColumnModel().getColumn(7).setHeaderValue("0");
         }
 
         speTable.setModel(new javax.swing.table.DefaultTableModel(
@@ -728,7 +733,7 @@ public class Ram extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane speAddrScrollPane;
-    private javax.swing.JTable speAddrTable;
+    private static javax.swing.JTable speAddrTable;
     private javax.swing.JScrollPane speScrollPane;
     private static javax.swing.JTable speTable;
     // End of variables declaration//GEN-END:variables
