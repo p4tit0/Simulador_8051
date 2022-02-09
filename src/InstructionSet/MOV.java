@@ -43,10 +43,11 @@ public class MOV extends Instruction{
                 src = args[0]/8 + 0x20;
             }
             else {
-                src = args[0]%8;
+                src = args[0] - args[0]%8;
             }
-            Memory.setBit(0xD0, 7, src);
-            System.out.println("MOV: C <-- " + String.format("%02x", src).toUpperCase());
+            System.out.println(src);
+            Memory.setBit(0xD0, 7, Memory.getBit(src, args[0] % 8));
+            System.out.println("MOV: C <-- " + String.format("%02x", args[0]).toUpperCase());
             return;
         }
         
