@@ -345,6 +345,21 @@ public class CodeMemory extends javax.swing.JFrame {
                     //MOV A R0-R7
                     operands = " R" + (inst[i].opCode - 0xE8);
                 row[1] = inst[i].mnemonic + " A," + operands;
+                
+            }else if(inst[i].opCode == 0xA2){
+                //MOV C
+                row[1] = inst[i].mnemonic + " C," + operands;
+                
+            }else if(inst[i].opCode >= 0x94 && inst[i].opCode <= 0x9F){
+                //SUBB
+                if(inst[i].opCode >= 0x98){
+                    operands = " R" + (inst[i].opCode - 0x98);
+                }else if(inst[i].opCode == 0x96)
+                    operands = " @R0";
+                else if(inst[i].opCode == 0x97)
+                    operands = " @R1";
+                row[1] = inst[i].mnemonic + " A," + operands;
+                
             }
             row[2] = Integer.toHexString(inst[i].opCode).toUpperCase();
             model.addRow(row);
