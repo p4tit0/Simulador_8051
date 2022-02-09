@@ -8,67 +8,73 @@ package InstructionSet;
 import Main.*;
 import java.util.Arrays;
 /**
- *
- * @author space
+ * Classe que descreve o funcionamento da instrução MOV;
+ * @author Gerson Menezes e Vinícius Santos
+ * @version 1.0
  */
 public class MOV extends Instruction{
-
+    
+    /**
+     * Método construtor da classe, recebe todas as informações sobre a chamada da intrução.
+     * @param _byte opCode da instrução.
+     * @param args operandos da intrução.
+     * @param operands tipos dos operandos passados.
+     */
     public MOV(int _byte, int[] args, String[] operands){
         super(_byte, args, "MOV", "MOV", operands);
     }
     
     @Override
     public void exec() throws Exception{
-        int address = 0;
+        int dest = 0;
+        int src = 0;
+        
         if (operands[0].startsWith("@R")){
-            
-            //int bank = Byte.parseByte(String.format("%8s", Integer.toBinaryString( & 0xFF)).replace(' ', '0').substring(3,5), 2);
-            address = Memory.ram[Integer.valueOf(operands[0].substring(operands[0].length()-1)) + 8 * Memory.getBank()];
+            dest = Memory.getByte((8 * Memory.getBank()) + (opCode & 1));
         } else if (operands[0].startsWith("R")) {
-            //byte bank = Byte.parseByte(String.format("%8s", Integer.toBinaryString(Memory.ram[208] & 0xFF)).replace(' ', '0').substring(3,5), 2);
-            address = Integer.valueOf(operands[0].substring(operands[0].length()-1)) + 8 * Memory.getBank();
-        } else if (operands[0].equals("direct")){// || operands[0].equals("DPTR")){
-            address = args[0];
+            dest = (8 * Memory.getBank()) + (opCode & 7);
+        } else if (operands[0].equals("direct")){
+            dest = args[0];
+        //else if operands[0].equals("DPTR")){   
         } else if (operands[0].equals("A")) {
-            address =  224;
+            dest = 0xE0;
         } else if (operands[0].equals("C")) {
             if (args[0] <= 127){
-                address = args[0] / 8 + 0x20; 
-            } else {
-                address = args[0] - args[0] % 8;
+                src = args[0]/8 + 0x20;
             }
-            Memory.setBit(208, 0, Memory.getBit(address, args[0] % 8));
-            System.out.println("MOV: C <-- " + String.format("%02x", args[0]).toUpperCase());
+            else {
+                src = args[0]%8;
+            }
+            Memory.setBit(0xD0, 7, src);
+            System.out.println("MOV: C <-- " + String.format("%02x", src).toUpperCase());
             return;
         }
         
-        int val = 0;
         if (operands[1].startsWith("@R")){
-            //int bank = Byte.parseByte(String.format("%8s", Integer.toBinaryString(Memory.ram[208] & 0xFF)).replace(' ', '0').substring(3,5), 2);
-            int rn_val = Memory.ram[Integer.valueOf(operands[1].substring(operands[1].length()-1)) + 8 * Memory.getBank()];
-            val = Memory.ram[rn_val]; 
+            src = Memory.getByte(Memory.getByte((8 * Memory.getBank()) + (opCode & 1)));
         } else if (operands[1].startsWith("R")) {
-            //int bank = Byte.parseByte(String.format("%8s", Integer.toBinaryString(Memory.ram[208] & 0xFF)).replace(' ', '0').substring(3,5), 2);
-            val = Memory.ram[Integer.valueOf(operands[1].substring(operands[1].length()-1)) + 8 * Memory.getBank()];
-        } else if (operands[1].startsWith("#")) {
-            val = args[args.length-1];
+            src = Memory.getByte((8 * Memory.getBank()) + (opCode & 7));
+        } else if (operands[1].equals("#immed")){
+            src = args[args.length - 1];
         } else if (operands[1].equals("direct")){
-            val = Memory.ram[args[args.length-1]];
+            src = Memory.getByte(args[args.length - 1]);
         } else if (operands[1].equals("A")) {
-            val = Memory.ram[224];
+            src = Memory.getByte(0xE0);
         } else if (operands[1].equals("C")) {
             if (args[0] <= 127){
-                address = args[0] / 8 + 0x20; 
-            } else {
-                address = args[0] - args[0] % 8;
+                dest = args[0]/8 + 0x20;
             }
-            Memory.setBit(address, args[0] % 8, Memory.getBit(208, 0));
-            System.out.println("MOV: " + String.format("%02x", args[0]).toUpperCase() + " <-- C" );
+            else {
+                dest = args[0] - args[0]%8;
+            }
+            
+            Memory.setBit(dest, args[0]%8, Memory.getBit(0xD0, 7));
+            System.out.println("MOV: " + String.format("%02x", dest).toUpperCase() + " <-- C");
             return;
         }
         
         
-        System.out.println("MOV: " + String.format("%02x", address).toUpperCase() + " <-- " + String.format("%02x", val).toUpperCase());
-        Memory.setByte(address, val);
+        System.out.println("MOV: " + String.format("%02x", dest).toUpperCase() + " <-- " + String.format("%02x", src).toUpperCase());
+        Memory.setByte(dest, src);
     }
 }
