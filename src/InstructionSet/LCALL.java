@@ -32,7 +32,7 @@ public class LCALL extends Instruction{
             Memory.addByte(0x81, 1);             // SP++
             Memory.setByte(Memory.getByte(0x81), Cpu.PC & 0x00FF);// (SP) = PC[7-0]
             Memory.addByte(0x81, 1);              // SP++
-            Memory.setByte(Memory.getByte(0x81), (Cpu.PC & 0xFF00) >> 8);// (SP) = PC[15-8]
+            Memory.setByte(Memory.getByte(0x81), Cpu.PC >> 8);// (SP) = PC[15-8]
             Cpu.PC = (args[0] << 8) | args[1] - 1; //PC = addr16   
         }catch(Exception e){
             throw e;

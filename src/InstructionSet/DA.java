@@ -7,17 +7,44 @@ package InstructionSet;
 
 import Main.*;
 /**
- *
- * @author space
+ * Classe que descreve o funcionamento da instrução DA;
+ * @author Gerson Menezes e Vinícius Santos
+ * @version 1.0
  */
 public class DA extends Instruction{
-
+    /**
+     * Método construtor da classe, recebe todas as informações sobre a chamada da intrução.
+     * @param _byte opCode da instrução.
+     * @param args operandos da intrução.
+     * @param operands tipos dos operandos passados.
+     */
     public DA(int _byte, int[] args, String[] operands){
         super(_byte, args, "DA", "DA", operands);
     }
 
     @Override
-    public void exec(){
+    public void exec() throws Exception{
+        
+        int a = Memory.getByte(0xE0);
+        int low_a = a & 0x0F;
+        int hihg_a = a >> 4;
+        
+        if (low_a > 9 || Memory.getBit(0xD0, 6) == 1){a+=6;}
+        
+        if (a>255){
+            a-=256;
+            Memory.setBit(0xD0, 7, 1);
+        }
+        
+        if (hihg_a > 9 || Memory.getBit(0xD0, 7) == 1) {
+            a+=0x60;
+            if (a > 255) {
+                a-=256;
+                Memory.setBit(0xD0, 7, 1);
+            }
+        }
+        Memory.setByte(0xE0, a);
+        
         System.out.println("exec: DA");
     }
 }
