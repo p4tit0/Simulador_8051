@@ -6,10 +6,10 @@
 package Main;
 
 import InstructionSet.Instruction;
+import InstructionSet.InstructionSet_8051;
 import com.formdev.flatlaf.FlatDarkLaf;
 import java.awt.Color;
 import java.awt.Component;
-import java.util.ArrayList;
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -327,28 +327,29 @@ public class CodeMemory extends javax.swing.JFrame {
             }
             
             String operands = " ";
+            String row1 = "";
             if(inst[i].args.length > 0){
                 for(int j: inst[i].args){
                     operands += Integer.toHexString(j).toUpperCase() + ", ";
                 }
                 operands = operands.substring(0, operands.length() - 2);
             }
-            row[1] = inst[i].mnemonic + operands;
+            row1 = inst[i].mnemonic + operands;
             
             if(inst[i].opCode >= 0x78 && inst[i].opCode <= 0x7f){
                 //MOV R0 - R7
-                row[1] = inst[i].mnemonic + " R" + (inst[i].opCode - 0x78)+"," + operands;
+                row1 = inst[i].mnemonic + " R" + (inst[i].opCode - 0x78)+"," + operands;
                 
             }else if(inst[i].opCode >= 0xE5 && inst[i].opCode <= 0xEF || inst[i].opCode == 0x74){
                 // MOV A
                 if(inst[i].opCode >= 0xE8)
                     //MOV A R0-R7
                     operands = " R" + (inst[i].opCode - 0xE8);
-                row[1] = inst[i].mnemonic + " A," + operands;
+                row1 = inst[i].mnemonic + " A," + operands;
                 
             }else if(inst[i].opCode == 0xA2){
                 //MOV C
-                row[1] = inst[i].mnemonic + " C," + operands;
+                row1 = inst[i].mnemonic + " C," + operands;
                 
             }else if(inst[i].opCode >= 0x94 && inst[i].opCode <= 0x9F){
                 //SUBB
@@ -358,9 +359,26 @@ public class CodeMemory extends javax.swing.JFrame {
                     operands = " @R0";
                 else if(inst[i].opCode == 0x97)
                     operands = " @R1";
-                row[1] = inst[i].mnemonic + " A," + operands;
-                
+                row1 = inst[i].mnemonic + " A," + operands; 
+            }else if(inst[i].opCode == 0xA4 || inst[i].opCode == 0x84){
+                row1 = inst[i].mnemonic + " AB";
+            }else if(inst[i].opCode == 0xD4){
+                row1 = inst[i].mnemonic + " A";
             }
+            
+            
+            for(int o = 0; o < inst[i].operands.length; o++){
+                if(InstructionSet_8051.param_is_immediate(inst[i].opCode, o)){
+                    String[] a = row1.split(", ");
+                    
+                    a[o] += "h";
+                    
+                    row1 = String.join(", ", a);
+                }                
+            }
+            
+            
+            row[1] = row1;
             row[2] = Integer.toHexString(inst[i].opCode).toUpperCase();
             model.addRow(row);
         }

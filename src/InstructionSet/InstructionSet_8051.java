@@ -272,4 +272,9 @@ public class InstructionSet_8051 {
 	{1, "MOV", new String[] {"R5", "A"}}, 
 	{1, "MOV", new String[] {"R6", "A"}}, 
 	{1, "MOV", new String[] {"R7", "A"}}};
+    
+    public static boolean param_is_immediate(int opcode, int param){
+        String[] a = (String[]) instruction_set[opcode][2];
+        return a[param].equals("#immed");
+    }
 }

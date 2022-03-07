@@ -28,7 +28,7 @@ public class MUL extends Instruction{
         int r = Memory.getByte(0xE0) *  Memory.getByte(0xF0);
         
         Memory.setByte(0xE0, r & 0x00FF);
-        Memory.setByte(0xE0, r >> 8);
+        Memory.setByte(0xF0, r >> 8);
         
         int OV = (r > 0x0FF) ? 1 : 0;
         Memory.setBit(0xD0, 2, OV);
