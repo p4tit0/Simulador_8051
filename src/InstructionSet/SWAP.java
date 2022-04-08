@@ -17,7 +17,9 @@ public class SWAP extends Instruction{
     }
 
     @Override
-    public void exec(){
-        System.out.println("exec: SWAP");
+    public void exec() throws Exception{
+        int lowA = (Memory.getByte(0xE0) & 15) << 4;
+        Memory.setByte(0xE0, (Memory.getByte(0xE0) >>> 4) | lowA);
+        System.out.println("SWAP A");
     }
 }
