@@ -7,11 +7,18 @@ package InstructionSet;
 
 import Main.*;
 /**
- *
- * @author space
+ * Classe que descreve o funcionamento da instrução SWAP;
+ * @author Gerson Menezes e Vinícius Santos
+ * @version 1.0
  */
 public class SWAP extends Instruction{
 
+    /**
+     * Método construtor da classe, recebe todas as informações sobre a chamada da intrução.
+     * @param _byte opCode da instrução.
+     * @param args operandos da intrução.
+     * @param operands tipos dos operandos passados.
+     */
     public SWAP(int _byte, int[] args, String[] operands){
         super(_byte, args, "SWAP", "SWAP", operands);
     }

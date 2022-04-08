@@ -7,7 +7,7 @@ package InstructionSet;
 
 import Main.*;
 /**
- * Classe que descreve o funcionamento da instrução CRL;
+ * Classe que descreve o funcionamento da instrução CPL;
  * @author Gerson Menezes e Vinícius Santos
  * @version 1.0
  */
