@@ -6,6 +6,8 @@
 package InstructionSet;
 
 import Main.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /**
  *
  * @author space
@@ -19,5 +21,14 @@ public class RL extends Instruction{
     @Override
     public void exec(){
         System.out.println("exec: RL");
+        try {
+            
+            int A0 = (Memory.getByte(0xE0) & 128) >> 7;
+            Memory.setByte(0xE0, ((Memory.getByte(0xE0) << 1) | A0) & 0xFF );
+            
+        } catch (Exception ex) {
+            Logger.getLogger(RL.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }
 }
