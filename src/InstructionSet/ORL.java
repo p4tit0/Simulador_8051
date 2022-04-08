@@ -7,7 +7,7 @@ package InstructionSet;
 
 import Main.*;
 /**
- * Classe que descreve o funcionamento da instrução ANL;
+ * Classe que descreve o funcionamento da instrução ORL;
  * @author Gerson Menezes e Vinícius Santos
  * @version 1.0
  */
@@ -59,6 +59,6 @@ public class ORL extends Instruction{
         
         Memory.setByte(dest, Memory.getByte(dest) | Memory.getByte(src));
         
-        System.out.println("ONL: " + String.format("%02x", dest).toUpperCase() + ", " + String.format("%02x", src).toUpperCase());
+        System.out.println("ORL: " + String.format("%02x", dest).toUpperCase() + ", " + String.format("%02x", src).toUpperCase());
     }
 }
