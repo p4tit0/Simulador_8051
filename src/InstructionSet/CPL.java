@@ -17,7 +17,25 @@ public class CPL extends Instruction{
     }
 
     @Override
-    public void exec(){
-        System.out.println("exec: CPL");
+    public void exec() throws Exception{
+        int param, dest;
+        
+        if (operands[0].equals("A")) {
+            Memory.setByte(0xE0, ~Memory.getByte(0xE0));
+            System.out.println("CPL A");
+            return;
+        }
+        
+        if (operands[0].equals("C")) 
+            param = 0xD7;
+        else 
+            param = args[0];
+        
+        if (param <= 127)
+            dest = param/8 + 0x20;
+        else 
+            dest = param - param%8;
+        Memory.setBit(dest, param % 8, ~Memory.getBit(dest, param % 8));
+        System.out.println("CPL: " + String.format("%02x", param).toUpperCase());
     }
 }

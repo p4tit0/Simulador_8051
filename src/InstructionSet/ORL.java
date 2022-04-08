@@ -39,7 +39,6 @@ public class ORL extends Instruction{
             else {
                 src = args[0] - args[0]%8;
             }
-            System.out.println(src);
             Memory.setBit(0xD0, 7, Memory.getBit(src, args[0] % 8) | Memory.getBit(0xD0, 7));
             System.out.println("ORL: C, " + String.format("%02x", args[0]).toUpperCase());
             return;
@@ -57,8 +56,8 @@ public class ORL extends Instruction{
             src = Memory.getByte(0xE0);
         }
         
-        Memory.setByte(dest, Memory.getByte(dest) | Memory.getByte(src));
+        Memory.setByte(dest, Memory.getByte(dest) | src);
         
-        System.out.println("ORL: " + String.format("%02x", dest).toUpperCase() + ", " + String.format("%02x", src).toUpperCase());
+        System.out.println("ORL: " + String.format("%02x", Memory.getByte(dest)).toUpperCase() + ", " + String.format("%02x", src).toUpperCase());
     }
 }
