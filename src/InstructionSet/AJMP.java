@@ -19,5 +19,13 @@ public class AJMP extends Instruction{
     @Override
     public void exec(){
         System.out.println("exec: AJMP");
+        
+        Cpu.addPC(2);
+        /*
+        int aaaa = opCode >> 5;
+        aaaa <<= 8;
+        aaaa |= args[0];
+        */
+        Cpu.setPC(((opCode >> 5) << 8) | args[0]);
     }
 }

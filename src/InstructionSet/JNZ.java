@@ -6,6 +6,8 @@
 package InstructionSet;
 
 import Main.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /**
  *
  * @author space
@@ -19,5 +21,14 @@ public class JNZ extends Instruction{
     @Override
     public void exec(){
         System.out.println("exec: JNZ");
+        
+        Cpu.addPC(2);
+        try {
+            if (Memory.getByte(0xE0) != 0){
+                Cpu.addPC(args[0]);
+            } 
+        } catch (Exception ex) {
+            Logger.getLogger(JZ.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

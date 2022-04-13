@@ -25,7 +25,7 @@ public class RLC extends Instruction{
         try {
             
             A0 = (Memory.getByte(0xE0) & 128) >> 7;
-            Memory.setByte(0xE0, (Memory.getByte(0xE0) << 1) | Memory.getBit(0xD0, 7));
+            Memory.setByte(0xE0, ((Memory.getByte(0xE0) << 1) | Memory.getBit(0xD0, 7)) & 0xFF);
             Memory.setBit(0xD0, 7, A0);
             
         } catch (Exception ex) {

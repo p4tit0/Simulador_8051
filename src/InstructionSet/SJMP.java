@@ -18,7 +18,9 @@ public class SJMP extends Instruction{
 
     @Override
     public void exec(){
-        System.out.println("SJMP: " + String.format("%02x", Cpu.getPC()) + " --> " + String.format("%02x", Cpu.getPC() + Memory.toSignedNumber(args[0])));
-        Cpu.addPC(Memory.toSignedNumber(args[0] - 1));
+        System.out.println("exec: SJMP");
+        //System.out.println("SJMP: " + String.format("%02x", Cpu.getPC()) + " --> " + String.format("%02x", Cpu.getPC() + Memory.toSignedNumber(args[0])));
+        Cpu.addPC(2);
+        Cpu.addPC(args[0]);
     }
 }

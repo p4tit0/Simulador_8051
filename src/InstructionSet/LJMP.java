@@ -19,5 +19,6 @@ public class LJMP extends Instruction{
     @Override
     public void exec(){
         System.out.println("exec: LJMP");
+        Cpu.setPC((args[0] << 8) | args[1]);
     }
 }

@@ -6,6 +6,8 @@
 package InstructionSet;
 
 import Main.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /**
  *
  * @author space
@@ -18,11 +20,15 @@ public class JZ extends Instruction{
     
     @Override
     public void exec(){
-        if (Memory.ram[224] == 0){
-            System.out.println("JZ: " + String.format("%02x", Cpu.getPC()) + " --> " + String.format("%02x", Cpu.getPC() + Memory.toSignedNumber(args[0])));
-            Cpu.addPC(Memory.toSignedNumber(args[0] - 1));
-        } else {
-            System.out.println("JZ: " + String.format("%02x", Cpu.getPC()) + " --> " + String.format("%02x", args[0]));
+        System.out.println("exec: JZ");
+        
+        Cpu.addPC(2);
+        try {
+            if (Memory.getByte(0xE0) == 0){
+                Cpu.addPC(args[0]);
+            } 
+        } catch (Exception ex) {
+            Logger.getLogger(JZ.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }

@@ -28,7 +28,7 @@ public class CPL extends Instruction{
         int param, dest;
         
         if (operands[0].equals("A")) {
-            Memory.setByte(0xE0, ~Memory.getByte(0xE0));
+            Memory.setByte(0xE0, (~Memory.getByte(0xE0)) & 0xFF);
             System.out.println("CPL A");
             return;
         }
@@ -42,7 +42,7 @@ public class CPL extends Instruction{
             dest = param/8 + 0x20;
         else 
             dest = param - param%8;
-        Memory.setBit(dest, param % 8, ~Memory.getBit(dest, param % 8));
+        Memory.setBit(dest, param % 8, (~Memory.getBit(dest, param % 8)) & 1);
         System.out.println("CPL: " + String.format("%02x", param).toUpperCase());
     }
 }

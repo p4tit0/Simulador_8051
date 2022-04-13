@@ -367,7 +367,7 @@ public class CodeMemory extends javax.swing.JFrame {
             }
             
             
-            for(int o = 0; o < inst[i].operands.length; o++){
+            for(int o = 0; o < inst[i].operands.length-1; o++){
                 if(InstructionSet_8051.param_is_immediate(inst[i].opCode, o)){
                     String[] a = row1.split(", ");
                     
