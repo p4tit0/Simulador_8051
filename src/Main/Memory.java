@@ -83,15 +83,22 @@ public class Memory {
      * @throws Exception Aponta qualquer erro nos valores informados
      */
     public static void setByte(int address, int value) throws Exception{
-        if (address < 0 || address > 255) {
-            throw new Exception("Address out of range");
-        }
-        if (value < 0 || value > 255) {
-            throw new Exception("Value out of range");
-        }
+        value &= 0xFF;
+        
         ram[address] = value;
         Ram.setByte(address, value);
+        
+        if (address == 0xE0 || address == 0xD0)
+            updateParity();
     }
+    
+    
+    public static void updateParity()throws Exception {
+        int cont = 0;
+        for (int i = 0; i < 8; i++) cont += getBit(0xE0, i);
+        setBit(0xD0, 0, cont % 2);
+    }
+    
     
     /**
      * Adiciona o endereço pelo valor inserido
@@ -100,12 +107,13 @@ public class Memory {
      * @throws Exception Aponta qualquer erro nos valores informados
      */
     public static void addByte(int address, int value) throws Exception{
-        if (address < 0 || address > 255) {
+        if (address < 0 || address > ram.length - 1) {
             throw new Exception("Address out of range");
         }
         ram[address] += value;
         Ram.setByte(address, ram[address]);
     }
+    
     
     /**
      * Retorna o byte no endereço inserido
@@ -113,7 +121,7 @@ public class Memory {
      * @throws Exception Aponta qualquer erro no endereço inserido
      */
     public static int getByte(int address) throws Exception{
-        if (address < 0 || address > 255) {
+        if (address < 0 || address > ram.length - 1) {
             throw new Exception("Address out of range");
         }
         return ram[address];

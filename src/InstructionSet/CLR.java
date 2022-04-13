@@ -26,12 +26,12 @@ public class CLR extends Instruction{
     @Override
     public void exec() throws Exception{
         if (operands[0].equals("C")){
-            Memory.setBit(208, 0, 0);
+            Memory.setBit(0xD0, 7, 0);
             System.out.println("CLR: C");
         } else if (operands[0].equals("A")) {
-            Memory.setByte(224, 0);
+            Memory.setByte(0xE0, 0);
             System.out.println("CLR: A");
-        } else if (operands[0].equals("bit")) {
+        } else {
            int address;
            if (args[0] <= 127){
                 address = args[0] / 8 + 32; 
