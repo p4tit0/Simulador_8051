@@ -31,7 +31,7 @@ public class CLR extends Instruction{
         } else if (operands[0].equals("A")) {
             Memory.setByte(0xE0, 0);
             System.out.println("CLR: A");
-        } else{
+        } else {
            int address;
            if (args[0] <= 127){
                 address = args[0] / 8 + 32; 

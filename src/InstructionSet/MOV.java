@@ -34,10 +34,14 @@ public class MOV extends Instruction{
         } else if (operands[0].startsWith("R")) {
             dest = (8 * Memory.getBank()) + (opCode & 7);
         } else if (operands[0].equals("direct")){
-            dest = args[0];
-        //else if operands[0].equals("DPTR")){   
+            dest = args[0]; 
         } else if (operands[0].equals("A")) {
             dest = 0xE0;
+        } else if (operands[0].equals("DPTR")){
+            Memory.setByte(0x83, args[0]);
+            Memory.setByte(0x82, args[1]);
+            System.out.println("MOV DPTR, #"+ String.format("%02x", args[0]).toUpperCase() + String.format("%02x", args[1]).toUpperCase() + "H");
+            return;
         } else if (operands[0].equals("C")) {
             if (args[0] <= 127){
                 src = args[0]/8 + 0x20;

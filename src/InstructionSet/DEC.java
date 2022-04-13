@@ -17,7 +17,19 @@ public class DEC extends Instruction{
     }
 
     @Override
-    public void exec(){
-        System.out.println("exec: DEC");
+    public void exec() throws Exception{
+        int address = 0;
+        if (operands[0].startsWith("@R")){
+            address = Memory.ram[Integer.valueOf(operands[0].substring(operands[0].length()-1)) + 8 * Memory.getBank()];
+        } else if (operands[0].startsWith("R")) {
+            address = Integer.valueOf(operands[0].substring(operands[0].length()-1)) + 8 * Memory.getBank();
+        } else if (operands[0].equals("direct")){// || operands[0].equals("DPTR")){
+            address = args[0];
+        } else if (operands[0].equals("A")) {
+            address =  224;
+        }
+        
+        System.out.println("DEC: " + String.format("%02x", address).toUpperCase());
+        Memory.setByte(address, Memory.ram[address] - 1);
     }
 }
