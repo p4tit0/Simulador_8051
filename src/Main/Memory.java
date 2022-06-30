@@ -17,6 +17,20 @@ import java.util.Arrays;
 public class Memory {
     
     /**
+     * Classe para conter um bit específico na memória
+     */
+    public static class bit {
+  
+        private int addr;
+        private int bit;
+
+        public bit(int addr, int bit) {
+            this.addr = addr;
+            this.bit = bit;
+        }
+    }
+    
+    /**
      * O atributo rom representa a memória ROM do microcontrolador
      */
     public static Instruction[] rom = new Instruction[4095];
@@ -95,8 +109,8 @@ public class Memory {
     
     public static void updateParity()throws Exception {
         int cont = 0;
-        for (int i = 0; i < 8; i++) cont += getBit(0xE0, i);
-        setBit(0xD0, 0, cont % 2);
+        for (int i = 0; i <= 7; i++) cont += getBit(0xE0 + i);
+        setBit(0xD0, cont % 2);
     }
     
     
@@ -128,6 +142,15 @@ public class Memory {
     }
     
     
+    public static bit convertBit(int raw_bit) throws Exception{
+        if (raw_bit < 0 || raw_bit > 255)
+            throw new Exception("Bit out of range");
+        if (raw_bit <= 127)
+            return new bit(raw_bit / 8 + 32, raw_bit % 8); 
+        return new bit(raw_bit - raw_bit % 8, raw_bit % 8);
+    }
+    
+    
     /**
      * Altera um bit específico de uma posição de memória
      * @param address interio que representa o endereço da memória que será alterado
@@ -135,28 +158,31 @@ public class Memory {
      * @param value inteiro contendo o novo valor do bit (0 - 1)
      * @throws Exception Aponta qualquer erro nos valores informados
      */
-    public static void setBit(int address, int bit, int value) throws Exception{
-        if (isBitAddressable(address)) {
+    public static void setBit(int bitAddr, int value) throws Exception{
+        bit conv_bit = convertBit(bitAddr);
+        
+        if (isBitAddressable(conv_bit.addr)) {
             if (value == 1) {
-                int data = ram[address];
+                int data = ram[conv_bit.addr];
                 int mask = 1;
-                mask <<= bit;
+                mask <<= conv_bit.bit;
                 data |= mask;
-                ram[address] = data;
+                ram[conv_bit.addr] = data;
             } else if (value == 0) {
-                int data = ram[address];
+                int data = ram[conv_bit.addr];
                 int mask = 1;
-                mask = mask << bit ^ 0xFF;
+                mask = mask << conv_bit.bit ^ 0xFF;
                 data &= mask;
-                ram[address] = data;
+                ram[conv_bit.addr] = data;
             } else {
                 throw new Exception("Invalid value");
             }
-            Ram.setBit(address, bit, value);
+            Ram.setBit(conv_bit.addr, conv_bit.bit, value);
         } else {
-            throw new Exception(String.format("%02x", address).toUpperCase() + " isn't bit addressable");
+            throw new Exception(String.format("%02x", conv_bit.addr).toUpperCase() + " isn't bit addressable");
         }
     }
+    
     
     /**
      * Obtem o valor de um bit específico em uma posição de memória
@@ -165,14 +191,15 @@ public class Memory {
      * @return inteiro contendo o valor do bit
      * @throws Exception Aponta qualquer erro nos valores informados
      */
-    public static int getBit(int address, int bit) throws Exception{
-        if (isBitAddressable(address)) {
-            int data = ram[address];
-            data >>= bit;
+    public static int getBit(int bitAddr) throws Exception{
+        bit conv_bit = convertBit(bitAddr);
+        if (isBitAddressable(conv_bit.addr)) {
+            int data = ram[conv_bit.addr];
+            data >>= conv_bit.bit;
             data &= 0x1;
             return data;
         }
-        throw new Exception(String.format("%02x", address).toUpperCase() + " isn't bit addressable");
+        throw new Exception(String.format("%02x", conv_bit.addr).toUpperCase() + " isn't bit addressable");
     }
     
     /**

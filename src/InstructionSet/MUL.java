@@ -31,12 +31,12 @@ public class MUL extends Instruction{
         Memory.setByte(0xF0, r >> 8);
         
         int OV = (r > 0x0FF) ? 1 : 0;
-        Memory.setBit(0xD0, 2, OV);
+        Memory.setBit(210, OV);
         
-        Memory.setBit(0xD0, 7, 0);
+        Memory.setBit(215, 0);
         
         int P = (Memory.getByte(0xE0) % 2 == 1) ? 1 : 0;
-        Memory.setBit(0xD0, 0, P);
+        Memory.setBit(208, P);
         
         System.out.println("exec: MUL");
     }

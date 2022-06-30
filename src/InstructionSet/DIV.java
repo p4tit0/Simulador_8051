@@ -34,7 +34,7 @@ public class DIV extends Instruction{
             if(B == 0){
                 Memory.setByte(0xE0, 0);     //valor indefinido
                 Memory.setByte(0xF0, 0);    //valor indefinido
-                Memory.setBit(0xD0, 2, 1); //set OV flag
+                Memory.setBit(210, 1); //set OV flag
                 System.out.println("DIV: Error - Division by Zero");
                 return;
             }
@@ -44,11 +44,11 @@ public class DIV extends Instruction{
             Memory.setByte(0xE0, A / B);
             Memory.setByte(0xF0, A % B);
             
-            Memory.setBit(0xD0, 2, 0);
-            Memory.setBit(0xD0, 7, 0);
+            Memory.setBit(210, 0);
+            Memory.setBit(215, 0);
             
             int P = (A % 2 == 1) ? 1 : 0;
-            Memory.setBit(0xD0, 0, P);
+            Memory.setBit(208, P);
             
         } catch (Exception ex) {
            ex.printStackTrace();

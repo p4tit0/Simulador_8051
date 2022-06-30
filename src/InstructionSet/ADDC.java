@@ -7,11 +7,18 @@ package InstructionSet;
 
 import Main.*;
 /**
- *
- * @author space
+ * Classe que descreve o funcionamento da instrução ADDC;
+ * @author Gerson Menezes e Vinícius Santos
+ * @version 1.0
  */
 public class ADDC extends Instruction{
-
+    
+    /**
+     * Método construtor da classe, recebe todas as informações sobre a chamada da intrução.
+     * @param _byte opCode da instrução.
+     * @param args operandos da intrução.
+     * @param operands tipos dos operandos passados.
+     */
     public ADDC(int _byte, int[] args, String[] operands){
         super(_byte, args, "ADDC", "ADDC", operands);
     }
@@ -29,7 +36,7 @@ public class ADDC extends Instruction{
         } else if (operands[1].equals("#immed")){
             parameter = args[0];
         }
-        Memory.addByte(0xE0, Memory.getBit(0xD0, 7) + parameter);
+        Memory.addByte(0xE0, Memory.getBit(215) + parameter);
         System.out.println("exec: ADD A, " + String.format("%02X", parameter));
     }
 }

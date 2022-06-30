@@ -7,25 +7,25 @@ package InstructionSet;
 
 import Main.*;
 /**
- *
- * @author space
+ * Classe que descreve o funcionamento da instrução JNB;
+ * @author Gerson Menezes e Vinícius Santos
+ * @version 1.0
  */
 public class JNB extends Instruction{
-
+    
+    /**
+     * Método construtor da classe, recebe todas as informações sobre a chamada da intrução.
+     * @param _byte opCode da instrução.
+     * @param args operandos da intrução.
+     * @param operands tipos dos operandos passados.
+     */
     public JNB(int _byte, int[] args, String[] operands){
         super(_byte, args, "JNB", "JNB", operands);
     }
 
     @Override
     public void exec() throws Exception{
-        int address = 0;
-        if (args[0] <= 127){
-            address = args[0] / 8 + 32; 
-        } else {
-            address = args[0] - args[0] % 8;
-        }
-        
-        if (Memory.getBit(address, args[0] % 8) == 0){
+        if (Memory.getBit(args[0]) == 0){
             System.out.println("JNB: " + String.format("%02x", Cpu.getPC()) + " --> " + String.format("%02x", Cpu.getPC() + Memory.toSignedNumber(args[1])));
             Cpu.addPC(Memory.toSignedNumber(args[1] - 1));
         } else {

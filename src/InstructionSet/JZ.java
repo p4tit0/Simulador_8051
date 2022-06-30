@@ -9,11 +9,18 @@ import Main.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 /**
- *
- * @author space
+ * Classe que descreve o funcionamento da instrução JZ;
+ * @author Gerson Menezes e Vinícius Santos
+ * @version 1.0
  */
 public class JZ extends Instruction{
 
+    /**
+     * Método construtor da classe, recebe todas as informações sobre a chamada da intrução.
+     * @param _byte opCode da instrução.
+     * @param args operandos da intrução.
+     * @param operands tipos dos operandos passados.
+     */
     public JZ(int _byte, int[] args, String[] operands){
         super(_byte, args, "JZ", "JZ", operands);
     }

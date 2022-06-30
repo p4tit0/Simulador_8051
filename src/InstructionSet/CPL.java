@@ -37,12 +37,7 @@ public class CPL extends Instruction{
             param = 0xD7;
         else 
             param = args[0];
-        
-        if (param <= 127)
-            dest = param/8 + 0x20;
-        else 
-            dest = param - param%8;
-        Memory.setBit(dest, param % 8, (~Memory.getBit(dest, param % 8)) & 1);
+        Memory.setBit(param , (~Memory.getBit(param)) & 1);
         System.out.println("CPL: " + String.format("%02x", param).toUpperCase());
     }
 }

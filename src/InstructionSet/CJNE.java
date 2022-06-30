@@ -9,11 +9,18 @@ import Main.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 /**
- *
- * @author space
+ * Classe que descreve o funcionamento da instrução CJNE;
+ * @author Gerson Menezes e Vinícius Santos
+ * @version 1.0
  */
 public class CJNE extends Instruction{
 
+    /**
+     * Método construtor da classe, recebe todas as informações sobre a chamada da intrução.
+     * @param _byte opCode da instrução.
+     * @param args operandos da intrução.
+     * @param operands tipos dos operandos passados.
+     */
     public CJNE(int _byte, int[] args, String[] operands){
         super(_byte, args, "CJNE", "CJNE", operands);
     }
@@ -31,20 +38,20 @@ public class CJNE extends Instruction{
                 if(Memory.getByte(Memory.getByte(Rn)) != args[0])
                     Cpu.addPC(args[1]);
                 
-                Memory.setBit(0xD0, 7, Memory.getByte(Memory.getByte(Rn)) < args[0] ? 1 : 0);
+                Memory.setBit(215, Memory.getByte(Memory.getByte(Rn)) < args[0] ? 1 : 0);
             }
             else if(operands[0].equals("A")){
                 if(operands[1].equals("#immed")){
                     if(Memory.getByte(0xE0) != args[0])
                         Cpu.addPC(args[1]);
 
-                    Memory.setBit(0xD0, 7, Memory.getByte(0xE0) < args[0] ? 1 : 0);
+                    Memory.setBit(215, Memory.getByte(0xE0) < args[0] ? 1 : 0);
                 }
                 else{
                     if(Memory.getByte(0xE0) != Memory.getByte(args[0]))
                         Cpu.addPC(args[1]);
 
-                    Memory.setBit(0xD0, 7, Memory.getByte(0xE0) < Memory.getByte(args[0]) ? 1 : 0);
+                    Memory.setBit(215, Memory.getByte(0xE0) < Memory.getByte(args[0]) ? 1 : 0);
                 }
             }
             else if(operands[0].startsWith("R")){
@@ -53,7 +60,7 @@ public class CJNE extends Instruction{
                 if(Memory.getByte(Rn) != args[0])
                   Cpu.addPC(args[1]);
                 
-                Memory.setBit(0xD0, 7, Memory.getByte(Rn) < args[0] ? 1 : 0);
+                Memory.setBit(215, Memory.getByte(Rn) < args[0] ? 1 : 0);
             }
         } catch (Exception ex) {
             Logger.getLogger(CJNE.class.getName()).log(Level.SEVERE, null, ex);

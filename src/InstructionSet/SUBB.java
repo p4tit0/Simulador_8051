@@ -37,7 +37,7 @@ public class SUBB extends Instruction{
             parameter = args[0];
         }
         
-        Memory.addByte(0xE0, -(Memory.getBit(0xD0, 7) + parameter) );
+        Memory.addByte(0xE0, -(Memory.getBit(215) + parameter) );
         System.out.println("exec: SUBB A, " + String.format("%02x", parameter));
     }
 }

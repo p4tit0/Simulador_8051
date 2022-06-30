@@ -43,14 +43,8 @@ public class MOV extends Instruction{
             System.out.println("MOV DPTR, #"+ String.format("%02x", args[0]).toUpperCase() + String.format("%02x", args[1]).toUpperCase() + "H");
             return;
         } else if (operands[0].equals("C")) {
-            if (args[0] <= 127){
-                src = args[0]/8 + 0x20;
-            }
-            else {
-                src = args[0] - args[0]%8;
-            }
             System.out.println(src);
-            Memory.setBit(0xD0, 7, Memory.getBit(src, args[0] % 8));
+            Memory.setBit(215, Memory.getBit(args[0]));
             System.out.println("MOV: C <-- " + String.format("%02x", args[0]).toUpperCase());
             return;
         }
@@ -66,14 +60,7 @@ public class MOV extends Instruction{
         } else if (operands[1].equals("A")) {
             src = Memory.getByte(0xE0);
         } else if (operands[1].equals("C")) {
-            if (args[0] <= 127){
-                dest = args[0]/8 + 0x20;
-            }
-            else {
-                dest = args[0] - args[0]%8;
-            }
-            
-            Memory.setBit(dest, args[0]%8, Memory.getBit(0xD0, 7));
+            Memory.setBit(args[0], Memory.getBit(215));
             System.out.println("MOV: " + String.format("%02x", dest).toUpperCase() + " <-- C");
             return;
         }

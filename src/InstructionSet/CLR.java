@@ -26,19 +26,13 @@ public class CLR extends Instruction{
     @Override
     public void exec() throws Exception{
         if (operands[0].equals("C")){
-            Memory.setBit(0xD0, 7, 0);
+            Memory.setBit(215, 0);
             System.out.println("CLR: C");
         } else if (operands[0].equals("A")) {
             Memory.setByte(0xE0, 0);
             System.out.println("CLR: A");
         } else {
-           int address;
-           if (args[0] <= 127){
-                address = args[0] / 8 + 32; 
-            } else {
-                address = args[0] - args[0] % 8;
-            }
-            Memory.setBit(address, args[0] % 8, 0);
+            Memory.setBit(args[0], 0);
             System.out.println("CLR: " + String.format("%02x", args[0]).toUpperCase());
         }
     }

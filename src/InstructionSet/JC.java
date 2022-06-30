@@ -7,17 +7,29 @@ package InstructionSet;
 
 import Main.*;
 /**
- *
- * @author space
+ * Classe que descreve o funcionamento da instrução JC;
+ * @author Gerson Menezes e Vinícius Santos
+ * @version 1.0
  */
 public class JC extends Instruction{
 
+    /**
+     * Método construtor da classe, recebe todas as informações sobre a chamada da intrução.
+     * @param _byte opCode da instrução.
+     * @param args operandos da intrução.
+     * @param operands tipos dos operandos passados.
+     */
     public JC(int _byte, int[] args, String[] operands){
         super(_byte, args, "JC", "JC", operands);
     }
 
     @Override
-    public void exec(){
-        System.out.println("exec: JC");
+    public void exec() throws Exception{
+        if (Memory.getBit(215) == 1){
+            System.out.println("JC: " + String.format("%02x", Cpu.getPC()) + " --> " + String.format("%02x", Cpu.getPC() + Memory.toSignedNumber(args[1])));
+            Cpu.addPC(Memory.toSignedNumber(args[0] - 1));
+        } else {
+            System.out.println("JC: " + String.format("%02x", Cpu.getPC()) + " --> " + String.format("%02x", args[1]));
+        }
     }
 }

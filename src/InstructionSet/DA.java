@@ -29,18 +29,18 @@ public class DA extends Instruction{
         int low_a = a & 0x0F;
         int hihg_a = a >> 4;
         
-        if (low_a > 9 || Memory.getBit(0xD0, 6) == 1){a+=6;}
+        if (low_a > 9 || Memory.getBit(214) == 1){a+=6;}
         
         if (a>255){
             a-=256;
-            Memory.setBit(0xD0, 7, 1);
+            Memory.setBit(215, 1);
         }
         
-        if (hihg_a > 9 || Memory.getBit(0xD0, 7) == 1) {
+        if (hihg_a > 9 || Memory.getBit(215) == 1) {
             a+=0x60;
             if (a > 255) {
                 a-=256;
-                Memory.setBit(0xD0, 7, 1);
+                Memory.setBit(215, 1);
             }
         }
         Memory.setByte(0xE0, a);

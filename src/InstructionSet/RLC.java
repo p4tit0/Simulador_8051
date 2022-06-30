@@ -9,11 +9,18 @@ import Main.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 /**
- *
- * @author space
+ * Classe que descreve o funcionamento da instrução RLC;
+ * @author Gerson Menezes e Vinícius Santos
+ * @version 1.0
  */
 public class RLC extends Instruction{
 
+    /**
+     * Método construtor da classe, recebe todas as informações sobre a chamada da intrução.
+     * @param _byte opCode da instrução.
+     * @param args operandos da intrução.
+     * @param operands tipos dos operandos passados.
+     */
     public RLC(int _byte, int[] args, String[] operands){
         super(_byte, args, "RLC", "RLC", operands);
     }
@@ -25,8 +32,8 @@ public class RLC extends Instruction{
         try {
             
             A0 = (Memory.getByte(0xE0) & 128) >> 7;
-            Memory.setByte(0xE0, ((Memory.getByte(0xE0) << 1) | Memory.getBit(0xD0, 7)) & 0xFF);
-            Memory.setBit(0xD0, 7, A0);
+            Memory.setByte(0xE0, ((Memory.getByte(0xE0) << 1) | Memory.getBit(215)) & 0xFF);
+            Memory.setBit(215, A0);
             
         } catch (Exception ex) {
             Logger.getLogger(RLC.class.getName()).log(Level.SEVERE, null, ex);

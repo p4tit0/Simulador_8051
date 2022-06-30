@@ -26,8 +26,8 @@ public class RRC extends Instruction{
     @Override
     public void exec() throws Exception{
         int A0 = Memory.getByte(0xE0) & 1;
-        Memory.setByte(0xE0, (Memory.getByte(0xE0) >>> 1) | Memory.getBit(0xD0, 7));
-        Memory.setBit(0xD0, 7, A0);
+        Memory.setByte(0xE0, (Memory.getByte(0xE0) >>> 1) | Memory.getBit(215));
+        Memory.setBit(215, A0);
         System.out.println("exec: RRC");
     }
 }
