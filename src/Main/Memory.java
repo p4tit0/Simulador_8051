@@ -16,6 +16,13 @@ import java.util.Arrays;
  */
 public class Memory {
     
+    private static final int TMOD = 0x89;
+    private static final int TCON = 0x88;
+    private static final int IE = 0xA8;
+    private static final int IP = 0xB8;
+    static Timer t0 = null;
+    static Timer t1 = null;
+    
     /**
      * Classe para conter um bit específico na memória
      */
@@ -151,6 +158,15 @@ public class Memory {
     }
     
     
+    private static int get_flag(int addr, int bit) 
+    {
+        int flag = ram[addr];
+        flag >>= bit;
+        flag &= 0x1;
+        return flag;
+    }
+    
+    
     /**
      * Altera um bit específico de uma posição de memória
      * @param address interio que representa o endereço da memória que será alterado
@@ -168,12 +184,68 @@ public class Memory {
                 mask <<= conv_bit.bit;
                 data |= mask;
                 ram[conv_bit.addr] = data;
+                
+                if(get_flag(IE, 7) == 1)
+                {
+                    if(get_flag(IE, 0) == 1)
+                    {
+                        if(conv_bit.addr == TCON && conv_bit.bit == 1)
+                        {
+                            Cpu.Int_aux = Cpu.PC;
+                            Cpu.PC = 0x0003;
+                            System.out.println("CHAMAR INTERRUPÇÂO");
+                        }
+                    }
+                    
+                    if(get_flag(IE, 1) == 1)
+                    {
+                        if (conv_bit.addr == TCON &&  conv_bit.bit == 4 && (t0 == null || !t0.isAlive()))
+                        {
+                            if ((get_flag(TMOD, 3) == 1 && get_flag(TCON, 1) == 1) || get_flag(TMOD, 3) == 0)
+                            {
+                                int mode0 = (get_flag(TMOD, 1) << 1) | get_flag(TMOD, 0);
+                                t0 = new Timer(0, mode0, (get_flag(TMOD, 2) == 1));
+                                t0.start();
+                            }
+                        }
+                    }
+                    
+                    if(get_flag(IE, 2) == 1)
+                    {
+                        if(conv_bit.addr == TCON && conv_bit.bit == 3)
+                        {
+                            Cpu.Int_aux = Cpu.PC;
+                            Cpu.PC = 0x0013;
+                            System.out.println("CHAMAR INTERRUPÇÂO");
+                        }
+                    }
+
+                    if(get_flag(IE, 3) == 1)
+                    {
+                        if (conv_bit.addr == TCON &&  conv_bit.bit == 6 && (t0 == null || !t0.isAlive()))
+                        {
+                            if ((get_flag(TMOD, 7) == 1 && get_flag(TCON, 3) == 1) || get_flag(TMOD, 7) == 0)
+                            {
+                                int mode1 = (get_flag(TMOD, 5) << 1) | get_flag(TMOD, 4);
+                                t1 = new Timer(1, mode1, (get_flag(TMOD, 6) == 1));
+                                t1.start();
+                            }
+                        }
+                    }
+                }
+                
             } else if (value == 0) {
                 int data = ram[conv_bit.addr];
                 int mask = 1;
                 mask = mask << conv_bit.bit ^ 0xFF;
                 data &= mask;
                 ram[conv_bit.addr] = data;
+                
+                if (conv_bit.addr == TCON &&  conv_bit.bit == 4 && t0 != null && t0.isAlive())
+                    t0.interrupt();
+                if (conv_bit.addr == TCON &&  conv_bit.bit == 6 && t1 != null && t1.isAlive())
+                    t1.interrupt();
+                
             } else {
                 throw new Exception("Invalid value");
             }

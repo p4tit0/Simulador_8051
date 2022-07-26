@@ -36,6 +36,7 @@ public class CodeMemory extends javax.swing.JFrame {
      */
     Ram ram = new Ram();
     
+    
     /**
      * O método <b>CodeMemory</b> é o construtor padrão da classe CodeMemory.
      */
@@ -451,7 +452,6 @@ public class CodeMemory extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new CodeMemory().setVisible(true);
